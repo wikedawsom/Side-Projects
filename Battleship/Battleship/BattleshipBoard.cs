@@ -9,15 +9,18 @@ namespace Battleship
         private List<List<char>> BoardSquares;
         private List<List<char>> HiddenBoardSquares;
         private int SideLength;
-        private string[] ShipHealth;
+        private List<string> ShipHealth;
         private int NumShipsAlive;
         private Random numGen;
+        public const char WaterSymbol = '#';
+        public const char MissSymbol = 'O';
+        public const char HitSymbol = 'H';
 
         public BattleshipBoard()
         {
             numGen = new Random();
             SideLength = 10;
-            ShipHealth = new string[] { "55555", "4444", "333", "222", "11" };
+            ShipHealth = new List<string> { "11", "222", "333", "4444", "55555" };
             NumShipsAlive = 5;
 
             InitBoards();
@@ -26,7 +29,8 @@ namespace Battleship
         public BattleshipBoard(int userDefinedLength)
         {
             SideLength = userDefinedLength;
-            ShipHealth = new string[] { "55555", "4444", "333", "222", "11" };
+            numGen = new Random();
+            ShipHealth = new List<string> { "11", "222", "333", "4444", "55555" };
             NumShipsAlive = 5;
             InitBoards();
         }
@@ -42,7 +46,7 @@ namespace Battleship
                 BoardSquares.Add(new List<char>());
                 for (int col = 0; col < SideLength; col++)
                 {
-                    BoardSquares[row].Add('O');
+                    BoardSquares[row].Add(WaterSymbol);
                 }
             }
             for (int row = 0; row < SideLength; row++)
@@ -50,7 +54,7 @@ namespace Battleship
                 HiddenBoardSquares.Add(new List<char>());
                 for (int col = 0; col < SideLength; col++)
                 {
-                    HiddenBoardSquares[row].Add('O');
+                    HiddenBoardSquares[row].Add(WaterSymbol);
                 }
             }
         }
@@ -101,7 +105,7 @@ namespace Battleship
             char[] possibleDirections = { 'u', 'd', 'l', 'r' };
             char direction;
 
-            for (int i = 0; i < ShipHealth.Length; i++)
+            for (int i = 0; i < ShipHealth.Count; i++)
             {
                 direction = possibleDirections[numGen.Next(0, 4)];
                 row = numGen.Next(0, SideLength);
@@ -149,7 +153,7 @@ namespace Battleship
                 {
                     Console.Write("\t" + boardShowing[row][col]);
                 }
-                    
+
                 Console.WriteLine();
                 Console.WriteLine("\t|");
             }
@@ -162,23 +166,68 @@ namespace Battleship
                 || row > SideLength
                 || col > SideLength
                 || shipNum < 0
-                || shipNum > ShipHealth.Length)
+                || shipNum > ShipHealth.Count)
                 return false;
 
             bool isValid = true;
             for (int i = 0; i < ShipHealth[shipNum].Length; i++)
             {
-                if (direction == 'u' && (row - i < 0 || BoardSquares[row - i][col] != 'O'))
+                if (direction == 'u' && (row - i < 0 || BoardSquares[row - i][col] != WaterSymbol))
                     isValid = false;
-                else if (direction == 'd' && (row + i >= SideLength || BoardSquares[row + i][col] != 'O'))
+                else if (direction == 'd' && (row + i >= SideLength || BoardSquares[row + i][col] != WaterSymbol))
                     isValid = false;
-                else if (direction == 'l' && (col - i < 0 || BoardSquares[row][col - i] != 'O'))
+                else if (direction == 'l' && (col - i < 0 || BoardSquares[row][col - i] != WaterSymbol))
                     isValid = false;
-                else if (direction == 'r' && (col + i >= SideLength || BoardSquares[row][col + i] != 'O'))
+                else if (direction == 'r' && (col + i >= SideLength || BoardSquares[row][col + i] != WaterSymbol))
                     isValid = false;
             }
             return isValid;
         }
 
-    };
+        public int GetNumShipsAlive()
+        {
+            int numberOFShips = 5;
+            foreach (string ship in ShipHealth)
+            {
+                if (int.Parse(ship) == 0)
+                {
+                    numberOFShips--;
+                }
+            }
+            return numberOFShips;
+        }
+
+        public string CheckShot(int row, int col)
+        {
+            string hitOrMiss = "I guess they never miss, huh?";
+
+            if (row < 0 || row >= SideLength || col < 0 || col >= SideLength)
+            {
+                return "bad coordinates";
+            }
+
+            if (BoardSquares[row][col] == WaterSymbol || BoardSquares[row][col] == 'X')
+            {
+                hitOrMiss = "miss";
+                BoardSquares[row][col] = MissSymbol;
+                HiddenBoardSquares[row][col] = MissSymbol;
+            }
+            else
+            {
+                hitOrMiss = "" + BoardSquares[row][col];
+                DamageShip(int.Parse(hitOrMiss) - 1);
+                NumShipsAlive = GetNumShipsAlive();
+
+                BoardSquares[row][col] = HitSymbol;
+                HiddenBoardSquares[row][col] = HitSymbol;
+            }
+
+            return hitOrMiss;
+        }
+        
+        private void DamageShip(int shipNum)
+        {
+            ShipHealth[shipNum] = "0"+ShipHealth[shipNum].Substring(0, ShipHealth[shipNum].Length-1);
+        }
+    }
 }
