@@ -12,9 +12,9 @@ namespace Battleship
         private List<string> ShipHealth;
         private int NumShipsAlive;
         private Random numGen;
-        public const char WaterSymbol = '#';
-        public const char MissSymbol = 'O';
-        public const char HitSymbol = 'H';
+        public const char WaterSymbol = '*';
+        public const char MissSymbol = 'X';
+        public const char HitSymbol = 'O';
 
         public BattleshipBoard()
         {
