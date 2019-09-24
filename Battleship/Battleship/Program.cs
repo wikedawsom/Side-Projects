@@ -96,9 +96,29 @@ namespace Battleship
             }
         }
 
-        public bool CheckValidShipPlacement(int shipNum)
+        private bool CheckValidShipPlacement(int row, int col, int shipNum, char direction)
         {
-            return true;
+            if (   row < 0 
+                || col < 0 
+                || row > SideLength 
+                || col > SideLength 
+                || shipNum < 0 
+                || shipNum > ShipHealth.Length)
+                return false;
+
+            bool isValid = true;
+            for (int i = 0; i < ShipHealth[shipNum].Length; i++)
+            {
+                if (direction == 'u' && row - i >= 0 && BoardSquares[row - i][col] != 'O')
+                    isValid = false;
+                if (direction == 'd' && row + i < SideLength && BoardSquares[row + i][col] != 'O')
+                    isValid = false;
+                if (direction == 'l' && col - i >= 0 && BoardSquares[row][col - i] != 'O')
+                    isValid = false;
+                if (direction == 'r' && col + i < SideLength && BoardSquares[row][col + i] != 'O')
+                    isValid = false;
+            }
+            return isValid;
         }
 
     };
