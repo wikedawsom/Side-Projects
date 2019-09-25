@@ -147,7 +147,7 @@ namespace Battleship
 
             for (int row = 0; row < SideLength; row++)
             {
-                Console.Write($"  {row+1}\t|");
+                Console.Write($"  {(char)(row+65)}\t|");
                 
                 for (int col = 0; col < SideLength; col++)
                 {
@@ -201,12 +201,16 @@ namespace Battleship
         {
             string hitOrMiss = "I guess they never miss, huh?";
 
-            if (row < 0 || row >= SideLength || col < 0 || col >= SideLength)
+            if (row < 0 
+                || row >= SideLength 
+                || col < 0 
+                || col >= SideLength 
+                || BoardSquares[row][col] == 'X')
             {
-                return "bad coordinates";
+                return "bad_input";
             }
 
-            if (BoardSquares[row][col] == WaterSymbol || BoardSquares[row][col] == 'X')
+            if (BoardSquares[row][col] == WaterSymbol)
             {
                 hitOrMiss = "miss";
                 BoardSquares[row][col] = MissSymbol;
