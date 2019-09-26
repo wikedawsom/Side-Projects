@@ -193,19 +193,6 @@ namespace Battleship
             return isValid;
         }
 
-        public int GetNumShipsAlive()
-        {
-            int numberOFShips = 5;
-            foreach (string ship in ShipHealth)
-            {
-                if (int.Parse(ship) == 0)
-                {
-                    numberOFShips--;
-                }
-            }
-            return numberOFShips;
-        }
-
         public string CheckShot(int row, int col)
         {
             string hitOrMiss = "I guess they never miss, huh?";

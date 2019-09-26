@@ -33,13 +33,13 @@ namespace Battleship
         public void Player1Turn()
         {
             Console.Clear();
-            for (int i = 0; i < Player1.GetNumShipsAlive(); i++)
+            for (int i = 0; i < Player1.NumShipsAlive; i++)
             {
                 Player2.ShowEnemyBoard();
-                int p2ShipCount = Player2.GetNumShipsAlive();
+                int p2ShipCount = Player2.NumShipsAlive;
 
                 TakeAShot(Player2);
-                if (p2ShipCount > Player2.GetNumShipsAlive())
+                if (p2ShipCount > Player2.NumShipsAlive)
                 {
                     Console.WriteLine("***  A ship has been destroyed!  ***");
                 }
@@ -50,13 +50,13 @@ namespace Battleship
         public void Player2Turn()
         {
             Console.Clear();
-            for (int i = 0; i < Player2.GetNumShipsAlive(); i++)
+            for (int i = 0; i < Player2.NumShipsAlive; i++)
             {
                 Player2.ShowEnemyBoard();
-                int p1ShipCount = Player1.GetNumShipsAlive();
+                int p1ShipCount = Player1.NumShipsAlive;
 
                 TakeAShot(Player1);
-                if (p1ShipCount > Player1.GetNumShipsAlive())
+                if (p1ShipCount > Player1.NumShipsAlive)
                 {
                     Console.WriteLine("***  A ship has been destroyed!  ***");
                 }
