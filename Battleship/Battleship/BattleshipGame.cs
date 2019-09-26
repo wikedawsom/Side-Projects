@@ -8,29 +8,24 @@ namespace Battleship
     {
         private BattleshipBoard Player1 { get; set; } = new BattleshipBoard();
         private BattleshipBoard Player2 { get; set; } = new BattleshipBoard();
-        private bool _vsAI = false;
+        public bool VsAI { get; private set; } = false;
 
         public BattleshipGame()
         {
-
+            // Just for show (and in case i want to add anything later)
+            // I mean these constructors are kinda stupid they way they're set up right now...
+            // I don't know if I'll even put anything here other than pointless comments......
         }
 
         public BattleshipGame(int humanPlayerCount)
         {
             if (humanPlayerCount == 1)
-                _vsAI = true;
-            else
-                _vsAI = false;
-        }
-
-        public bool GetVsAI()
-        {
-            return _vsAI;
+                VsAI = true;
         }
         
         public void AITurn()
         {
-
+            // FILL ME IN
         }
 
         public void Player1Turn()
