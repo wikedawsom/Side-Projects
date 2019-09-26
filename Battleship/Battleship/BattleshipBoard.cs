@@ -6,32 +6,41 @@ namespace Battleship
 {
     public class BattleshipBoard
     {
-        private List<List<char>> BoardSquares;
-        private List<List<char>> HiddenBoardSquares;
-        private int SideLength;
-        private List<string> ShipHealth;
-        private int NumShipsAlive;
-        private Random numGen;
-        public const char WaterSymbol = '*';
-        public const char MissSymbol = 'X';
-        public const char HitSymbol = 'O';
+        public const char _waterSymbol = '*';
+        public const char _missSymbol = 'X';
+        public const char _hitSymbol = 'O';
+        private Random _randomizer = new Random();
+        private int _numShipsAlive = 5;
+
+        public List<List<char>> BoardSquares { get; private set; }
+        public List<List<char>> HiddenBoardSquares { get; private set; }
+        public int SideLength { get; private set; } = 10;
+        public List<string> ShipHealth { get; private set; } = new List<string> { "11", "222", "333", "4444", "55555" };
+        public int NumShipsAlive
+        {
+            get
+            {
+                int numberOFShips = 5;
+                foreach (string ship in ShipHealth)
+                {
+                    if (int.Parse(ship) == 0)
+                    {
+                        numberOFShips--;
+                    }
+                }
+                return numberOFShips;
+            }
+        }
+
 
         public BattleshipBoard()
         {
-            numGen = new Random();
-            SideLength = 10;
-            ShipHealth = new List<string> { "11", "222", "333", "4444", "55555" };
-            NumShipsAlive = 5;
-
             InitBoards();
         }
 
         public BattleshipBoard(int userDefinedLength)
         {
             SideLength = userDefinedLength;
-            numGen = new Random();
-            ShipHealth = new List<string> { "11", "222", "333", "4444", "55555" };
-            NumShipsAlive = 5;
             InitBoards();
         }
 
@@ -46,7 +55,7 @@ namespace Battleship
                 BoardSquares.Add(new List<char>());
                 for (int col = 0; col < SideLength; col++)
                 {
-                    BoardSquares[row].Add(WaterSymbol);
+                    BoardSquares[row].Add(_waterSymbol);
                 }
             }
             for (int row = 0; row < SideLength; row++)
@@ -54,7 +63,7 @@ namespace Battleship
                 HiddenBoardSquares.Add(new List<char>());
                 for (int col = 0; col < SideLength; col++)
                 {
-                    HiddenBoardSquares[row].Add(WaterSymbol);
+                    HiddenBoardSquares[row].Add(_waterSymbol);
                 }
             }
         }
@@ -107,9 +116,9 @@ namespace Battleship
 
             for (int i = 0; i < ShipHealth.Count; i++)
             {
-                direction = possibleDirections[numGen.Next(0, 4)];
-                row = numGen.Next(0, SideLength);
-                col = numGen.Next(0, SideLength);
+                direction = possibleDirections[_randomizer.Next(0, 4)];
+                row = _randomizer.Next(0, SideLength);
+                col = _randomizer.Next(0, SideLength);
                 shipNum = i;
                 if (!PlaceShipManual(row, col, shipNum, direction))
                 {
@@ -172,13 +181,13 @@ namespace Battleship
             bool isValid = true;
             for (int i = 0; i < ShipHealth[shipNum].Length; i++)
             {
-                if (direction == 'u' && (row - i < 0 || BoardSquares[row - i][col] != WaterSymbol))
+                if (direction == 'u' && (row - i < 0 || BoardSquares[row - i][col] != _waterSymbol))
                     isValid = false;
-                else if (direction == 'd' && (row + i >= SideLength || BoardSquares[row + i][col] != WaterSymbol))
+                else if (direction == 'd' && (row + i >= SideLength || BoardSquares[row + i][col] != _waterSymbol))
                     isValid = false;
-                else if (direction == 'l' && (col - i < 0 || BoardSquares[row][col - i] != WaterSymbol))
+                else if (direction == 'l' && (col - i < 0 || BoardSquares[row][col - i] != _waterSymbol))
                     isValid = false;
-                else if (direction == 'r' && (col + i >= SideLength || BoardSquares[row][col + i] != WaterSymbol))
+                else if (direction == 'r' && (col + i >= SideLength || BoardSquares[row][col + i] != _waterSymbol))
                     isValid = false;
             }
             return isValid;
@@ -210,20 +219,20 @@ namespace Battleship
                 return "bad_input";
             }
 
-            if (BoardSquares[row][col] == WaterSymbol)
+            if (BoardSquares[row][col] == _waterSymbol)
             {
                 hitOrMiss = "miss";
-                BoardSquares[row][col] = MissSymbol;
-                HiddenBoardSquares[row][col] = MissSymbol;
+                BoardSquares[row][col] = _missSymbol;
+                HiddenBoardSquares[row][col] = _missSymbol;
             }
             else
             {
                 hitOrMiss = "" + BoardSquares[row][col];
                 DamageShip(int.Parse(hitOrMiss) - 1);
-                NumShipsAlive = GetNumShipsAlive();
+                _numShipsAlive = NumShipsAlive;
 
-                BoardSquares[row][col] = HitSymbol;
-                HiddenBoardSquares[row][col] = HitSymbol;
+                BoardSquares[row][col] = _hitSymbol;
+                HiddenBoardSquares[row][col] = _hitSymbol;
             }
 
             return hitOrMiss;
