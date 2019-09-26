@@ -6,23 +6,26 @@ namespace Battleship
 {
     class BattleshipGame
     {
-        private BattleshipBoard Player1;
-        private BattleshipBoard Player2;
-        private bool VsAI;
+        private BattleshipBoard Player1 { get; set; } = new BattleshipBoard();
+        private BattleshipBoard Player2 { get; set; } = new BattleshipBoard();
+        private bool _vsAI = false;
+
+        public BattleshipGame()
+        {
+
+        }
 
         public BattleshipGame(int humanPlayerCount)
         {
-            Player1 = new BattleshipBoard();
-            Player2 = new BattleshipBoard();
             if (humanPlayerCount == 1)
-                VsAI = true;
+                _vsAI = true;
             else
-                VsAI = false;
+                _vsAI = false;
         }
 
         public bool GetVsAI()
         {
-            return VsAI;
+            return _vsAI;
         }
         
         public void AITurn()
@@ -67,18 +70,27 @@ namespace Battleship
 
         public void TakeAShot(BattleshipBoard recievingEnd)
         {
-            char row = 'A';
+            int row = 0;
             int col = 0;
             bool shotInvalid = true;
             while (shotInvalid)
             {
-                Console.WriteLine("Enter coordinates to fire at: ");
+                Console.WriteLine("Enter coordinates to fire at (separated by a space): ");
+                
+                string rawInput = Console.ReadLine();
 
-                // ...
-                // Get user input
-                // ...
 
-                if (recievingEnd.CheckShot(row - 65, col) != "bad_input")
+                // Convert input string into two parameters for CheckShot
+                row = rawInput.Length > 0 ? rawInput[0] - 65 : -1;
+
+                if(!int.TryParse(rawInput.Substring(rawInput.IndexOf(" ")), out col))
+                {
+                    col = -1;
+                }
+
+                // Check if coordinates are on board and not already used
+                // if coordinates are valid, then board is automatically updated by CheckShot
+                if (recievingEnd.CheckShot(row, col) != "bad_input")
                 {
                     shotInvalid = false;
                 }
