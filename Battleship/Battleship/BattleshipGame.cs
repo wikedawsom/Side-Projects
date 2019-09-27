@@ -33,7 +33,7 @@ namespace Battleship
             Console.Clear();
             for (int i = 0; i < Player1.NumShipsAlive; i++)
             {
-                Player2.ShowEnemyBoard();
+                Console.WriteLine( Player2.ShowEnemyBoard());
                 int p2ShipCount = Player2.NumShipsAlive;
 
                 TakeAShot(Player2);
@@ -50,7 +50,7 @@ namespace Battleship
             Console.Clear();
             for (int i = 0; i < Player2.NumShipsAlive; i++)
             {
-                Player2.ShowEnemyBoard();
+                Console.WriteLine(Player2.ShowEnemyBoard());
                 int p1ShipCount = Player1.NumShipsAlive;
 
                 TakeAShot(Player1);

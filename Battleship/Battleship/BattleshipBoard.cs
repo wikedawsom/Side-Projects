@@ -127,45 +127,44 @@ namespace Battleship
             }
 
         }
-        public void ShowMyBoard()
+        public string ShowMyBoard()
         {
-            ShowBoard(false);
+            return ShowBoard(false);
         }
-        public void ShowEnemyBoard()
+        public string ShowEnemyBoard()
         {
-            ShowBoard(true);
+            return ShowBoard(true);
         }
-        public void ShowBoard(bool shipsHidden)
+        public string ShowBoard(bool shipsHidden)
         {
             var boardShowing = shipsHidden ? HiddenBoardSquares : BoardSquares;
-            
+            string output = "";
 
-            Console.Write("\t|");
+            output += "\t|";
             for (int col = 0; col < SideLength; col++)
             {
-                Console.Write($"\t{col + 1}");
+                output += $"\t{col + 1}";
             }
-            Console.Write("\n\t|\n--------|");
+            output += "\n\t|\n--------|";
             for (int col = 0; col < SideLength*8+5; col++)
             {
-                Console.Write($"-");
+                output += $"-";
             }
 
-            Console.Write("\n\t|");
-            Console.WriteLine();
+            output += "\n\t|\n";
 
             for (int row = 0; row < SideLength; row++)
             {
-                Console.Write($"  {(char)(row+65)}\t|");
+                output += $"  {(char)(row+65)}\t|";
                 
                 for (int col = 0; col < SideLength; col++)
                 {
-                    Console.Write("\t" + boardShowing[row][col]);
+                    output += "\t" + boardShowing[row][col];
                 }
 
-                Console.WriteLine();
-                Console.WriteLine("\t|");
+                output += "\n\t|";
             }
+            return output;
         }
 
         private bool CheckValidShipPlacement(int row, int col, int shipNum, char direction)
