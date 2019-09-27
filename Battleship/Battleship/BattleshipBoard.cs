@@ -10,7 +10,6 @@ namespace Battleship
         public const char _missSymbol = 'X';
         public const char _hitSymbol = 'O';
         private Random _randomizer = new Random();
-        private int _numShipsAlive = 5;
 
         public List<List<char>> BoardSquares { get; private set; }
         public List<List<char>> HiddenBoardSquares { get; private set; }
@@ -162,7 +161,7 @@ namespace Battleship
                     output += "\t" + boardShowing[row][col];
                 }
 
-                output += "\n\t|";
+                output += "\n\t|\n";
             }
             return output;
         }
@@ -215,7 +214,6 @@ namespace Battleship
             {
                 hitOrMiss = "" + BoardSquares[row][col];
                 DamageShip(int.Parse(hitOrMiss) - 1);
-                _numShipsAlive = NumShipsAlive;
 
                 BoardSquares[row][col] = _hitSymbol;
                 HiddenBoardSquares[row][col] = _hitSymbol;

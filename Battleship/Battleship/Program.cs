@@ -7,11 +7,7 @@ namespace Battleship
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Battleship!");
-
-            BattleshipGame game = new BattleshipGame(2);
-
-            game.Player1Turn();
+            BattleshipMainMenu.Start();
             
             Console.Write("Program ended, press any key to exit window.");
             Console.ReadKey();

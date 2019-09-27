@@ -9,12 +9,19 @@ namespace Battleship
         private BattleshipBoard Player1 { get; set; } = new BattleshipBoard();
         private BattleshipBoard Player2 { get; set; } = new BattleshipBoard();
         public bool VsAI { get; private set; } = false;
-
-        public BattleshipGame()
+        public bool Player1IsAlive
         {
-            // Just for show (and in case i want to add anything later)
-            // I mean these constructors are kinda stupid they way they're set up right now...
-            // I don't know if I'll even put anything here other than pointless comments......
+            get
+            {
+                return Player1.NumShipsAlive > 0;
+            }
+        }
+        public bool Player2IsAlive
+        {
+            get
+            {
+                return Player2.NumShipsAlive > 0;
+            }
         }
 
         public BattleshipGame(int humanPlayerCount)
@@ -33,7 +40,7 @@ namespace Battleship
             Console.Clear();
             for (int i = 0; i < Player1.NumShipsAlive; i++)
             {
-                Console.WriteLine( Player2.ShowEnemyBoard());
+                Console.WriteLine(Player2.ShowEnemyBoard());
                 int p2ShipCount = Player2.NumShipsAlive;
 
                 TakeAShot(Player2);
@@ -50,7 +57,7 @@ namespace Battleship
             Console.Clear();
             for (int i = 0; i < Player2.NumShipsAlive; i++)
             {
-                Console.WriteLine(Player2.ShowEnemyBoard());
+                Console.WriteLine(Player1.ShowEnemyBoard());
                 int p1ShipCount = Player1.NumShipsAlive;
 
                 TakeAShot(Player1);
