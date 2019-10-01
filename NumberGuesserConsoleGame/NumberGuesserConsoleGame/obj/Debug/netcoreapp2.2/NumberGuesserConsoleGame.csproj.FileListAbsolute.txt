@@ -1,0 +1,11 @@
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\bin\Debug\netcoreapp2.2\NumberGuesserConsoleGame.deps.json
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\bin\Debug\netcoreapp2.2\NumberGuesserConsoleGame.runtimeconfig.json
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\bin\Debug\netcoreapp2.2\NumberGuesserConsoleGame.runtimeconfig.dev.json
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\bin\Debug\netcoreapp2.2\NumberGuesserConsoleGame.dll
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\bin\Debug\netcoreapp2.2\NumberGuesserConsoleGame.pdb
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\obj\Debug\netcoreapp2.2\NumberGuesserConsoleGame.csprojAssemblyReference.cache
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\obj\Debug\netcoreapp2.2\NumberGuesserConsoleGame.csproj.CoreCompileInputs.cache
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\obj\Debug\netcoreapp2.2\NumberGuesserConsoleGame.AssemblyInfoInputs.cache
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\obj\Debug\netcoreapp2.2\NumberGuesserConsoleGame.AssemblyInfo.cs
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\obj\Debug\netcoreapp2.2\NumberGuesserConsoleGame.dll
+C:\Users\Student\Desktop\Side-Projects\NumberGuesserConsoleGame\NumberGuesserConsoleGame\obj\Debug\netcoreapp2.2\NumberGuesserConsoleGame.pdb
