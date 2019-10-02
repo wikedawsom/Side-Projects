@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Battleship
 {
@@ -41,7 +39,8 @@ namespace Battleship
         public static void StartGame(int numPlayers)
         {
             BattleshipGame game = new BattleshipGame(numPlayers);
-            
+            game.PlaceShipsInitial();
+
             while (game.Player1IsAlive && game.Player2IsAlive)
             {
                 game.Player1Turn();

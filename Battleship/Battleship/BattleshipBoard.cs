@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Battleship
 {
@@ -174,19 +173,20 @@ namespace Battleship
                 || col > SideLength
                 || shipNum < 0
                 || shipNum > ShipHealth.Count)
+            {
                 return false;
+            }
 
             bool isValid = true;
             for (int i = 0; i < ShipHealth[shipNum].Length; i++)
             {
-                if (direction == 'u' && (row - i < 0 || BoardSquares[row - i][col] != _waterSymbol))
+                if ((direction == 'u' && (row - i < 0 || BoardSquares[row - i][col] != _waterSymbol))
+                 || (direction == 'd' && (row + i >= SideLength || BoardSquares[row + i][col] != _waterSymbol))
+                 || (direction == 'l' && (col - i < 0 || BoardSquares[row][col - i] != _waterSymbol))
+                 || (direction == 'r' && (col + i >= SideLength || BoardSquares[row][col + i] != _waterSymbol)))
+                {
                     isValid = false;
-                else if (direction == 'd' && (row + i >= SideLength || BoardSquares[row + i][col] != _waterSymbol))
-                    isValid = false;
-                else if (direction == 'l' && (col - i < 0 || BoardSquares[row][col - i] != _waterSymbol))
-                    isValid = false;
-                else if (direction == 'r' && (col + i >= SideLength || BoardSquares[row][col + i] != _waterSymbol))
-                    isValid = false;
+                }
             }
             return isValid;
         }

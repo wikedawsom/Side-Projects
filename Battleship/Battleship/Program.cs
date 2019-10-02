@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Battleship
 {
@@ -9,7 +8,7 @@ namespace Battleship
         {
             BattleshipMainMenu.Start();
             
-            Console.Write("Program ended, press any key to exit window.");
+            Console.Write("\n\n***Program ended, press any key to exit window***");
             Console.ReadKey();
         }
     }
