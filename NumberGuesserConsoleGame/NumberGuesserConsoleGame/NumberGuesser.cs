@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*  Author:             Christian Harris
+ *  Date of last edit:  Oct. 2, 2019
+ *  Description:        Backend logic for a simple number guessing game
+ */
+
+using System;
 
 namespace NumberGuesserConsoleGame
 {
     public class NumberGuesser
     {
-        private int _tempMinNum = 0;
-        private int _tempMaxNum = 100;
+        private int _tempMinNum;
+        private int _tempMaxNum;
         public int MinNum { get; private set; } = 0;
         public int MaxNum { get; private set; } = 100;
         private int ChosenNum { get; set; }
@@ -23,7 +26,7 @@ namespace NumberGuesserConsoleGame
         {
             get
             {
-                return (MaxNum - MinNum) / 2 + MinNum;
+                return (_tempMaxNum - _tempMinNum) / 2 + _tempMinNum;
             }
         }
 
@@ -61,7 +64,7 @@ namespace NumberGuesserConsoleGame
             return output;
         }
 
-        public string CheckComputerGuess(char higherLowerEqual)
+        public string CheckComputerGuess(char higherLowerEqual) // For when computer is guessing
         {
             string output = "No info given, thanks for nothing.";
 

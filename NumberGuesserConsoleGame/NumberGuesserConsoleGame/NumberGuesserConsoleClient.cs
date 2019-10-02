@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿/*  Author:             Christian Harris
+ *  Date of last edit:  Oct. 2, 2019
+ *  Description:        I/O logic and input sanitization for NumberGuesser in a console UI
+ */
+using System;
 
 namespace NumberGuesserConsoleGame
 {
     public class NumberGuesserConsoleClient
     {
         private NumberGuesser _computer;
+
         public int MinPossibleNum
         {
             get
@@ -65,8 +68,9 @@ namespace NumberGuesserConsoleGame
                     {
                         Console.WriteLine("Keep trying :)");
                     }
-                    guessCount++;
+                    
                 }
+                guessCount++;
             }
             return guessCount;
         }
@@ -81,7 +85,7 @@ namespace NumberGuesserConsoleGame
                 int computerGuess = _computer.GuessNum;
                 Console.WriteLine("My guess is: " + computerGuess);
 
-                Console.WriteLine("Is your number higher, lower, or euqal? (h/l/e): ");
+                Console.Write("Is your number higher, lower, or euqal? (h/l/e): ");
                 char playerResponse = (Console.ReadLine()+"e")[0];
 
                 string computerResponse = _computer.CheckComputerGuess(playerResponse);
@@ -94,6 +98,46 @@ namespace NumberGuesserConsoleGame
             }
             return guessCount;
         }
-        
+        public void Start()
+        {
+            bool exit = false;
+            while (!exit)
+            {
+                int guesses = 0;
+                Console.Write("Would you like to choose a number? (y/n): ");
+                char selectionYN = (Console.ReadLine().ToLower() + "y")[0];
+                if (selectionYN == 'y')
+                {
+                    // Player picks a number, computer guesses
+                    Console.Clear();
+                    guesses = PlayerChosenNumber();
+                    DisplayGuessCount(guesses);
+                }
+                else
+                {
+                    // Computer picks a number, player guesses
+                    Console.Clear();
+                    guesses = ComputerChosenNumber();
+                    DisplayGuessCount(guesses);
+                }
+                Console.Write("Continue? (y/n): ");
+                selectionYN = (Console.ReadLine().ToLower() + "n")[0];
+                if (selectionYN != 'y')
+                {
+                    exit = true;
+                }
+            }
+        }
+        private static void DisplayGuessCount(int guesses)
+        {
+            if (guesses == 1)
+            {
+                Console.WriteLine($"Number was guessed on the first try!");
+            }
+            else
+            {
+                Console.WriteLine($"It took {guesses} tries to guess the number.");
+            }
+        }
     }
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*  Author:             Christian Harris
+ *  Date of last edit:  Oct. 2, 2019
+ *  Description:        Main entry point for NumberGuesser in a console window
+ */
+using System;
 
 namespace NumberGuesserConsoleGame
 {
@@ -6,34 +10,12 @@ namespace NumberGuesserConsoleGame
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
             var game = new NumberGuesserConsoleClient();
 
-            // Player picks a number, computer guesses
-            Console.Clear();
-            int guesses = game.PlayerChosenNumber();
-            DisplayGuessCount(guesses);
-            Console.ReadKey();
-
-            // Computer picks a number, player guesses
-            Console.Clear();
-            game.ComputerChosenNumber();
-            DisplayGuessCount(guesses);
-            Console.ReadKey();
+            game.Start();
             
-            Console.WriteLine("***Program end, press any key to exit***");
+            Console.WriteLine("\n***Program end, press any key to exit***");
             Console.ReadKey();
-        }
-        private static void DisplayGuessCount(int guesses)
-        {
-            if (guesses == 1)
-            {
-                Console.WriteLine($"Number was guessed on the first try!");
-            }
-            else
-            {
-                Console.WriteLine($"It took {guesses} tries to guess the number.");
-            }
         }
     }
 }
