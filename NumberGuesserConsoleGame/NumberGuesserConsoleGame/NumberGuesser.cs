@@ -6,6 +6,8 @@ namespace NumberGuesserConsoleGame
 {
     public class NumberGuesser
     {
+        private int _tempMinNum = 0;
+        private int _tempMaxNum = 100;
         public int MinNum { get; private set; } = 0;
         public int MaxNum { get; private set; } = 100;
         private int ChosenNum { get; set; }
@@ -33,7 +35,11 @@ namespace NumberGuesserConsoleGame
         public NumberGuesser(int maxNum)
         {
             MaxNum = maxNum;
+            _tempMinNum = MinNum;
+            _tempMaxNum = MaxNum;
+
             ChosenNum = RandNumInRange;
+
         }
 
         public void PickNewRandNum()
@@ -55,23 +61,31 @@ namespace NumberGuesserConsoleGame
             return output;
         }
 
-        public string CheckComputerGuess(string higherOrLower)
+        public string CheckComputerGuess(char higherLowerEqual)
         {
-            string output = "I will guess again.";
+            string output = "No info given, thanks for nothing.";
 
-            if (higherOrLower == "higher")
+            if (higherLowerEqual == 'h')
             {
                 output = "I will guess higher.";
-                MinNum = GuessNum + 1;
+                _tempMinNum = GuessNum + 1;
             }
-            else if (higherOrLower == "lower")
+            else if (higherLowerEqual == 'l')
             {
                 output = "I will guess lower.";
-                MaxNum = GuessNum;
+                _tempMaxNum = GuessNum;
             }
-            if (MaxNum <= MinNum)
+            else if (higherLowerEqual == 'e')
+            {
+                output = "I win";
+                _tempMinNum = MinNum;
+                _tempMaxNum = MaxNum;
+            }
+            if (_tempMaxNum <= _tempMinNum)
             {
                 output = "You're a cheater.";
+                _tempMinNum = MinNum;
+                _tempMaxNum = MaxNum;
             }
             return output;
         }
