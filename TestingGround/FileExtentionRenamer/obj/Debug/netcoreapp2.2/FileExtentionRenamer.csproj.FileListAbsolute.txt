@@ -1,0 +1,11 @@
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtentionRenamer.deps.json
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtentionRenamer.runtimeconfig.json
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtentionRenamer.runtimeconfig.dev.json
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtentionRenamer.dll
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtentionRenamer.pdb
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtentionRenamer.csprojAssemblyReference.cache
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtentionRenamer.csproj.CoreCompileInputs.cache
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtentionRenamer.AssemblyInfoInputs.cache
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtentionRenamer.AssemblyInfo.cs
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtentionRenamer.dll
+C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtentionRenamer.pdb
