@@ -1,6 +1,4 @@
 C:\Users\Student\Desktop\Side-Projects\TextFileEncoder\TextFileEncoder\bin\Debug\netcoreapp2.2\TextFileEncoder.deps.json
-C:\Users\Student\Desktop\Side-Projects\TextFileEncoder\TextFileEncoder\bin\Debug\netcoreapp2.2\TextFileEncoder.runtimeconfig.json
-C:\Users\Student\Desktop\Side-Projects\TextFileEncoder\TextFileEncoder\bin\Debug\netcoreapp2.2\TextFileEncoder.runtimeconfig.dev.json
 C:\Users\Student\Desktop\Side-Projects\TextFileEncoder\TextFileEncoder\bin\Debug\netcoreapp2.2\TextFileEncoder.dll
 C:\Users\Student\Desktop\Side-Projects\TextFileEncoder\TextFileEncoder\bin\Debug\netcoreapp2.2\TextFileEncoder.pdb
 C:\Users\Student\Desktop\Side-Projects\TextFileEncoder\TextFileEncoder\obj\Debug\netcoreapp2.2\TextFileEncoder.csprojAssemblyReference.cache
