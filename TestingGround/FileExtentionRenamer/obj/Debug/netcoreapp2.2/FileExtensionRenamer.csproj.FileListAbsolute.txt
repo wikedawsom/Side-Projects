@@ -1,0 +1,8 @@
+H:\Programming Stuff\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtensionRenamer.deps.json
+H:\Programming Stuff\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtensionRenamer.dll
+H:\Programming Stuff\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtensionRenamer.pdb
+H:\Programming Stuff\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.csprojAssemblyReference.cache
+H:\Programming Stuff\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.AssemblyInfoInputs.cache
+H:\Programming Stuff\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.AssemblyInfo.cs
+H:\Programming Stuff\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.dll
+H:\Programming Stuff\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.pdb

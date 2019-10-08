@@ -1,0 +1,15 @@
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\TestingGroundCLI.deps.json
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\TestingGroundCLI.runtimeconfig.json
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\TestingGroundCLI.runtimeconfig.dev.json
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\TestingGroundCLI.dll
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\TestingGroundCLI.pdb
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\FileExtensionRenamer.dll
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\FramerateStabilizer.dll
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\FileExtensionRenamer.pdb
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\FramerateStabilizer.pdb
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.csprojAssemblyReference.cache
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.AssemblyInfoInputs.cache
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.AssemblyInfo.cs
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.csproj.CopyComplete
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.dll
+H:\Programming Stuff\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.pdb

@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.779
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingGroundCLI", "TestingGround\TestingGroundCLI.csproj", "{5C40B0FF-C78C-42A3-BC38-560CDFDE5F13}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FramerateStabilizer", "FramerateStabilizer\FramerateStabilizer.csproj", "{679988F5-CCF2-4D4D-8E0C-44541E6F0D19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileExtentionRenamer", "FileExtentionRenamer\FileExtentionRenamer.csproj", "{59F9A78C-EF21-459F-9D2E-FDD395B350F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileExtensionRenamer", "FileExtentionRenamer\FileExtensionRenamer.csproj", "{59F9A78C-EF21-459F-9D2E-FDD395B350F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

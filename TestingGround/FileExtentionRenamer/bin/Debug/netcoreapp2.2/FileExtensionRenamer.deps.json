@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.2": {
-      "FramerateStabilizer/1.0.0": {
+      "FileExtensionRenamer/1.0.0": {
         "runtime": {
-          "FramerateStabilizer.dll": {}
+          "FileExtensionRenamer.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "FramerateStabilizer/1.0.0": {
+    "FileExtensionRenamer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
