@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace FileExtentionRenamer
+namespace FileManipMacros
 {
     public class FileManip
     {
+        /// <summary>
+        /// Creates a copy of a file, but changes the extention
+        /// </summary>
+        /// <param name="currentFilePath">Full relative or absolute path including file name and extention</param>
+        /// <param name="newFileExtention">New file extention (without he ".")</param>
         public void FileExtentionRename(string currentFilePath, string newFileExtention)
         {
             //string [] directories = Directory.GetDirectories(currentFilePath.Substring(0,currentFilePath.LastIndexOf('\\')));
@@ -24,7 +29,7 @@ namespace FileExtentionRenamer
             }
             foreach(string file in files)
             {
-                if (file.Substring(file.LastIndexOf("."),currentExtention.Length) == currentExtention)
+                if (file.Substring(file.LastIndexOf(".")+1,currentExtention.Length) == currentExtention)
                 {
                     File.Copy(file, file.Substring(0, file.Length - currentExtention.Length) + newExtention);
                 }

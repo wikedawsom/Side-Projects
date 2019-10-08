@@ -6,7 +6,8 @@ namespace TestingGround
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Program finished. Press any key to exit.");
+            Console.ReadKey();
         }
     }
 }
