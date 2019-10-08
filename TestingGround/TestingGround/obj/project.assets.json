@@ -207,6 +207,26 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "FileExtentionRenamer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "compile": {
+          "bin/placeholder/FileExtentionRenamer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FileExtentionRenamer.dll": {}
+        }
+      },
+      "FramerateStabilizer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "compile": {
+          "bin/placeholder/FramerateStabilizer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FramerateStabilizer.dll": {}
+        }
       }
     }
   },
@@ -678,10 +698,22 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "FileExtentionRenamer/1.0.0": {
+      "type": "project",
+      "path": "../FileExtentionRenamer/FileExtentionRenamer.csproj",
+      "msbuildProject": "../FileExtentionRenamer/FileExtentionRenamer.csproj"
+    },
+    "FramerateStabilizer/1.0.0": {
+      "type": "project",
+      "path": "../FramerateStabilizer/FramerateStabilizer.csproj",
+      "msbuildProject": "../FramerateStabilizer/FramerateStabilizer.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
+      "FileExtentionRenamer >= 1.0.0",
+      "FramerateStabilizer >= 1.0.0",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
   },
@@ -692,9 +724,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\TestingGround\\TestingGround.csproj",
-      "projectName": "TestingGround",
-      "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\TestingGround\\TestingGround.csproj",
+      "projectUniqueName": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\TestingGround\\TestingGroundCLI.csproj",
+      "projectName": "TestingGroundCLI",
+      "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\TestingGround\\TestingGroundCLI.csproj",
       "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\TestingGround\\obj\\",
       "projectStyle": "PackageReference",
@@ -714,7 +746,14 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtentionRenamer.csproj": {
+              "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtentionRenamer.csproj"
+            },
+            "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj": {
+              "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
