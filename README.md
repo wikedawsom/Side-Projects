@@ -15,8 +15,8 @@ Just random things I decided to write during my free time
 
 ## TestingGround
 -Various little custom functions that may be useful at some point
-### Framerate Stabilizer
--Can be used within a main loop to force a specific run speed for a program
-### FileExtensionRenamer
--As the implies, contains a few methods to give files different extension types
--Includes recursive renamer to give all files within a directory and its subdirectories a different extension
+- ### Framerate Stabilizer
+  - Can be used within a main loop to force a specific run speed for a program
+- ### FileExtensionRenamer
+  - As the implies, contains a few methods to give files different extension types
+  - Includes recursive renamer to give all files within a directory and its subdirectories a different extension
