@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FileExtentionRenamer\FileExtentionRenamer.csproj" />
+    <ProjectReference Include="..\FileExtentionRenamer\FileExtensionRenamer.csproj" />
     <ProjectReference Include="..\FramerateStabilizer\FramerateStabilizer.csproj" />
   </ItemGroup>
 

@@ -208,14 +208,14 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "FileExtentionRenamer/1.0.0": {
+      "FileExtensionRenamer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
         "compile": {
-          "bin/placeholder/FileExtentionRenamer.dll": {}
+          "bin/placeholder/FileExtensionRenamer.dll": {}
         },
         "runtime": {
-          "bin/placeholder/FileExtentionRenamer.dll": {}
+          "bin/placeholder/FileExtensionRenamer.dll": {}
         }
       },
       "FramerateStabilizer/1.0.0": {
@@ -699,10 +699,10 @@
         "netstandard.library.nuspec"
       ]
     },
-    "FileExtentionRenamer/1.0.0": {
+    "FileExtensionRenamer/1.0.0": {
       "type": "project",
-      "path": "../FileExtentionRenamer/FileExtentionRenamer.csproj",
-      "msbuildProject": "../FileExtentionRenamer/FileExtentionRenamer.csproj"
+      "path": "../FileExtentionRenamer/FileExtensionRenamer.csproj",
+      "msbuildProject": "../FileExtentionRenamer/FileExtensionRenamer.csproj"
     },
     "FramerateStabilizer/1.0.0": {
       "type": "project",
@@ -712,7 +712,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
-      "FileExtentionRenamer >= 1.0.0",
+      "FileExtensionRenamer >= 1.0.0",
       "FramerateStabilizer >= 1.0.0",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
@@ -747,8 +747,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtentionRenamer.csproj": {
-              "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtentionRenamer.csproj"
+            "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtensionRenamer.csproj": {
+              "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtensionRenamer.csproj"
             },
             "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj": {
               "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj"

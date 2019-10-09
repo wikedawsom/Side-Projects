@@ -692,9 +692,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtentionRenamer.csproj",
-      "projectName": "FileExtentionRenamer",
-      "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtentionRenamer.csproj",
+      "projectUniqueName": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtensionRenamer.csproj",
+      "projectName": "FileExtensionRenamer",
+      "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\FileExtensionRenamer.csproj",
       "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FileExtentionRenamer\\obj\\",
       "projectStyle": "PackageReference",

@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.2",
+    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.2": {
+      "TestingGroundCLI/1.0.0": {
+        "dependencies": {
+          "FileExtensionRenamer": "1.0.0",
+          "FramerateStabilizer": "1.0.0"
+        },
+        "runtime": {
+          "TestingGroundCLI.dll": {}
+        }
+      },
+      "FileExtensionRenamer/1.0.0": {
+        "runtime": {
+          "FileExtensionRenamer.dll": {}
+        }
+      },
+      "FramerateStabilizer/1.0.0": {
+        "runtime": {
+          "FramerateStabilizer.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TestingGroundCLI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FileExtensionRenamer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FramerateStabilizer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
