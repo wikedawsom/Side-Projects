@@ -105,7 +105,8 @@ namespace Battleship
         }
 
         public void PlaceShipsAuto()
-        {
+        { 
+            // Something not quite right here... first ship might get placed twice
             int row = 0;
             int col = 0;
             int shipNum;
