@@ -104,28 +104,7 @@ namespace Battleship
             return placementSuccessful;
         }
 
-        public void PlaceShipsAuto()
-        { 
-            // Something not quite right here... first ship might get placed twice
-            int row = 0;
-            int col = 0;
-            int shipNum;
-            char[] possibleDirections = { 'u', 'd', 'l', 'r' };
-            char direction;
-
-            for (int i = 0; i < ShipHealth.Count; i++)
-            {
-                direction = possibleDirections[_randomizer.Next(0, 4)];
-                row = _randomizer.Next(0, SideLength);
-                col = _randomizer.Next(0, SideLength);
-                shipNum = i;
-                if (!PlaceShipManual(row, col, shipNum, direction))
-                {
-                    i--;
-                }
-            }
-
-        }
+        
         public string ShowMyBoard()
         {
             return ShowBoard(false);

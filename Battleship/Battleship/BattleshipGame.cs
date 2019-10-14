@@ -5,6 +5,8 @@ namespace Battleship
 {
     class BattleshipGame
     {
+
+        private Random _randomizer = new Random();
         private BattleshipBoard Player1 { get; set; } = new BattleshipBoard();
         private BattleshipBoard Player2 { get; set; } = new BattleshipBoard();
         public bool VsAI { get; }
@@ -25,14 +27,11 @@ namespace Battleship
 
         public BattleshipGame(int humanPlayerCount)
         {
+            VsAI = false;
+
             if (humanPlayerCount == 1)
             {
                 VsAI = true;
-                Player2.PlaceShipsAuto();
-            }
-            else
-            {
-                VsAI = false;
             }
         }
         
@@ -57,6 +56,8 @@ namespace Battleship
 
         public void Player1Turn()
         {
+            if (!Player1IsAlive && !Player2IsAlive )
+                return;
             Console.Clear();
             for (int i = 0; i < Player1.NumShipsAlive; i++)
             {
@@ -75,6 +76,8 @@ namespace Battleship
         }
         public void Player2Turn()
         {
+            if (!Player1IsAlive && !Player2IsAlive)
+                return;
             if (VsAI)
             {
                 AITurn();
@@ -117,6 +120,29 @@ namespace Battleship
             }
         }
 
+        public void PlaceShipsAuto(BattleshipBoard player)
+        {
+            // Something not quite right here... first ship might get placed twice
+            int row = 0;
+            int col = 0;
+            int shipNum;
+            char[] possibleDirections = { 'u', 'd', 'l', 'r' };
+            char direction;
+
+            for (int i = 0; i < player.ShipHealth.Count; i++)
+            {
+                direction = possibleDirections[_randomizer.Next(0, 4)];
+                row = _randomizer.Next(0, player.SideLength);
+                col = _randomizer.Next(0, player.SideLength);
+                shipNum = i;
+                if (!player.PlaceShipManual(row, col, shipNum, direction))
+                {
+                    i--;
+                }
+            }
+
+        }
+
         public void PlaceShipsInitial()
         {
             Console.WriteLine(Player1.ShowMyBoard());
@@ -144,7 +170,7 @@ namespace Battleship
 
             if (VsAI)
             {
-                Player2.PlaceShipsAuto();
+                PlaceShipsAuto(Player2);
             }
             else
             {
