@@ -1,11 +1,15 @@
-﻿using System;
+﻿using FramerateStabilizer;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 
-namespace FramerateStabilizer
+
+namespace TestingGroundCLI
 {
-    class Program
+    class FramerateStabilizerDemo
     {
-        static void Main(string[] args)
+        static void Menu()
         {
             Console.WriteLine("Hello World!");
             BetterStableFrames consistentFramerateTracker = new BetterStableFrames();
