@@ -16,7 +16,7 @@ namespace FileManipMacros
         {
             //string [] directories = Directory.GetDirectories(currentFilePath.Substring(0,currentFilePath.LastIndexOf('\\')));
             File.Copy(currentFilePath, currentFilePath.Substring(0, currentFilePath.LastIndexOf("."))+newFileExtention);
-
+            
         }
 
         /// <summary>
