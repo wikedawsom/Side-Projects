@@ -6,3 +6,11 @@ H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.A
 H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.AssemblyInfo.cs
 H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.dll
 H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.pdb
+C:\Users\Student\Desktop\Side-Projects\LogWriter\bin\Debug\netcoreapp3.0\LogWriter.deps.json
+C:\Users\Student\Desktop\Side-Projects\LogWriter\bin\Debug\netcoreapp3.0\LogWriter.dll
+C:\Users\Student\Desktop\Side-Projects\LogWriter\bin\Debug\netcoreapp3.0\LogWriter.pdb
+C:\Users\Student\Desktop\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.csprojAssemblyReference.cache
+C:\Users\Student\Desktop\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.AssemblyInfoInputs.cache
+C:\Users\Student\Desktop\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.AssemblyInfo.cs
+C:\Users\Student\Desktop\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.dll
+C:\Users\Student\Desktop\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.pdb

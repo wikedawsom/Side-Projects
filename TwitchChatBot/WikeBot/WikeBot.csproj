@@ -9,4 +9,13 @@
     <ProjectReference Include="..\..\LogWriter\LogWriter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="PathToInfo.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ReadMe.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -23,3 +23,19 @@ H:\Programming Stuff\Side-Projects\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.pdb
 H:\Programming Stuff\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\LogWriter.dll
 H:\Programming Stuff\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\LogWriter.pdb
 H:\Programming Stuff\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.csproj.CopyComplete
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\WikeBot.exe
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\WikeBot.deps.json
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\WikeBot.runtimeconfig.json
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\WikeBot.runtimeconfig.dev.json
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\WikeBot.dll
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\WikeBot.pdb
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\LogWriter.dll
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\LogWriter.pdb
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.csprojAssemblyReference.cache
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.AssemblyInfoInputs.cache
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.AssemblyInfo.cs
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.csproj.CopyComplete
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.dll
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.pdb
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\PathToInfo.txt
+C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\ReadMe.md
