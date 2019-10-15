@@ -2,22 +2,21 @@
 using System.Net;
 using System.IO;
 using System.Net.Sockets;
-using System.Threading;
 using LogWriting;
 
 namespace WikeBot
 {
     public static class BotMaster
     {
-        private static string _userName = "wikedabot";
-        private static string _streamName = "wike";
-        private static string _oAuth = "";
+        private static string _userName;
+        private static string _streamName;
+        private static string _oAuth;
         private static LogWriter _messageLog = new LogWriter(@"logs\chat-messages");
         private static LogWriter _eventLog = new LogWriter(@"logs\irc-messages");
 
         public static void MainLoop()
         {
-            GetOAuth();
+            GetCredentials();
             var client = new IRCClient("irc.twitch.tv", 6667, _userName, _oAuth, _streamName);
             
             bool exit = false;
@@ -57,7 +56,14 @@ namespace WikeBot
 
         private static void GetOAuth()
         {
-            _oAuth = ""; // Add code here to read OAuth from a file
+            string pathToCreds = "";
+            using (StreamReader sr = new StreamReader("PathToInfo"))
+            {
+                pathToCreds = sr.ReadLine();
+            }
+                _oAuth = ""; // Add code here to read OAuth from a file
+            _userName = "";
+            _streamName = "";
         }
     }
 }

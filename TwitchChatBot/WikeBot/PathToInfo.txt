@@ -1,0 +1,9 @@
+C:\
+
+The program only reads the top line. Put the absolute path to a file in a safe location on your PC where your info is
+
+the file should be structured like this (without the dashes):
+---------------------------
+oauth: 
+username: 
+chat: 

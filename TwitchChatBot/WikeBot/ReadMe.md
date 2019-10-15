@@ -1,5 +1,5 @@
 # Twitch Chat Moderator Bot
-- Reads chat messages from users and server
+- Reads chat messages from the Twitch IRC server and from users in a specified channel
 - Writes chat and IRC logs to 2 files (one for user messages and one for server messages)
 - Processes pre-programmed commands and responds accordingly
 
