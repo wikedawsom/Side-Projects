@@ -1,0 +1,8 @@
+H:\Programming Stuff\Side-Projects\LogWriter\bin\Debug\netcoreapp3.0\LogWriter.deps.json
+H:\Programming Stuff\Side-Projects\LogWriter\bin\Debug\netcoreapp3.0\LogWriter.dll
+H:\Programming Stuff\Side-Projects\LogWriter\bin\Debug\netcoreapp3.0\LogWriter.pdb
+H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.csprojAssemblyReference.cache
+H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.AssemblyInfoInputs.cache
+H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.AssemblyInfo.cs
+H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.dll
+H:\Programming Stuff\Side-Projects\LogWriter\obj\Debug\netcoreapp3.0\LogWriter.pdb
