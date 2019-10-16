@@ -39,3 +39,5 @@ C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreap
 C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\obj\Debug\netcoreapp3.0\WikeBot.pdb
 C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\PathToInfo.txt
 C:\Users\Student\Desktop\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\ReadMe.md
+H:\Programming Stuff\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\PathToInfo.txt
+H:\Programming Stuff\Side-Projects\TwitchChatBot\WikeBot\bin\Debug\netcoreapp3.0\ReadMe.md
