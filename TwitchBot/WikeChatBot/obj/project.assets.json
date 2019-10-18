@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.0": {}
+    ".NETCoreApp,Version=v3.0": {
+      "LogWriter/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.0",
+        "compile": {
+          "bin/placeholder/LogWriter.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LogWriter.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "LogWriter/1.0.0": {
+      "type": "project",
+      "path": "../../LogWriter/LogWriter.csproj",
+      "msbuildProject": "../../LogWriter/LogWriter.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.0": []
+    ".NETCoreApp,Version=v3.0": [
+      "LogWriter >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Student\\.nuget\\packages\\": {},
@@ -14,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Student\\Desktop\\Side-Projects\\LogWriter\\LogWriter.csproj",
-      "projectName": "LogWriter",
-      "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\LogWriter\\LogWriter.csproj",
+      "projectUniqueName": "C:\\Users\\Student\\Desktop\\Side-Projects\\TwitchBot\\WikeChatBot\\WikeBot.csproj",
+      "projectName": "WikeBot",
+      "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TwitchBot\\WikeChatBot\\WikeBot.csproj",
       "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\LogWriter\\obj\\",
+      "outputPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TwitchBot\\WikeChatBot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -36,7 +55,11 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Student\\Desktop\\Side-Projects\\LogWriter\\LogWriter.csproj": {
+              "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\LogWriter\\LogWriter.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
