@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using LogWriting;
+using LogWriter;
 
 namespace WikeBot
 {
@@ -9,9 +9,18 @@ namespace WikeBot
         private static string _userName;
         private static string _streamName;
         private static string _oAuth;
-        private static LogWriter _messageLog = new LogWriter(@"logs\chat-messages");
-        private static LogWriter _eventLog = new LogWriter(@"logs\irc-messages");
-        private static LogWriter _errorLog = new LogWriter(@"logs\error");
+        ///
+        private static ILogWriter _messageLog = new LogFileWriter(@"logs\chat-messages");
+        private static ILogWriter _eventLog = new LogFileWriter(@"logs\irc-messages");
+        private static ILogWriter _errorLog = new LogFileWriter(@"logs\error");
+        /* 
+        //  Optionally save messages to a database
+        //  Connection string and DB table name is required
+        string connectionString = "";
+        private static ILogWriter _messageLog = new LogDBWriter(connectionString,"message_log");
+        private static ILogWriter _eventLog = new LogDBWriter(connectionString,"event_log");
+        private static ILogWriter _errorLog = new LogDBWriter(connectionString,"error_log");
+        */
         public static IRCClient client;
         private static Ping pinger;
 
@@ -28,6 +37,7 @@ namespace WikeBot
                 if (ircMessage == "PING :tmi.twitch.tv")
                 {
                     client.SendIRCMessage("PONG");
+                    _eventLog.NewLogEntry("PONG");
                 }
                 if (ircMessage.Contains("PRIVMSG"))
                 {
@@ -52,6 +62,9 @@ namespace WikeBot
             client.Part();
         }
 
+        /// <summary>
+        /// Initializes connection to Twitch IRC server
+        /// </summary>
         private static void EstablishConnection()
         {
             try
