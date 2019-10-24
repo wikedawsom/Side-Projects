@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.Sql;
 using System.Text;
 
 namespace LogWriter
@@ -21,7 +22,7 @@ namespace LogWriter
         {
             _connectionString = connectionString;
             _tableName = tableName;
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (var conn = new SqlConnection(_connectionString))
             {
                 string sqlInit = $"IF EXISTS({_tableName} )";
                 SqlCommand cmd = new SqlCommand(sqlInit, conn);
