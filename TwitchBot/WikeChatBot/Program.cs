@@ -7,8 +7,8 @@ namespace WikeBot
         static void Main(string[] args)
         {
             Console.WriteLine("Party time");
-            ChatBotMaster.MainLoop();
-
+            ChatBot bot1 = new ChatBot();
+            bot1.Run();
             Console.WriteLine("**I've been listening all day, let me rest**");
             Console.ReadKey();
         }
