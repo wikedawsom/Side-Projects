@@ -24,8 +24,7 @@ namespace TestingGroundCLI
                     switch (selection)
                     {
                         case 1:
-                            Console.WriteLine("Soon to be implemented.");
-                            Console.ReadKey();
+                            FramerateStabilizerDemo.Start();
                             break;
                         case 2:
                             FileExtensionRenamerDemo.Start();

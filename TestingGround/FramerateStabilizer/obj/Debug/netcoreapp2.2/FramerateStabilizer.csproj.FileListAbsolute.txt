@@ -10,8 +10,6 @@ C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Deb
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.dll
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.pdb
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.deps.json
-H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.runtimeconfig.json
-H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.runtimeconfig.dev.json
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.dll
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.pdb
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.csprojAssemblyReference.cache
