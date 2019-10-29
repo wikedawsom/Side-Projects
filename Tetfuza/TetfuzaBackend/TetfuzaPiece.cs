@@ -28,6 +28,7 @@ namespace Tetfuza
 	{
         public const char FUZA_CHAR = 'O';
         public const char BLANK_CHAR = ' ';
+        public const int PIECE_SIZE = 5;
 		public List<List<char>> Piece { get; private set; }
 		private FuzaType _type;
 		private List<Coordinate> _blocks;
@@ -121,10 +122,10 @@ namespace Tetfuza
 		private List<List<char>> MakePiece()
 		{
             var piece = new List<List<char>>();
-			for (int y = 0; y < 5; y++)
+			for (int y = 0; y < PIECE_SIZE; y++)
 			{
 				piece.Add(new List<char>());
-				for (int x = 0; x < 5; x++)
+				for (int x = 0; x < PIECE_SIZE; x++)
 				{
 					piece[y].Add(BLANK_CHAR);
 				}
@@ -141,10 +142,10 @@ namespace Tetfuza
 		public FuzaPiece RotateLeft()
 		{
 			var newPos = new List<List<char>>(Piece);
-            for (int y = 0; y < 5; y++)
+            for (int y = 0; y < PIECE_SIZE; y++)
 			{
                 newPos.Add(new List<char>());
-                for (int x = 4; x >= 0; x--)
+                for (int x = PIECE_SIZE - 1; x >= 0; x--)
                 {
                     newPos[y].Add(Piece[x][y]);
 				}
@@ -155,13 +156,13 @@ namespace Tetfuza
 		public FuzaPiece RotateRight()
 		{
             var newPos = new List<List<char>>(Piece);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < PIECE_SIZE; i++)
             {
                 newPos.Add(new List<char>());
             }
-            for (int y = 4; y >= 0; y--)
+            for (int y = PIECE_SIZE - 1; y >= 0; y--)
             {
-                for (int x = 0; x < 5; x++)
+                for (int x = 0; x < PIECE_SIZE; x++)
                 {
                     newPos[y].Add(Piece[x][y]);
                 }

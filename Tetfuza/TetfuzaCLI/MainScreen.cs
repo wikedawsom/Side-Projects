@@ -40,7 +40,14 @@ namespace TetfuzaCLI
                 {
                     dir = 1;
                 }
-
+                else if(key == ConsoleKey.Z)
+                {
+                    rot = -1;
+                }
+                else if (key == ConsoleKey.X)
+                {
+                    rot = 1;
+                }
 
                 game.SendInput(dir, rot);
             }

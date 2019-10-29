@@ -17,6 +17,7 @@ namespace Tetfuza
         private FuzaPiece _nextPiece;
         private int _frameCount = 0;
         public List<List<char>> Board { get; private set; }
+        public long Score { get; private set; }
         
 
         public TetfuzaBackend()
@@ -58,7 +59,6 @@ namespace Tetfuza
         public long Run()
         {
             bool topOut = false;
-            long score = 0;
             _timer.Start();
             while (!topOut)
             {
@@ -77,7 +77,7 @@ namespace Tetfuza
                 }
             }
 
-            return score;
+            return Score;
         }
 
         private void DrawPieceInitial()
@@ -88,19 +88,19 @@ namespace Tetfuza
 
         private void DrawPiece()
         {
-            for (int row = 0; row < _nextPiece.Piece.Count; row++)
+            for (int row = 0; row < FuzaPiece.PIECE_SIZE; row++)
             {
-                for (int col = 0; col < _nextPiece.Piece[0].Count; col++)
+                for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
                     char fuza = _nextPiece.Piece[row][col];
                     if (_pieceCenter.xPos - 2 + col >= 0 && _pieceCenter.xPos - 2 + col < BOARD_WIDTH
                         && _pieceCenter.yPos - 2 + row >= 0 && _pieceCenter.yPos - 2 + row < BOARD_HEIGHT)
                     {
-                        if (fuza != ' ')
+                        if (fuza != FuzaPiece.BLANK_CHAR)
                         {
                             Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] = '@';
                         }
-                        else
+                        else if (fuza == FuzaPiece.BLANK_CHAR)
                         {
                             Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] = '-';
                         }
@@ -119,34 +119,38 @@ namespace Tetfuza
 
         private void RotatePiece()
         {
+            FuzaPiece newPosition = null;
+            
             if (_userInputRotation == -1)
             {
-                FuzaPiece newPosition = _nextPiece.RotateLeft();
+                newPosition = _nextPiece.RotateLeft();
+                if (CheckMove(_pieceCenter, newPosition))
+                    _nextPiece = newPosition;
             }
             else if (_userInputRotation == 1)
             {
-
+                newPosition = _nextPiece.RotateRight();
+                if (CheckMove(_pieceCenter, newPosition))
+                    _nextPiece = newPosition;
             }
         }
 
         private bool CheckMove(Coordinate center, FuzaPiece orientation)
         {
             bool isValid = true;
-            for (int row = 0; row < _nextPiece.Piece.Count; row++)
+            for (int row = 0; row < FuzaPiece.PIECE_SIZE; row++)
             {
-                for (int col = 0; col < _nextPiece.Piece[0].Count; col++)
+                for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
                     char fuza = _nextPiece.Piece[row][col];
-                    if (_pieceCenter.xPos - 2 + col < 0 || _pieceCenter.xPos - 2 + col >= BOARD_WIDTH
-                        || _pieceCenter.yPos - 2 + row < 0 || _pieceCenter.yPos - 2 + row >= BOARD_HEIGHT
-                        && fuza == FuzaPiece.FUZA_CHAR)
+                    if (((center.xPos - 2 + col < 0 || center.xPos - 2 + col >= BOARD_WIDTH
+                        || center.yPos - 2 + row < 0 || center.yPos - 2 + row >= BOARD_HEIGHT)
+                        && fuza == FuzaPiece.FUZA_CHAR )
+                        || (fuza == FuzaPiece.FUZA_CHAR 
+                        && Board[center.yPos - 2 + row][center.xPos - 2 + col] == '#'))
                     {
                         isValid = false;
-                    }/*
-                    else if (Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] == '#')
-                    {
-                        isValid = false;
-                    }*/
+                    }
                 }
             }
             return isValid;
