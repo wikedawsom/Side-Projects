@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System;
 using FramerateStabilizer;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Tetfuza
 {
@@ -11,6 +12,7 @@ namespace Tetfuza
         public const int BOARD_WIDTH = 10;
         public const char LOCKDOWN_CHAR = '0';
         public const char MOVING_CHAR = '@';
+        public const char EMPTY_CHAR = '-';
         private Random _rand = new Random();
         private Coordinate _pieceCenter;
         private Stopwatch _timer = new Stopwatch();
@@ -20,6 +22,18 @@ namespace Tetfuza
         private int _frameCount = 0;
         public List<List<char>> Board { get; private set; }
         public long Score { get; private set; }
+        private List<char> _emptyLine
+        {
+            get
+            {
+                var line = new List<char>();
+                for (int i = 0; i < BOARD_WIDTH; i++)
+                {
+                    line.Add(EMPTY_CHAR);
+                }
+                return line;
+            }
+        }
         
 
         public TetfuzaBackend()
@@ -31,11 +45,7 @@ namespace Tetfuza
             var startingBoard = new List<List<char>>();
             for (int height = 0; height < BOARD_HEIGHT; height++)
             {
-                startingBoard.Add(new List<char>());
-                for (int width = 0; width < BOARD_WIDTH; width++)
-                {
-                    startingBoard[height].Add('-');
-                }
+                startingBoard.Add(_emptyLine);
             }
             return startingBoard;
         }
@@ -80,6 +90,7 @@ namespace Tetfuza
                     _frameCount++;
                 }
                 DrawPiece(LOCKDOWN_CHAR);
+                CheckClear();
             }
 
             return Score;
@@ -109,7 +120,7 @@ namespace Tetfuza
                         }
                         else if (fuza == FuzaPiece.BLANK_CHAR && Board[rowCoord][colCoord] != LOCKDOWN_CHAR)
                         {
-                            Board[rowCoord][colCoord] = '-';
+                            Board[rowCoord][colCoord] = EMPTY_CHAR;
                         }
                     }
                 }
@@ -163,6 +174,24 @@ namespace Tetfuza
                 }
             }
             return isValid;
+        }
+
+        private int CheckClear()
+        {
+            int linesCleared = 0;
+            for (int i = BOARD_HEIGHT - 1; i > 0; i--)
+            {
+                if (!Board[i].Contains(EMPTY_CHAR))
+                {
+                    linesCleared++;
+                    Board.RemoveAt(i);
+                    var tempBoard = new List<List<char>>();
+                    tempBoard.Add(_emptyLine);
+                    tempBoard.AddRange(Board);
+                    Board = tempBoard;
+                }
+            }
+            return linesCleared;
         }
 
 
