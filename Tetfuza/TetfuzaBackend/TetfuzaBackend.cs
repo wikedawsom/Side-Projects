@@ -41,6 +41,7 @@ namespace Tetfuza
         public override string ToString()
         {
             string boardString = "";
+            boardString += "Score: " + Score + "\n";
             for (int row = 2; row < BOARD_HEIGHT; row++)
             {
                 for (int col = 0; col < BOARD_WIDTH; col++)
@@ -49,6 +50,7 @@ namespace Tetfuza
                 }
                 boardString += "\n";
             }
+            
             return boardString;
         }
 
@@ -75,6 +77,7 @@ namespace Tetfuza
                     StableFrames.Stabilize(50, _timer);
                     _frameCount++;
                 }
+                DrawPiece('#');
             }
 
             return Score;
@@ -86,7 +89,7 @@ namespace Tetfuza
             DrawPiece();
         }
 
-        private void DrawPiece()
+        private void DrawPiece(char fuzaChar = '@')
         {
             for (int row = 0; row < FuzaPiece.PIECE_SIZE; row++)
             {
@@ -98,9 +101,9 @@ namespace Tetfuza
                     {
                         if (fuza != FuzaPiece.BLANK_CHAR)
                         {
-                            Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] = '@';
+                            Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] = fuzaChar;
                         }
-                        else if (fuza == FuzaPiece.BLANK_CHAR)
+                        else if (fuza == FuzaPiece.BLANK_CHAR && Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] != '#')
                         {
                             Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] = '-';
                         }
@@ -175,22 +178,10 @@ namespace Tetfuza
         {
             _userInputDirection = 0;
             _userInputRotation = 0;
-            if (direction > 0)
-            {
-                _userInputDirection = 1;
-            }
-            else if (direction < 0)
-            {
-                _userInputDirection = -1;
-            }
-            if (rotation > 0)
-            {
-                _userInputRotation = 1;
-            }
-            else if (rotation < 0)
-            {
-                _userInputRotation = -1;
-            }
+            
+            _userInputDirection = direction;
+            
+            _userInputRotation = rotation;
         }
     }
 }
