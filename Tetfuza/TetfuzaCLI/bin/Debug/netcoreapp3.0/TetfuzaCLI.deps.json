@@ -1,0 +1,49 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "TetfuzaCLI/1.0.0": {
+        "dependencies": {
+          "Tetfuza": "1.0.0"
+        },
+        "runtime": {
+          "TetfuzaCLI.dll": {}
+        }
+      },
+      "FramerateStabilizer/1.0.0": {
+        "runtime": {
+          "FramerateStabilizer.dll": {}
+        }
+      },
+      "Tetfuza/1.0.0": {
+        "dependencies": {
+          "FramerateStabilizer": "1.0.0"
+        },
+        "runtime": {
+          "Tetfuza.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TetfuzaCLI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FramerateStabilizer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Tetfuza/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
