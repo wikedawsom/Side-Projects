@@ -1,17 +1,12 @@
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.deps.json
-C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.runtimeconfig.json
-C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.runtimeconfig.dev.json
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.dll
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.pdb
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.csprojAssemblyReference.cache
-C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.csproj.CoreCompileInputs.cache
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.AssemblyInfoInputs.cache
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.AssemblyInfo.cs
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.dll
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.pdb
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.deps.json
-H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.runtimeconfig.json
-H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.runtimeconfig.dev.json
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.dll
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.pdb
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.csprojAssemblyReference.cache

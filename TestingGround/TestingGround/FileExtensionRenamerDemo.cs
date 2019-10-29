@@ -50,7 +50,9 @@ namespace TestingGroundCLI
             string filePath = Console.ReadLine();
             Console.WriteLine("Enter the new file entension (without the \".\"): ");
             string newExtension = Console.ReadLine();
-            FileManip.FileExtensionRename(filePath, newExtension);
+            Console.Write("Delete old file afterwards? (y/n): ");
+            bool deleteOld = Console.ReadLine().ToLower() == "y" ? true : false;
+            FileManip.FileExtensionRename(filePath, newExtension, deleteOld);
         }
 
         public static void RecursiveExtensionRenameDemo()
@@ -61,7 +63,9 @@ namespace TestingGroundCLI
             string currentExtension = Console.ReadLine(); 
             Console.WriteLine("Enter the new file entension (without the \".\"): ");
             string newExtension = Console.ReadLine();
-            FileManip.RecursiveExtensionRename(filePath, currentExtension, newExtension);
+            Console.Write("Delete old file afterwards? (y/n): ");
+            bool deleteOld = Console.ReadLine().ToLower() == "y" ? true : false;
+            FileManip.RecursiveExtensionRename(filePath, currentExtension, newExtension, deleteOld);
         }
     }
 }

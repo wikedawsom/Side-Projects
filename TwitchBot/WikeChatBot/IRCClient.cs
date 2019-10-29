@@ -9,7 +9,7 @@ namespace WikeBot
         private StreamReader _sr;
         private StreamWriter _sw;
 
-        public string Channel { get; private set; }
+        public string Channel { get; }
         public string UserName { get; }
 
         public IRCClient(string ip, int port, string userName, string password, string channel)
@@ -28,6 +28,11 @@ namespace WikeBot
             _sw.Flush();
         }
 
+        public void Part()
+        {
+            SendIRCMessage($":{UserName}!{UserName}@{UserName}.tmi.twitch.tv PART #{Channel}");
+        }
+
         public void SendChatMessage(string message)
         {
             SendIRCMessage(":" + UserName + "!" + UserName + "@" + UserName + ".tmi.twitch.tv PRIVMSG #" + Channel + " :" + message);
@@ -42,11 +47,6 @@ namespace WikeBot
         public string ReadMessage()
         {
             return _sr.ReadLine();
-        }
-
-        public void Part()
-        {
-            SendIRCMessage($":{UserName}!{UserName}@{UserName}.tmi.twitch.tv PART #{Channel}");
         }
     }
 }

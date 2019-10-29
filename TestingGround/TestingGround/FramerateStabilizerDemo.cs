@@ -7,21 +7,25 @@ using System.Text;
 
 namespace TestingGroundCLI
 {
-    class FramerateStabilizerDemo
+    public static class FramerateStabilizerDemo
     {
-        static void Menu()
+        public static void Start()
         {
             Console.WriteLine("Hello World!");
-            BetterStableFrames consistentFramerateTracker = new BetterStableFrames();
+            Console.Write("Enter number of frames: ");
+            int numFrames = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter milliseconds per frame: ");
+            int ms = Convert.ToInt32(Console.ReadLine());
             Stopwatch timer = new Stopwatch();
             timer.Start();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < numFrames; i++)
             {
-                StableFrames.Stabilize(1, timer);
-                //consistentFramerateTracker.Stabilize(60, timer);
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                StableFrames.Stabilize(ms, timer);
+                Console.WriteLine(timer.ElapsedMilliseconds + " milliseconds elapsed for " + (i + 1) + " frames.");
             }
-            Console.WriteLine(timer.ElapsedMilliseconds);
+            
             timer.Stop();
             Console.ReadKey();
         }

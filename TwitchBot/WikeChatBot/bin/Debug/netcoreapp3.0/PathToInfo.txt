@@ -4,7 +4,7 @@ might make this a json file some day...
 
 The program only reads the top line. Put the absolute path to your credential file there
 
-The credential file should be structured like this (without the dashes):
+The credential file should be structured like this:
 ---------------------------
 oauth: oauth:xxxxxxxxxxxxxxxxx
 username: userName

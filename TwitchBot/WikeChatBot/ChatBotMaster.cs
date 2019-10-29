@@ -4,12 +4,12 @@ using LogWriter;
 
 namespace WikeBot
 {
-    public static class ChatBotMaster
+    public class ChatBot
     {
         private static string _userName;
         private static string _streamName;
         private static string _oAuth;
-        ///
+
         private static ILogWriter _messageLog = new LogFileWriter(@"logs\chat-messages");
         private static ILogWriter _eventLog = new LogFileWriter(@"logs\irc-messages");
         private static ILogWriter _errorLog = new LogFileWriter(@"logs\error");
@@ -24,7 +24,7 @@ namespace WikeBot
         public static IRCClient client;
         private static Ping pinger;
 
-        public static void MainLoop()
+        public void Run()
         {
             EstablishConnection();
 
@@ -62,10 +62,7 @@ namespace WikeBot
             client.Part();
         }
 
-        /// <summary>
-        /// Initializes connection to Twitch IRC server
-        /// </summary>
-        private static void EstablishConnection()
+        private void EstablishConnection()
         {
             try
             {
@@ -80,14 +77,14 @@ namespace WikeBot
             }
         }
 
-        private static void RespondInChat(IRCClient client, string response)
+        private void RespondInChat(IRCClient client, string response)
         {
             client.SendChatMessage(response);
             _messageLog.NewLogEntry("wikedabot :" + response);
             _eventLog.NewLogEntry("wikedabot :" + response);
         }
 
-        private static void GetCredentials()
+        private void GetCredentials()
         {
             string pathToCreds = "";
             if (File.Exists("PathToInfo.txt"))
