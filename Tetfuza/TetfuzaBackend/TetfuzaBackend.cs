@@ -9,6 +9,8 @@ namespace Tetfuza
     {
         public const int BOARD_HEIGHT = 22;
         public const int BOARD_WIDTH = 10;
+        public const char LOCKDOWN_CHAR = '0';
+        public const char MOVING_CHAR = '@';
         private Random _rand = new Random();
         private Coordinate _pieceCenter;
         private Stopwatch _timer = new Stopwatch();
@@ -77,7 +79,7 @@ namespace Tetfuza
                     StableFrames.Stabilize(50, _timer);
                     _frameCount++;
                 }
-                DrawPiece('#');
+                DrawPiece(LOCKDOWN_CHAR);
             }
 
             return Score;
@@ -89,23 +91,25 @@ namespace Tetfuza
             DrawPiece();
         }
 
-        private void DrawPiece(char fuzaChar = '@')
+        private void DrawPiece(char fuzaChar = MOVING_CHAR)
         {
             for (int row = 0; row < FuzaPiece.PIECE_SIZE; row++)
             {
                 for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
                     char fuza = _nextPiece.Piece[row][col];
-                    if (_pieceCenter.xPos - 2 + col >= 0 && _pieceCenter.xPos - 2 + col < BOARD_WIDTH
-                        && _pieceCenter.yPos - 2 + row >= 0 && _pieceCenter.yPos - 2 + row < BOARD_HEIGHT)
+                    int colCoord = _pieceCenter.xPos - 2 + col;
+                    int rowCoord = _pieceCenter.yPos - 2 + row;
+                    if (colCoord >= 0 && colCoord < BOARD_WIDTH
+                        && rowCoord >= 0 && rowCoord < BOARD_HEIGHT)
                     {
                         if (fuza != FuzaPiece.BLANK_CHAR)
                         {
-                            Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] = fuzaChar;
+                            Board[rowCoord][colCoord] = fuzaChar;
                         }
-                        else if (fuza == FuzaPiece.BLANK_CHAR && Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] != '#')
+                        else if (fuza == FuzaPiece.BLANK_CHAR && Board[rowCoord][colCoord] != LOCKDOWN_CHAR)
                         {
-                            Board[_pieceCenter.yPos - 2 + row][_pieceCenter.xPos - 2 + col] = '-';
+                            Board[rowCoord][colCoord] = '-';
                         }
                     }
                 }
@@ -146,11 +150,13 @@ namespace Tetfuza
                 for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
                     char fuza = _nextPiece.Piece[row][col];
-                    if (((center.xPos - 2 + col < 0 || center.xPos - 2 + col >= BOARD_WIDTH
-                        || center.yPos - 2 + row < 0 || center.yPos - 2 + row >= BOARD_HEIGHT)
+                    int colCoord = center.xPos - 2 + col;
+                    int rowCoord = center.yPos - 2 + row;
+                    if (((colCoord < 0 || colCoord >= BOARD_WIDTH
+                        || rowCoord < 0 || rowCoord >= BOARD_HEIGHT)
                         && fuza == FuzaPiece.FUZA_CHAR )
                         || (fuza == FuzaPiece.FUZA_CHAR 
-                        && Board[center.yPos - 2 + row][center.xPos - 2 + col] == '#'))
+                        && Board[rowCoord][colCoord] == LOCKDOWN_CHAR))
                     {
                         isValid = false;
                     }
