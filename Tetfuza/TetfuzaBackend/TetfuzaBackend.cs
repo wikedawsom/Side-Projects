@@ -55,9 +55,12 @@ namespace Tetfuza
             {
                 startingBoard.Add(EmptyLine);
             }
-            for (int i = 17; i < BOARD_HEIGHT; i ++)
+            for (int i = 18; i < BOARD_HEIGHT; i ++)
             {
-
+                for (int j = 0; j < BOARD_WIDTH; j++)
+                {
+                    startingBoard[i][j] = LOCKDOWN_CHAR;
+                }
             }
             return startingBoard;
         }
@@ -135,8 +138,8 @@ namespace Tetfuza
                 for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
                     char fuza = _nextPiece.Piece[row][col];
-                    int colCoord = _pieceCenter.xPos - 2 + col;
-                    int rowCoord = _pieceCenter.yPos - 2 + row;
+                    int colCoord = _pieceCenter.xPos - (FuzaPiece.PIECE_SIZE / 2) + col;
+                    int rowCoord = _pieceCenter.yPos - (FuzaPiece.PIECE_SIZE / 2) + row;
                     if (colCoord >= 0 && colCoord < BOARD_WIDTH
                         && rowCoord >= 0 && rowCoord < BOARD_HEIGHT)
                     {
@@ -193,8 +196,8 @@ namespace Tetfuza
                 for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
                     char fuza = orientation.Piece[row][col];
-                    int colCoord = center.xPos - 2 + col;
-                    int rowCoord = center.yPos - 2 + row;
+                    int colCoord = center.xPos - (FuzaPiece.PIECE_SIZE / 2) + col;
+                    int rowCoord = center.yPos - (FuzaPiece.PIECE_SIZE / 2) + row;
                     if (((colCoord < 0 || colCoord >= BOARD_WIDTH
                         || rowCoord < 0 || rowCoord >= BOARD_HEIGHT)
                         && fuza == FuzaPiece.FUZA_CHAR )
@@ -213,7 +216,7 @@ namespace Tetfuza
             int linesCleared = 0;
             for (int i = 0; i < BOARD_HEIGHT; i++)
             {
-                if (!Board[i].Contains(EMPTY_CHAR))
+                if (!(Board[i].Contains(EMPTY_CHAR) || Board[i].Contains(MOVING_CHAR)))
                 {
                     linesCleared++;
                     Board.RemoveAt(i);
