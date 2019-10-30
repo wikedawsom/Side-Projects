@@ -141,13 +141,14 @@ namespace Tetfuza
 		
 		public FuzaPiece RotateLeft()
 		{
-			var newPos = new List<List<char>>(Piece);
-            for (int y = 0; y < PIECE_SIZE; y++)
+			var newPos = new List<List<char>>();
+            
+            for (int col = 0; col < PIECE_SIZE; col++)
 			{
                 newPos.Add(new List<char>());
-                for (int x = PIECE_SIZE - 1; x >= 0; x--)
+                for (int row = 0; row < PIECE_SIZE; row++)
                 {
-                    newPos[y].Add(Piece[x][y]);
+                    newPos[col].Add(Piece[4 - row][col]);
 				}
 			}
             return new FuzaPiece(newPos, this);
@@ -155,16 +156,13 @@ namespace Tetfuza
 		
 		public FuzaPiece RotateRight()
 		{
-            var newPos = new List<List<char>>(Piece);
-            for (int i = 0; i < PIECE_SIZE; i++)
+            var newPos = new List<List<char>>();
+            for (int col = 0; col < PIECE_SIZE; col++)
             {
                 newPos.Add(new List<char>());
-            }
-            for (int y = PIECE_SIZE - 1; y >= 0; y--)
-            {
-                for (int x = 0; x < PIECE_SIZE; x++)
+                for (int row = 0; row < PIECE_SIZE; row++)
                 {
-                    newPos[y].Add(Piece[x][y]);
+                    newPos[col].Add(Piece[row][4 - col]);
                 }
             }
             return new FuzaPiece(newPos, this);

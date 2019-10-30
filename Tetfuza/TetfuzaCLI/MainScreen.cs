@@ -11,7 +11,7 @@ namespace TetfuzaCLI
     public class MainScreen
     {
         private TetfuzaBackend game;
-        private long score = 0;
+        private long score = -1;
         private Stopwatch timer = new Stopwatch();
         public void StartCLI()
         {
@@ -27,7 +27,7 @@ namespace TetfuzaCLI
 
         private void InputListener()
         {
-            while(score == 0)
+            while(score == -1)
             {
                 int rot = 0;
                 int dir = 0;
@@ -40,11 +40,11 @@ namespace TetfuzaCLI
                 {
                     dir = 1;
                 }
-                else if(key == ConsoleKey.Z)
+                else if(key == ConsoleKey.UpArrow)
                 {
                     rot = -1;
                 }
-                else if (key == ConsoleKey.X)
+                else if (key == ConsoleKey.DownArrow)
                 {
                     rot = 1;
                 }
@@ -55,11 +55,11 @@ namespace TetfuzaCLI
 
         private void DisplayScreen()
         {
-            while (true)
+            while (score == -1)
             {
-                Console.Clear();
+                Console.SetCursorPosition(0, 0);
                 Console.Write(game.ToString());
-                StableFrames.Stabilize(50, timer);
+                StableFrames.Stabilize(17, timer);
             }
         }
     }

@@ -72,21 +72,24 @@ namespace Tetfuza
         /// <returns></returns>
         public long Run()
         {
-            bool topOut = false;
+            bool gameOver = false;
             _timer.Start();
-            while (!topOut)
+            while (!gameOver)
             {
                 int pieceNum = _rand.Next(0, 7);
                 _nextPiece = new FuzaPiece((FuzaType)pieceNum);
-                DrawPieceInitial();
+                _pieceCenter = new Coordinate(5, 2);
+                //gameOver = CheckTopOut();
+
                 bool isLockDown = false;
                 while (!isLockDown)
                 {
                     MovePieceLeftRight();
                     RotatePiece();
-                    if (_frameCount % 2 == 0)
+                    DrawPiece();
+                    if (_frameCount % 5 == 0)
                         isLockDown = !DropPiece();
-                    StableFrames.Stabilize(50, _timer);
+                    StableFrames.Stabilize(17, _timer);
                     _frameCount++;
                 }
                 DrawPiece(LOCKDOWN_CHAR);
@@ -94,12 +97,6 @@ namespace Tetfuza
             }
 
             return Score;
-        }
-
-        private void DrawPieceInitial()
-        {
-            _pieceCenter = new Coordinate(6, 2);
-            DrawPiece();
         }
 
         private void DrawPiece(char fuzaChar = MOVING_CHAR)
@@ -131,13 +128,13 @@ namespace Tetfuza
         {
             if (CheckMove(new Coordinate(_pieceCenter.xPos + _userInputDirection,_pieceCenter.yPos), _nextPiece))
                 _pieceCenter.xPos = _pieceCenter.xPos + _userInputDirection;
-            DrawPiece();
+            
             _userInputDirection = 0;
         }
 
         private void RotatePiece()
         {
-            FuzaPiece newPosition = null;
+            FuzaPiece newPosition;
             
             if (_userInputRotation == -1)
             {
@@ -151,6 +148,12 @@ namespace Tetfuza
                 if (CheckMove(_pieceCenter, newPosition))
                     _nextPiece = newPosition;
             }
+            _userInputRotation = 0;
+        }
+
+        private bool CheckTopOut()
+        {
+            return CheckMove(_pieceCenter, _nextPiece);
         }
 
         private bool CheckMove(Coordinate center, FuzaPiece orientation)
@@ -160,7 +163,7 @@ namespace Tetfuza
             {
                 for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
-                    char fuza = _nextPiece.Piece[row][col];
+                    char fuza = orientation.Piece[row][col];
                     int colCoord = center.xPos - 2 + col;
                     int rowCoord = center.yPos - 2 + row;
                     if (((colCoord < 0 || colCoord >= BOARD_WIDTH
