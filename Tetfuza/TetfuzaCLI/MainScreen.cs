@@ -40,11 +40,11 @@ namespace TetfuzaCLI
                 {
                     dir = 1;
                 }
-                else if(key == ConsoleKey.UpArrow)
+                else if(key == ConsoleKey.Z)
                 {
                     rot = -1;
                 }
-                else if (key == ConsoleKey.DownArrow)
+                else if (key == ConsoleKey.X)
                 {
                     rot = 1;
                 }
@@ -58,8 +58,10 @@ namespace TetfuzaCLI
             while (score == -1)
             {
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine("Current Score: " + game.Score);
-                Console.WriteLine("Lines CLeared: " + game.Lines);
+                
+                Console.WriteLine("Current Score: " + game.Score + "  ");
+                Console.WriteLine("Lines Cleared: " + game.Lines + "  ");
+                Console.WriteLine("Current Level: " + game.Level + "  ");
                 Console.Write(game.ToString());
                 StableFrames.Stabilize(17, timer);
             }

@@ -23,7 +23,14 @@ namespace Tetfuza
         public List<List<char>> Board { get; private set; }
         public long Score { get; private set; }
         public int Lines { get; private set; }
-        private List<char> _emptyLine
+        public int Level
+        {
+            get
+            {
+                return Lines / 10;
+            }
+        }
+        private List<char> EmptyLine
         {
             get
             {
@@ -46,7 +53,11 @@ namespace Tetfuza
             var startingBoard = new List<List<char>>();
             for (int height = 0; height < BOARD_HEIGHT; height++)
             {
-                startingBoard.Add(_emptyLine);
+                startingBoard.Add(EmptyLine);
+            }
+            for (int i = 17; i < BOARD_HEIGHT; i ++)
+            {
+
             }
             return startingBoard;
         }
@@ -111,7 +122,7 @@ namespace Tetfuza
                         scoreMultiplier = 1200;
                         break;
                 }
-                Score += scoreMultiplier * ((Lines / 10) + 1);
+                Score += scoreMultiplier * (Level + 1);
             }
 
             return Score;
@@ -207,7 +218,7 @@ namespace Tetfuza
                     linesCleared++;
                     Board.RemoveAt(i);
                     var tempBoard = new List<List<char>>();
-                    tempBoard.Add(_emptyLine);
+                    tempBoard.Add(EmptyLine);
                     tempBoard.AddRange(Board);
                     Board = tempBoard;
                 }

@@ -139,7 +139,7 @@ namespace Tetfuza
             return piece;
 		}
 		
-		public FuzaPiece RotateLeft()
+		public FuzaPiece RotateRight()
 		{
 			var newPos = new List<List<char>>();
             
@@ -154,7 +154,7 @@ namespace Tetfuza
             return new FuzaPiece(newPos, this);
 		}
 		
-		public FuzaPiece RotateRight()
+		public FuzaPiece RotateLeft()
 		{
             var newPos = new List<List<char>>();
             for (int col = 0; col < PIECE_SIZE; col++)
