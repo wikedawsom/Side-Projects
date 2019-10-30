@@ -22,6 +22,7 @@ namespace Tetfuza
         private int _frameCount = 0;
         public List<List<char>> Board { get; private set; }
         public long Score { get; private set; }
+        public int Lines { get; private set; }
         private List<char> _emptyLine
         {
             get
@@ -53,7 +54,6 @@ namespace Tetfuza
         public override string ToString()
         {
             string boardString = "";
-            boardString += "Score: " + Score + "\n";
             for (int row = 2; row < BOARD_HEIGHT; row++)
             {
                 for (int col = 0; col < BOARD_WIDTH; col++)
@@ -79,7 +79,7 @@ namespace Tetfuza
                 int pieceNum = _rand.Next(0, 7);
                 _nextPiece = new FuzaPiece((FuzaType)pieceNum);
                 _pieceCenter = new Coordinate(5, 2);
-                //gameOver = CheckTopOut();
+                gameOver = CheckTopOut();
 
                 bool isLockDown = false;
                 while (!isLockDown)
@@ -87,13 +87,31 @@ namespace Tetfuza
                     MovePieceLeftRight();
                     RotatePiece();
                     DrawPiece();
-                    if (_frameCount % 5 == 0)
+                    if (_frameCount % 10 == 0)
                         isLockDown = !DropPiece();
                     StableFrames.Stabilize(17, _timer);
                     _frameCount++;
                 }
                 DrawPiece(LOCKDOWN_CHAR);
-                CheckClear();
+                int linesCleared = CheckClear();
+                Lines += linesCleared;
+                int scoreMultiplier = 0;
+                switch (linesCleared)
+                {
+                    case 1:
+                        scoreMultiplier = 40;
+                        break;
+                    case 2:
+                        scoreMultiplier = 100;
+                        break;
+                    case 3:
+                        scoreMultiplier = 300;
+                        break;
+                    case 4:
+                        scoreMultiplier = 1200;
+                        break;
+                }
+                Score += scoreMultiplier * ((Lines / 10) + 1);
             }
 
             return Score;
@@ -153,7 +171,7 @@ namespace Tetfuza
 
         private bool CheckTopOut()
         {
-            return CheckMove(_pieceCenter, _nextPiece);
+            return Board[2][6] != EMPTY_CHAR;
         }
 
         private bool CheckMove(Coordinate center, FuzaPiece orientation)
@@ -182,7 +200,7 @@ namespace Tetfuza
         private int CheckClear()
         {
             int linesCleared = 0;
-            for (int i = BOARD_HEIGHT - 1; i > 0; i--)
+            for (int i = 0; i < BOARD_HEIGHT; i++)
             {
                 if (!Board[i].Contains(EMPTY_CHAR))
                 {

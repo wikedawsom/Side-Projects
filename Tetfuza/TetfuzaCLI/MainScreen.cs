@@ -58,6 +58,8 @@ namespace TetfuzaCLI
             while (score == -1)
             {
                 Console.SetCursorPosition(0, 0);
+                Console.WriteLine("Current Score: " + game.Score);
+                Console.WriteLine("Lines CLeared: " + game.Lines);
                 Console.Write(game.ToString());
                 StableFrames.Stabilize(17, timer);
             }
