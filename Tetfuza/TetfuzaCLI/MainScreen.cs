@@ -13,6 +13,9 @@ namespace TetfuzaCLI
         private TetfuzaBackend game;
         private long _score;
         private Stopwatch timer = new Stopwatch();
+        /// <summary>
+        /// Main CLI Loop
+        /// </summary>
         public void StartCLI()
         {
             bool exit = false;
@@ -33,7 +36,7 @@ namespace TetfuzaCLI
                 Console.ReadLine();
                 Console.Clear();
                 DrawBoard();
-                Console.WriteLine("Your final score is: "+ _score);
+                Console.WriteLine("Your final score is: "+ CommasInNumber(_score));
                 Console.WriteLine("Play again? (y/n): ");
                 string p1Continue = Console.ReadLine().ToLower();
                 if (p1Continue != null && p1Continue != "" && p1Continue[0] == 'n')
@@ -46,7 +49,9 @@ namespace TetfuzaCLI
                 }
             }
         }
-
+        /// <summary>
+        /// Really crappy input listener that only detects one key at a time. 
+        /// </summary>
         private void InputListener()
         {
             while(_score == -1)
@@ -83,7 +88,9 @@ namespace TetfuzaCLI
                 game.SendInput(dir, rot, down);
             }
         }
-
+        /// <summary>
+        /// Constantly updates the console window with the current visual state of the current game
+        /// </summary>
         private void DisplayScreen()
         {
             Console.Clear();
@@ -92,7 +99,7 @@ namespace TetfuzaCLI
                 Console.SetCursorPosition(0, 0);
                 Console.CursorVisible = false;
                 CenterText("Current Score ");
-                CenterText(game.Score + "  ");
+                CenterText(CommasInNumber(game.Score) + "  ");
                 CenterText("  Lines Cleared: " + game.Lines + "  ");
                 CenterText("  Current Level: " + game.Level + "  ");
                 string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBackend.MOVING_CHAR).Split("\n");
@@ -126,5 +133,30 @@ namespace TetfuzaCLI
             }
             CenterText("----------------------- ");
         }
+        /// <summary>
+        /// Converts a large number to a string with normal comma separation
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        private string CommasInNumber(long num)
+        {
+            string number = num.ToString();
+            int numCommas = (number.Length - 1) / 3;
+            string formattedNum = "";
+            if (numCommas == 0)
+            {
+                return number;
+            }
+            else
+            {
+                formattedNum += number.Substring(0, number.Length % 3);
+            }
+            for (int i = 0; i < numCommas; i++)
+            {
+                formattedNum += "," + number.Substring(((number.Length % 3)+i*3), 3);
+            }
+            return formattedNum;
+        }
     }
+
 }
