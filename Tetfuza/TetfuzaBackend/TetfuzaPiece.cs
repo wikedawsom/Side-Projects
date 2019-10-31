@@ -28,7 +28,7 @@ namespace Tetfuza
 	{
         public const char FUZA_CHAR = 'O';
         public const char BLANK_CHAR = ' ';
-        public const int PIECE_SIZE = 5;
+        public const int PIECE_SIZE = 7;
 		public List<List<char>> Piece { get; private set; }
 		private FuzaType _type;
 		private List<Coordinate> _blocks;
@@ -132,8 +132,8 @@ namespace Tetfuza
 			}
             foreach (Coordinate fuza in _blocks)
             {
-                int xFromCenter = 2 + fuza.xPos;
-                int yFromCenter = 2 + fuza.yPos;
+                int xFromCenter = PIECE_SIZE/2 + fuza.xPos;
+                int yFromCenter = PIECE_SIZE/2 + fuza.yPos;
                 piece[yFromCenter][xFromCenter] = FUZA_CHAR;
             }
             return piece;
@@ -148,7 +148,7 @@ namespace Tetfuza
                 newPos.Add(new List<char>());
                 for (int row = 0; row < PIECE_SIZE; row++)
                 {
-                    newPos[col].Add(Piece[4 - row][col]);
+                    newPos[col].Add(Piece[PIECE_SIZE - 1 - row][col]);
 				}
 			}
             return new FuzaPiece(newPos, this);
@@ -162,11 +162,25 @@ namespace Tetfuza
                 newPos.Add(new List<char>());
                 for (int row = 0; row < PIECE_SIZE; row++)
                 {
-                    newPos[col].Add(Piece[row][4 - col]);
+                    newPos[col].Add(Piece[row][PIECE_SIZE - 1 - col]);
                 }
             }
             return new FuzaPiece(newPos, this);
         }
-		
-	}
+
+        public override string ToString()
+        {
+            string output = "";
+            for (int row = PIECE_SIZE / 2 - 1; row < PIECE_SIZE / 2 + 2; row++) 
+            {
+                for (int col = PIECE_SIZE / 2 - 2; col < PIECE_SIZE/2 + 2; col++)
+                {
+                    output += Piece[row][col] + " ";
+                }
+                output += "\n";
+            }
+            return output;
+        }
+
+    }
 }

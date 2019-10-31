@@ -11,26 +11,54 @@ namespace TetfuzaCLI
     public class MainScreen
     {
         private TetfuzaBackend game;
-        private long score = -1;
+        private long _score;
         private Stopwatch timer = new Stopwatch();
+        /// <summary>
+        /// Main CLI Loop
+        /// </summary>
         public void StartCLI()
         {
-            game = new TetfuzaBackend();
-            timer.Start();
-            Thread userInputThread = new Thread(new ThreadStart(this.InputListener));
-            userInputThread.Start();
-            Thread displayThread = new Thread(new ThreadStart(this.DisplayScreen));
-            displayThread.Priority = ThreadPriority.Highest;
-            displayThread.Start();
-            score = game.Run();
-        }
+            bool exit = false;
+            while (!exit)
+            {
+                _score = -1;
+                Console.SetWindowSize(60, 40);
+                Console.CursorVisible = false;
+                game = new TetfuzaBackend();
+                timer.Start();
+                Thread userInputThread = new Thread(new ThreadStart(this.InputListener));
+                userInputThread.Start();
+                Thread displayThread = new Thread(new ThreadStart(this.DisplayScreen));
+                displayThread.Priority = ThreadPriority.Highest;
+                displayThread.Start();
+                _score = game.Run();
 
+                Console.ReadLine();
+                Console.Clear();
+                DrawBoard();
+                Console.WriteLine("Your final score is: "+ CommasInNumber(_score));
+                Console.WriteLine("Play again? (y/n): ");
+                string p1Continue = Console.ReadLine().ToLower();
+                if (p1Continue != null && p1Continue != "" && p1Continue[0] == 'n')
+                {
+                    exit = true;
+                }
+                else
+                {
+                    exit = false;
+                }
+            }
+        }
+        /// <summary>
+        /// Really crappy input listener that only detects one key at a time. 
+        /// </summary>
         private void InputListener()
         {
-            while(score == -1)
+            while(_score == -1)
             {
                 int rot = 0;
                 int dir = 0;
+                bool down = false;
                 ConsoleKey key = Console.ReadKey().Key;
                 if(key == ConsoleKey.LeftArrow)
                 {
@@ -48,23 +76,87 @@ namespace TetfuzaCLI
                 {
                     rot = 1;
                 }
+                else if (key == ConsoleKey.DownArrow)
+                {
+                    down = true;
+                }
+                else if (key == ConsoleKey.C)
+                {
+                    Console.Clear();
+                }
 
-                game.SendInput(dir, rot);
+                game.SendInput(dir, rot, down);
             }
         }
-
+        /// <summary>
+        /// Constantly updates the console window with the current visual state of the current game
+        /// </summary>
         private void DisplayScreen()
         {
-            while (score == -1)
+            Console.Clear();
+            while (_score == -1)
             {
                 Console.SetCursorPosition(0, 0);
+                Console.CursorVisible = false;
+                CenterText("Current Score ");
+                CenterText(CommasInNumber(game.Score) + "  ");
+                CenterText("  Lines Cleared: " + game.Lines + "  ");
+                CenterText("  Current Level: " + game.Level + "  ");
+                string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBackend.MOVING_CHAR).Split("\n");
+                CenterText("Next piece ");
+                for (int i = 0; i < pieceView.Length - 1; i++)
+                {
+                    CenterText(pieceView[i] + " ");
+                }
+                DrawBoard();
                 
-                Console.WriteLine("Current Score: " + game.Score + "  ");
-                Console.WriteLine("Lines Cleared: " + game.Lines + "  ");
-                Console.WriteLine("Current Level: " + game.Level + "  ");
-                Console.Write(game.ToString());
-                StableFrames.Stabilize(17, timer);
+                //StableFrames.Stabilize(17, timer);
             }
+            Console.WriteLine("Oh no, you topped out... please press enter");
+        }
+        private void CenterText(string text)
+        {
+            int width = Console.WindowWidth;
+            for (int space = 0; space < (width / 2) - (text.Length / 2); space++)
+                Console.Write(" ");
+            Console.WriteLine(text);
+        }
+
+        private void DrawBoard()
+        {
+
+            string[] boardView = game.ToString().Replace(TetfuzaBackend.LOCKDOWN_CHAR, TetfuzaBackend.MOVING_CHAR).Split("\n");
+            CenterText("----------------------- ");
+            for (int i = 0; i < boardView.Length - 1; i++)
+            {
+                CenterText("| " + boardView[i] + "| ");
+            }
+            CenterText("----------------------- ");
+        }
+        /// <summary>
+        /// Converts a large number to a string with normal comma separation
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        private string CommasInNumber(long num)
+        {
+            string number = num.ToString();
+            int numCommas = (number.Length - 1) / 3;
+            string formattedNum = "";
+            if (numCommas == 0)
+            {
+                return number;
+            }
+            else
+            {
+                formattedNum += number.Substring(0, number.Length % 3);
+            }
+            for (int i = 0; i < numCommas; i++)
+            {
+                formattedNum += "," + number.Substring(((number.Length % 3)+i*3), 3);
+            }
+            return formattedNum;
         }
     }
+
 }
