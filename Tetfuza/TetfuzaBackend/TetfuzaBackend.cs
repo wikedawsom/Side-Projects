@@ -12,14 +12,16 @@ namespace Tetfuza
         public const int BOARD_WIDTH = 10;
         public const char LOCKDOWN_CHAR = '0';
         public const char MOVING_CHAR = '@';
-        public const char EMPTY_CHAR = '-';
+        public const char EMPTY_CHAR = ' ';
         private Random _rand = new Random();
         private Coordinate _pieceCenter;
         private Stopwatch _timer = new Stopwatch();
         private int _userInputDirection = 0;
         private int _userInputRotation = 0;
-        private FuzaPiece _nextPiece;
-        private int _frameCount = 0;
+        private bool _userInputDown = false;
+        private int _frameCount = 0; 
+        public FuzaPiece CurrentPiece { get; private set; }
+        public FuzaPiece AfterPiece { get; private set; }
         public List<List<char>> Board { get; private set; }
         public long Score { get; private set; }
         public int Lines { get; private set; }
@@ -48,6 +50,10 @@ namespace Tetfuza
         {
             Board = BoardInit();
         }
+        /// <summary>
+        /// Create a new board with {BOARD_HEIGHT} rows, and {BOARD_WIDTH} columns, all filled with ' ' chars
+        /// </summary>
+        /// <returns></returns>
         private List<List<char>> BoardInit()
         {
             var startingBoard = new List<List<char>>();
@@ -55,24 +61,24 @@ namespace Tetfuza
             {
                 startingBoard.Add(EmptyLine);
             }
-            for (int i = 18; i < BOARD_HEIGHT; i ++)
-            {
-                for (int j = 0; j < BOARD_WIDTH; j++)
-                {
-                    startingBoard[i][j] = LOCKDOWN_CHAR;
-                }
-            }
+            //for (int i = 18; i < BOARD_HEIGHT; i ++)
+            //{
+            //    for (int j = 0; j < BOARD_WIDTH; j++)
+            //    {
+            //        startingBoard[i][j] = LOCKDOWN_CHAR;
+            //    }
+            //}
             return startingBoard;
         }
 
         public override string ToString()
         {
             string boardString = "";
-            for (int row = 2; row < BOARD_HEIGHT; row++)
+            for (int row = 2; row < Board.Count; row++)
             {
                 for (int col = 0; col < BOARD_WIDTH; col++)
                 {
-                    boardString += Board[row][col] + "  ";
+                    boardString += Board[row][col] + " ";
                 }
                 boardString += "\n";
             }
@@ -81,17 +87,20 @@ namespace Tetfuza
         }
 
         /// <summary>
-        /// Main Loop
+        /// Main Loop. Contains timing and order of events.
         /// </summary>
         /// <returns></returns>
         public long Run()
         {
             bool gameOver = false;
             _timer.Start();
+            int pieceNum = _rand.Next(0, 7);
+            AfterPiece = new FuzaPiece((FuzaType)pieceNum);
             while (!gameOver)
             {
-                int pieceNum = _rand.Next(0, 7);
-                _nextPiece = new FuzaPiece((FuzaType)pieceNum);
+                CurrentPiece = AfterPiece;
+                pieceNum = _rand.Next(0, 7);
+                AfterPiece = new FuzaPiece((FuzaType)pieceNum);
                 _pieceCenter = new Coordinate(5, 2);
                 gameOver = CheckTopOut();
 
@@ -101,7 +110,14 @@ namespace Tetfuza
                     MovePieceLeftRight();
                     RotatePiece();
                     DrawPiece();
-                    if (_frameCount % 10 == 0)
+                    bool autoDown = _frameCount % 10 == 0;
+                    if (_userInputDown)
+                    {
+                        autoDown = true;
+                        _userInputDown = false;
+                        Score += 1;
+                    }
+                    if (autoDown)
                         isLockDown = !DropPiece();
                     StableFrames.Stabilize(17, _timer);
                     _frameCount++;
@@ -137,7 +153,7 @@ namespace Tetfuza
             {
                 for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
-                    char fuza = _nextPiece.Piece[row][col];
+                    char fuza = CurrentPiece.Piece[row][col];
                     int colCoord = _pieceCenter.xPos - (FuzaPiece.PIECE_SIZE / 2) + col;
                     int rowCoord = _pieceCenter.yPos - (FuzaPiece.PIECE_SIZE / 2) + row;
                     if (colCoord >= 0 && colCoord < BOARD_WIDTH
@@ -158,7 +174,7 @@ namespace Tetfuza
 
         private void MovePieceLeftRight()
         {
-            if (CheckMove(new Coordinate(_pieceCenter.xPos + _userInputDirection,_pieceCenter.yPos), _nextPiece))
+            if (CheckMove(new Coordinate(_pieceCenter.xPos + _userInputDirection,_pieceCenter.yPos), CurrentPiece))
                 _pieceCenter.xPos = _pieceCenter.xPos + _userInputDirection;
             
             _userInputDirection = 0;
@@ -170,15 +186,15 @@ namespace Tetfuza
             
             if (_userInputRotation == -1)
             {
-                newPosition = _nextPiece.RotateLeft();
+                newPosition = CurrentPiece.RotateLeft();
                 if (CheckMove(_pieceCenter, newPosition))
-                    _nextPiece = newPosition;
+                    CurrentPiece = newPosition;
             }
             else if (_userInputRotation == 1)
             {
-                newPosition = _nextPiece.RotateRight();
+                newPosition = CurrentPiece.RotateRight();
                 if (CheckMove(_pieceCenter, newPosition))
-                    _nextPiece = newPosition;
+                    CurrentPiece = newPosition;
             }
             _userInputRotation = 0;
         }
@@ -232,7 +248,7 @@ namespace Tetfuza
 
         private bool DropPiece()
         {
-            bool isValid = CheckMove(new Coordinate(_pieceCenter.xPos, _pieceCenter.yPos + 1), _nextPiece);
+            bool isValid = CheckMove(new Coordinate(_pieceCenter.xPos, _pieceCenter.yPos + 1), CurrentPiece);
             if (isValid)
                 _pieceCenter.yPos = _pieceCenter.yPos + 1;
             DrawPiece();
@@ -244,14 +260,15 @@ namespace Tetfuza
         /// </summary>
         /// <param name="direction">(-1, 0, or 1 for left, none, and right movement)</param>
         /// <param name="rotation">(-1, 0, or 1 for counterclockwise, none, and clockwise rotation)</param>
-        public void SendInput(int direction, int rotation)
+        public void SendInput(int direction, int rotation, bool down)
         {
             _userInputDirection = 0;
             _userInputRotation = 0;
-            
+            _userInputDown = false;
+
             _userInputDirection = direction;
-            
             _userInputRotation = rotation;
+            _userInputDown = down;
         }
     }
 }

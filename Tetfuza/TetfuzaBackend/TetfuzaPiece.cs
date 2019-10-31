@@ -167,6 +167,20 @@ namespace Tetfuza
             }
             return new FuzaPiece(newPos, this);
         }
-		
-	}
+
+        public override string ToString()
+        {
+            string output = "";
+            for (int row = PIECE_SIZE / 2 - 1; row < PIECE_SIZE / 2 + 2; row++) 
+            {
+                for (int col = PIECE_SIZE / 2 - 2; col < PIECE_SIZE/2 + 2; col++)
+                {
+                    output += Piece[row][col] + " ";
+                }
+                output += "\n";
+            }
+            return output;
+        }
+
+    }
 }
