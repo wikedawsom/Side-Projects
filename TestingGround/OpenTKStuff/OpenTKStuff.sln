@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTKStuff", "OpenTKStuff.csproj", "{3A8189C3-D78A-45BD-85C0-6187885307DD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{19798E1B-CAFD-41C9-8132-A2A15968F01E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A8189C3-D78A-45BD-85C0-6187885307DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A8189C3-D78A-45BD-85C0-6187885307DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A8189C3-D78A-45BD-85C0-6187885307DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A8189C3-D78A-45BD-85C0-6187885307DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19798E1B-CAFD-41C9-8132-A2A15968F01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19798E1B-CAFD-41C9-8132-A2A15968F01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19798E1B-CAFD-41C9-8132-A2A15968F01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19798E1B-CAFD-41C9-8132-A2A15968F01E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A39D9D53-0BE1-4228-9E93-D4D4289525FD}
+	EndGlobalSection
+EndGlobal

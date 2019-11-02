@@ -10,7 +10,16 @@ namespace TestWebApp.Controllers
     {
         public IActionResult HomePage()
         {
-            return View();
+            object dataModel = new List<int>
+            {
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+            };
+            return View(dataModel);
         }
     }
 }

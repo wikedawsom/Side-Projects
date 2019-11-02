@@ -1,7 +1,17 @@
-﻿
+﻿@using Maybe.Models;
+@model List<int>
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Welcome To My Domain";
+    //Layout = "";
 }
 
-<h1>It works.</h1>
+<h1>It woks.</h1>
+
+<ul>
+    @foreach(var num in Model)
+    {
+        <li>@num</li>
+    }
+
+</ul>
 
