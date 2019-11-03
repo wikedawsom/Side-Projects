@@ -18,10 +18,11 @@ namespace Tetfuza
         private Random _rand = new Random();
         private Coordinate _pieceCenter;
         private Stopwatch _timer = new Stopwatch();
-        private int _userInputDirection = 0;
-        private int _userInputRotation = 0;
-        private bool _userInputDown = false;
-        private int _frameCount = 0; 
+        private int _frameCount = 0;
+
+        public int UserInputDirection { get; private set; } = 0;
+        public int UserInputRotation { get; private set; } = 0;
+        public bool UserInputDown { get; private set; } = false;
         public FuzaPiece CurrentPiece { get; private set; }
         public FuzaPiece AfterPiece { get; private set; }
         public List<List<char>> Board { get; private set; }
@@ -174,10 +175,10 @@ namespace Tetfuza
 
                     // Move piece down at constant rate, or instant if user inputs down
                     bool autoDown = _frameCount % DropSpeed == 0;
-                    if (_userInputDown)
+                    if (UserInputDown)
                     {
                         autoDown = true;
-                        _userInputDown = false;
+                        UserInputDown = false;
                         Score += 1;
                     }
                     if (autoDown)
@@ -248,10 +249,10 @@ namespace Tetfuza
         /// </summary>
         private void MovePieceLeftRight()
         {
-            if (CheckMove(new Coordinate(_pieceCenter.xPos + _userInputDirection,_pieceCenter.yPos), CurrentPiece))
-                _pieceCenter.xPos = _pieceCenter.xPos + _userInputDirection;
+            if (CheckMove(new Coordinate(_pieceCenter.xPos + UserInputDirection,_pieceCenter.yPos), CurrentPiece))
+                _pieceCenter.xPos = _pieceCenter.xPos + UserInputDirection;
             
-            _userInputDirection = 0;
+            UserInputDirection = 0;
         }
         /// <summary>
         /// Checks the value of member variable "_userInputRotation", and rotates piece clockwise for 1, or counterclockwise for -1, 
@@ -261,19 +262,19 @@ namespace Tetfuza
         {
             FuzaPiece newPosition;
             
-            if (_userInputRotation == -1)
+            if (UserInputRotation == -1)
             {
                 newPosition = CurrentPiece.RotateLeft();
                 if (CheckMove(_pieceCenter, newPosition))
                     CurrentPiece = newPosition;
             }
-            else if (_userInputRotation == 1)
+            else if (UserInputRotation == 1)
             {
                 newPosition = CurrentPiece.RotateRight();
                 if (CheckMove(_pieceCenter, newPosition))
                     CurrentPiece = newPosition;
             }
-            _userInputRotation = 0;
+            UserInputRotation = 0;
         }
         /// <summary>
         /// Determines when the pieces have stacked to the top of the screen
@@ -382,13 +383,11 @@ namespace Tetfuza
         /// <param name="down">True will move the piece down one space on next frame, False will wait for auto-drop</param>
         public void SendInput(int direction, int rotation, bool down)
         {
-            _userInputDirection = 0;
-            _userInputRotation = 0;
-            _userInputDown = false;
-
-            _userInputDirection = direction;
-            _userInputRotation = rotation;
-            _userInputDown = down;
+            if (direction >= -1 && direction <= 1)
+                UserInputDirection = direction;
+            if (rotation >= -1 && rotation <= 1)
+                UserInputRotation = rotation;
+            UserInputDown = down;
         }
     }
 }

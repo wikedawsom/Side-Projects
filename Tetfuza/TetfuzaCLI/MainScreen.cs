@@ -68,8 +68,7 @@ namespace TetfuzaCLI
             bool validInput = false;
             CenterText("Press enter to clear the console");
             _cheatCode = Console.ReadLine().ToLower();
-            var console = new ClearConsole();
-            console.Clear();
+            Console.Clear();
             while (!validInput)
             {
                 CenterText("Which level do you want to start on? (0 - 19): ");
@@ -194,7 +193,7 @@ namespace TetfuzaCLI
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        private string CommasInNumber(long num)
+        public string CommasInNumber(long num)
         {
             string number = num.ToString();
             int numCommas = (number.Length - 1) / 3;
