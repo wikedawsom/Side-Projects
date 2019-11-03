@@ -13,6 +13,7 @@ namespace Tetfuza
         public const char LOCKDOWN_CHAR = '0';
         public const char MOVING_CHAR = '@';
         public const char EMPTY_CHAR = ' ';
+        public const char TOPOUT_CHAR = '%';
         public const int MS_PER_FRAME = 17;
         private Random _rand = new Random();
         private Coordinate _pieceCenter;
@@ -25,24 +26,55 @@ namespace Tetfuza
         public FuzaPiece AfterPiece { get; private set; }
         public List<List<char>> Board { get; private set; }
         public long Score { get; private set; } = 0;
-        public int Lines { get; private set; }
+        public int Lines { get; private set; } = 0;
+        public int StartLevel { get; private set; } = 0;
         public int Level
         {
             get
             {
-                return Lines / 10;
+                return StartLevel > (Lines / 10) ? StartLevel : (Lines / 10);
+            }
+        }
+        /// <summary>
+        /// Determines drop speed based on current level
+        /// </summary>
+        private int DropSpeed
+        {
+            get
+            {
+                int dropFrameDelay = Level * -5 + 48;
+                if (Level >= 29)
+                {
+                    dropFrameDelay = 1;
+                }
+                else if (Level >= 19)
+                {
+                    dropFrameDelay = 2;
+                }
+                else if (Level >= 16)
+                {
+                    dropFrameDelay = 3;
+                }
+                else if (Level >= 13)
+                {
+                    dropFrameDelay = 4;
+                }
+                else if (Level >= 10)
+                {
+                    dropFrameDelay = 5;
+                }
+                else if (Level == 9)
+                {
+                    dropFrameDelay = 6;
+                }
+                return dropFrameDelay;
             }
         }
         private List<char> EmptyLine
         {
             get
             {
-                var line = new List<char>();
-                for (int i = 0; i < BOARD_WIDTH; i++)
-                {
-                    line.Add(EMPTY_CHAR);
-                }
-                return line;
+                return BoardLine(EMPTY_CHAR);
             }
         }
         
@@ -52,6 +84,15 @@ namespace Tetfuza
         public TetfuzaBackend()
         {
             Board = BoardInit();
+        }
+        /// <summary>
+        /// Starts the game on a specified level (which determines automatic drop speed and point multiplier)
+        /// </summary>
+        /// <param name="startLevel"></param>
+        public TetfuzaBackend(int startLevel)
+        {
+            Board = BoardInit();
+            StartLevel = startLevel;
         }
         /// <summary>
         /// Create a new board with {BOARD_HEIGHT} rows, and {BOARD_WIDTH} columns, all filled with ' ' chars
@@ -72,6 +113,16 @@ namespace Tetfuza
             //    }
             //}
             return startingBoard;
+        }
+
+        private List<char> BoardLine(char fillerChar)
+        {
+            var line = new List<char>();
+            for (int i = 0; i < BOARD_WIDTH; i++)
+            {
+                line.Add(fillerChar);
+            }
+            return line;
         }
 
         public override string ToString()
@@ -122,7 +173,7 @@ namespace Tetfuza
                     DrawPiece();
 
                     // Move piece down at constant rate, or instant if user inputs down
-                    bool autoDown = _frameCount % 10 == 0;
+                    bool autoDown = _frameCount % DropSpeed == 0;
                     if (_userInputDown)
                     {
                         autoDown = true;
@@ -158,7 +209,8 @@ namespace Tetfuza
                 }
                 Score += scoreMultiplier * (Level + 1);
             }
-
+            // Plays the game over animation
+            TopOutAnimation();
             return Score;
         }
         /// <summary>
@@ -232,6 +284,32 @@ namespace Tetfuza
             return Board[2][6] != EMPTY_CHAR;
         }
         /// <summary>
+        /// Draws the TOPOUTCHAR over the board one line at a time, starting at the top
+        /// </summary>
+        private void TopOutAnimation()
+        {
+            for (int i = 0; i < BOARD_HEIGHT; i++)
+            {
+                StableFrames.Stabilize(MS_PER_FRAME * 5, _timer);
+                //Board.RemoveAt(BOARD_HEIGHT - 1);
+                //Board.Insert(0, BoardLine(TOPOUT_CHAR));
+                Board[i] = BoardLine(TOPOUT_CHAR);
+            }
+
+            var gameO1 = new List<char>();
+            gameO1.AddRange(BoardLine(TOPOUT_CHAR));
+            gameO1.InsertRange(3, "GAME");
+            Board[BOARD_HEIGHT / 2] = gameO1;
+
+            var gameO2 = new List<char>();
+            gameO2.AddRange(BoardLine(TOPOUT_CHAR));
+            gameO2.InsertRange(3, "OVER");
+            Board[BOARD_HEIGHT / 2 + 1] = gameO2;
+
+            StableFrames.Stabilize(MS_PER_FRAME*4, _timer);
+        }
+
+        /// <summary>
         /// Returns true if gives piece placement is valid
         /// </summary>
         /// <param name="center">Board coordinates of piece center</param>
@@ -273,8 +351,7 @@ namespace Tetfuza
                 if (!(Board[i].Contains(EMPTY_CHAR) || Board[i].Contains(MOVING_CHAR)))
                 {
                     linesCleared++;
-                    for (int col = 0; col < Board[i].Count; col++)
-                        Board[i][col] = '-';
+                    Board[i] = BoardLine('-');
                     clearedIndex.Add(i);
                 }
             }
@@ -282,10 +359,7 @@ namespace Tetfuza
             for (int index = 0; index < linesCleared; index++)
             {
                 Board.RemoveAt(clearedIndex[index]);
-                var tempBoard = new List<List<char>>();
-                tempBoard.Add(EmptyLine);
-                tempBoard.AddRange(Board);
-                Board = tempBoard;
+                Board.Insert(0, EmptyLine);
             }
             return linesCleared;
         }

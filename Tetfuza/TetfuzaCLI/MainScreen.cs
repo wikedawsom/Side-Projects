@@ -12,7 +12,15 @@ namespace TetfuzaCLI
     {
         private TetfuzaBackend game;
         private long _score;
-        private Stopwatch timer = new Stopwatch();
+        private Stopwatch _timer = new Stopwatch();
+        private string _cheatCode;
+        private bool ValidCode
+        {
+            get
+            {
+                return _cheatCode == "up" || _cheatCode == "revenge";
+            }
+        }
         /// <summary>
         /// Main CLI Loop
         /// </summary>
@@ -22,10 +30,13 @@ namespace TetfuzaCLI
             while (!exit)
             {
                 _score = -1;
+                int startLevel = MainMenu();
                 Console.SetWindowSize(60, 40);
+
+
                 Console.CursorVisible = false;
-                game = new TetfuzaBackend();
-                timer.Start();
+                game = new TetfuzaBackend(startLevel);
+                _timer.Start();
                 Thread userInputThread = new Thread(new ThreadStart(this.InputListener));
                 userInputThread.Start();
                 Thread displayThread = new Thread(new ThreadStart(this.DisplayScreen));
@@ -36,9 +47,8 @@ namespace TetfuzaCLI
                 Console.ReadLine();
                 Console.Clear();
                 DrawBoard();
-                Console.WriteLine("Your final score is: "+ CommasInNumber(_score));
-                Console.WriteLine("Play again? (y/n): ");
-                string p1Continue = Console.ReadLine().ToLower();
+                CenterText("Your final score is: "+ CommasInNumber(_score));
+                string p1Continue = "y";//Console.ReadLine().ToLower();
                 if (p1Continue != null && p1Continue != "" && p1Continue[0] == 'n')
                 {
                     exit = true;
@@ -49,6 +59,25 @@ namespace TetfuzaCLI
                 }
             }
         }
+
+        private int MainMenu()
+        {
+            int startLevel = -1;
+            bool validInput = false;
+            CenterText("Press enter to clear the console");
+            _cheatCode = Console.ReadLine().ToLower();
+            var console = new ClearConsole();
+            console.Clear();
+            while (!validInput)
+            {
+                CenterText("Which level do you want to start on? (0 - 19): ");
+                string input = Console.ReadLine();
+                validInput = (int.TryParse(input, out startLevel) && startLevel >= 0 && startLevel <= 19);
+            }
+
+            return startLevel;
+        }
+
         /// <summary>
         /// Really crappy input listener that only detects one key at a time. 
         /// </summary>
@@ -56,25 +85,25 @@ namespace TetfuzaCLI
         {
             while(_score == -1)
             {
-                int rot = 0;
-                int dir = 0;
+                int rotation = 0;
+                int direction = 0;
                 bool down = false;
                 ConsoleKey key = Console.ReadKey().Key;
                 if(key == ConsoleKey.LeftArrow)
                 {
-                    dir = -1;
+                    direction = -1;
                 }
                 else if(key == ConsoleKey.RightArrow)
                 {
-                    dir = 1;
+                    direction = 1;
                 }
                 else if(key == ConsoleKey.Z)
                 {
-                    rot = -1;
+                    rotation = -1;
                 }
                 else if (key == ConsoleKey.X)
                 {
-                    rot = 1;
+                    rotation = 1;
                 }
                 else if (key == ConsoleKey.DownArrow)
                 {
@@ -85,7 +114,7 @@ namespace TetfuzaCLI
                     Console.Clear();
                 }
 
-                game.SendInput(dir, rot, down);
+                game.SendInput(direction, rotation, down);
             }
         }
         /// <summary>
@@ -98,16 +127,18 @@ namespace TetfuzaCLI
             {
                 Console.SetCursorPosition(0, 0);
                 Console.CursorVisible = false;
-                CenterText("Current Score ");
-                CenterText(CommasInNumber(game.Score) + "  ");
-                CenterText("  Lines Cleared: " + game.Lines + "  ");
-                CenterText("  Current Level: " + game.Level + "  ");
-                string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBackend.MOVING_CHAR).Split("\n");
-                CenterText("Next piece ");
-                for (int i = 0; i < pieceView.Length - 1; i++)
+                if (ValidCode)
                 {
-                    CenterText(pieceView[i] + " ");
+                    CenterText("Cheat Code: " + _cheatCode);
                 }
+                CenterText("Current Score ");
+                CenterText(CommasInNumber(game.Score));
+                CenterText("Lines Cleared: " + game.Lines);
+                CenterText("Current Level: " + game.Level);
+
+                // Convert the piece to an array of strings where the characters
+                // match those on the board
+                DrawNextPiece();
                 DrawBoard();
                 
                 //StableFrames.Stabilize(17, timer);
@@ -117,21 +148,44 @@ namespace TetfuzaCLI
         private void CenterText(string text)
         {
             int width = Console.WindowWidth;
-            for (int space = 0; space < (width / 2) - (text.Length / 2); space++)
+            int textBeginIndex = (width / 2) - (text.Length / 2);
+            for (int space = 0; space < textBeginIndex; space++)
+            {
                 Console.Write(" ");
+                text += " ";
+            }
             Console.WriteLine(text);
         }
-
+        /// <summary>
+        /// Displays the upcoming piece
+        /// </summary>
+        private void DrawNextPiece()
+        {
+            string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBackend.MOVING_CHAR).Split("\n");
+            CenterText("Next Piece:");
+            for (int i = 0; i < pieceView.Length - 1; i++)
+            {
+                int location = i;
+                if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces appear upsidedown
+                    location = pieceView.Length - 2 - i;
+                CenterText(pieceView[location]);
+            }
+        }
         private void DrawBoard()
         {
-
+            // Convert game board to an array of strings 
+            // and convert all block characters to appear the same
             string[] boardView = game.ToString().Replace(TetfuzaBackend.LOCKDOWN_CHAR, TetfuzaBackend.MOVING_CHAR).Split("\n");
-            CenterText("----------------------- ");
+            CenterText("-----------------------");
+            // Loop through array and have each line centered on the screen
             for (int i = 0; i < boardView.Length - 1; i++)
             {
-                CenterText("| " + boardView[i] + "| ");
+                int location = i;
+                if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces fall up
+                    location = boardView.Length - 2 - i;
+                CenterText("| " + boardView[location] + "|");
             }
-            CenterText("----------------------- ");
+            CenterText("-----------------------");
         }
         /// <summary>
         /// Converts a large number to a string with normal comma separation
@@ -145,7 +199,7 @@ namespace TetfuzaCLI
             string formattedNum = "";
             if (numCommas == 0)
             {
-                return number;
+                formattedNum = number;
             }
             else
             {
@@ -155,6 +209,8 @@ namespace TetfuzaCLI
             {
                 formattedNum += "," + number.Substring(((number.Length % 3)+i*3), 3);
             }
+            if (_cheatCode == "revenge")
+                formattedNum = "UNLLLLLIMITED POWEEERRRRRR!!!!";
             return formattedNum;
         }
     }

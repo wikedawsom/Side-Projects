@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TetfuzaCLI", "TetfuzaCLI.csproj", "{D25BC6FE-11DB-44B8-9BE9-DAEB2B90C67C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetfuza", "..\TetfuzaBackend\Tetfuza.csproj", "{FE044751-8B6B-4348-8522-100AA5577D8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FramerateStabilizer", "..\..\TestingGround\FramerateStabilizer\FramerateStabilizer.csproj", "{0AB36039-6909-48E6-93EB-47176EFE9B66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D25BC6FE-11DB-44B8-9BE9-DAEB2B90C67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D25BC6FE-11DB-44B8-9BE9-DAEB2B90C67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D25BC6FE-11DB-44B8-9BE9-DAEB2B90C67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D25BC6FE-11DB-44B8-9BE9-DAEB2B90C67C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE044751-8B6B-4348-8522-100AA5577D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE044751-8B6B-4348-8522-100AA5577D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE044751-8B6B-4348-8522-100AA5577D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE044751-8B6B-4348-8522-100AA5577D8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB36039-6909-48E6-93EB-47176EFE9B66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB36039-6909-48E6-93EB-47176EFE9B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB36039-6909-48E6-93EB-47176EFE9B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB36039-6909-48E6-93EB-47176EFE9B66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10896B05-54F4-4E2A-9687-E63DB9211A36}
+	EndGlobalSection
+EndGlobal
