@@ -1,19 +1,25 @@
 # Side-Projects
 Just random things I decided to write during my free time
 
-## Battleship:
+## Tetfuza (C#)
+-A CLI animated tetris clone
+-Points and difficulty scale with level
+-Z and X to rotate, <- and -> arrow keys to move
+
+## Battleship (C#)
 -Originally written in CPP (original code lost). Rewritten in C#
 -The classic board game "Battleship" written as a console app
+-Needs a rework, as writing this was my introduction to C#
 
-## NumberGuesserConsoleGame
--Basic game where one player chooses a number and the other tries to guess
+## NumberGuesserConsoleGame (C#)
+-CLI game where one player chooses a number and the other tries to guess
 -Allows for computer and user to play either role (chooser or guesser)
 
-## TextFileEncoder
+## TextFileEncoder (C#)
 -Some thought I had about shifting the values of each byte in a text file to obscure the original contents
 -User specifies offset and new file is written with each byte shifted by that offset
 
-## TestingGround
+## TestingGround (C#)
 -Various little custom functions that may be useful at some point
 - ### Framerate Stabilizer
   - Can be used within a main loop to force a specific run speed for a program
