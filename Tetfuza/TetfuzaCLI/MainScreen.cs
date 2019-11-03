@@ -30,9 +30,8 @@ namespace TetfuzaCLI
             while (!exit)
             {
                 _score = -1;
-                int startLevel = MainMenu();
                 Console.SetWindowSize(60, 40);
-
+                int startLevel = MainMenu();
 
                 Console.CursorVisible = false;
                 game = new TetfuzaBackend(startLevel);
@@ -59,7 +58,10 @@ namespace TetfuzaCLI
                 }
             }
         }
-
+        /// <summary>
+        /// Allow user to choose to start on any level between 0 and 19
+        /// </summary>
+        /// <returns></returns>
         private int MainMenu()
         {
             int startLevel = -1;
@@ -209,7 +211,7 @@ namespace TetfuzaCLI
             {
                 formattedNum += "," + number.Substring(((number.Length % 3)+i*3), 3);
             }
-            if (_cheatCode == "revenge")
+            if (_cheatCode == "revenge") // NO, NO, NO! YOU WILL DIE!!!
                 formattedNum = "UNLLLLLIMITED POWEEERRRRRR!!!!";
             return formattedNum;
         }

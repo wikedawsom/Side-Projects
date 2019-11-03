@@ -30,3 +30,4 @@ C:\Users\Student\Desktop\Side-Projects\Tetfuza\TetfuzaCLI\obj\Debug\netcoreapp3.
 C:\Users\Student\Desktop\Side-Projects\Tetfuza\TetfuzaCLI\obj\Debug\netcoreapp3.0\TetfuzaCLI.csproj.CopyComplete
 C:\Users\Student\Desktop\Side-Projects\Tetfuza\TetfuzaCLI\obj\Debug\netcoreapp3.0\TetfuzaCLI.dll
 C:\Users\Student\Desktop\Side-Projects\Tetfuza\TetfuzaCLI\obj\Debug\netcoreapp3.0\TetfuzaCLI.pdb
+H:\Programming Stuff\Side-Projects\Tetfuza\TetfuzaCLI\bin\Debug\netcoreapp3.0\README.md
