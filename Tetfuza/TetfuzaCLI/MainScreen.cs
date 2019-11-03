@@ -187,6 +187,9 @@ namespace TetfuzaCLI
                 CenterText("| " + boardView[location] + "|");
             }
             CenterText("-----------------------");
+            CenterText(" ");
+            CenterText("Z and X to rotate");
+            CenterText("Arrow keys to move (left, right, down)");
         }
         /// <summary>
         /// Converts a large number to a string with normal comma separation
