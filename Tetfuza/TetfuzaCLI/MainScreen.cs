@@ -18,7 +18,7 @@ namespace TetfuzaCLI
         {
             get
             {
-                return _cheatCode == "up" || _cheatCode == "revenge";
+                return _cheatCode == "up" || _cheatCode == "revenge" || _cheatCode == "impossible";
             }
         }
         /// <summary>
@@ -75,7 +75,10 @@ namespace TetfuzaCLI
                 string input = Console.ReadLine();
                 validInput = (int.TryParse(input, out startLevel) && startLevel >= 0 && startLevel <= 19);
             }
-
+            if (_cheatCode == "impossible")
+            {
+                startLevel = 29;
+            }
             return startLevel;
         }
 
@@ -144,7 +147,7 @@ namespace TetfuzaCLI
                 
                 //StableFrames.Stabilize(17, timer);
             }
-            Console.WriteLine("Oh no, you topped out... please press enter");
+            CenterText("Oh no, you topped out... please press enter");
         }
         private void CenterText(string text)
         {

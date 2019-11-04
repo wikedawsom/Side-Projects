@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "H:\\Programming Stuff\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj": {}
+    "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj": {}
   },
   "projects": {
-    "H:\\Programming Stuff\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj": {
+    "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\Programming Stuff\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj",
+        "projectUniqueName": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj",
         "projectName": "FramerateStabilizer",
-        "projectPath": "H:\\Programming Stuff\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj",
-        "packagesPath": "C:\\Users\\Christian\\.nuget\\packages\\",
-        "outputPath": "H:\\Programming Stuff\\Side-Projects\\TestingGround\\FramerateStabilizer\\obj\\",
+        "projectPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\FramerateStabilizer.csproj",
+        "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Student\\Desktop\\Side-Projects\\TestingGround\\FramerateStabilizer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Christian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
