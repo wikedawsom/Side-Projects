@@ -8,9 +8,13 @@ namespace TestWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Test Homepage
+        /// </summary>
+        /// <returns></returns>
         public IActionResult HomePage()
         {
-            object dataModel = new List<int>
+            return View(new List<int>
             {
                 0,
                 1,
@@ -18,8 +22,24 @@ namespace TestWebApp.Controllers
                 3,
                 4,
                 5
-            };
-            return View(dataModel);
+            });
+        }
+        /// <summary>
+        /// Theoretical Privacy Policy Page
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        
+        /// <summary>
+        /// ASP.NET Default Homepage
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Index()
+        {
+            return View();
         }
     }
 }
