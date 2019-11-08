@@ -15,14 +15,15 @@ namespace Tetfuza
         public const char EMPTY_CHAR = ' ';
         public const char TOPOUT_CHAR = '%';
         public const int MS_PER_FRAME = 17;
+
         private Random _rand = new Random();
         private Coordinate _pieceCenter;
         private Stopwatch _timer = new Stopwatch();
-        private int _frameCount = 0;
+        private int _frameCount;
+        private int _userInputDirection;
+        private int _userInputRotation;
+        private bool _userInputDown;
 
-        public int UserInputDirection { get; private set; } = 0;
-        public int UserInputRotation { get; private set; } = 0;
-        public bool UserInputDown { get; private set; } = false;
         public FuzaPiece CurrentPiece { get; private set; }
         public FuzaPiece AfterPiece { get; private set; }
         public List<List<char>> Board { get; private set; }
@@ -106,13 +107,6 @@ namespace Tetfuza
             {
                 startingBoard.Add(EmptyLine);
             }
-            //for (int i = 18; i < BOARD_HEIGHT; i ++)
-            //{
-            //    for (int j = 0; j < BOARD_WIDTH; j++)
-            //    {
-            //        startingBoard[i][j] = LOCKDOWN_CHAR;
-            //    }
-            //}
             return startingBoard;
         }
 
@@ -135,7 +129,7 @@ namespace Tetfuza
                 {
                     boardString += Board[row][col] + " ";
                 }
-                boardString += "\n";
+                boardString += ")";
             }
             
             return boardString;
@@ -161,24 +155,21 @@ namespace Tetfuza
                 pieceNum = _rand.Next(0, 7);
                 AfterPiece = new FuzaPiece((FuzaType)pieceNum);
 
-                // Check if player has topped out (game over)
-                gameOver = CheckTopOut();
-
                 bool isLockDown = false;
                 while (!isLockDown)
                 {
-                    // Check Inputs
-                    MovePieceLeftRight();
-                    RotatePiece();
 
+                    // Move and/or Rotate piece as appropriate
+                    MovePieceLeftRight(_userInputDirection);
+                    RotatePiece(_userInputRotation);
                     DrawPiece();
 
                     // Move piece down at constant rate, or instant if user inputs down
                     bool autoDown = _frameCount % DropSpeed == 0;
-                    if (UserInputDown)
+                    if (_userInputDown)
                     {
                         autoDown = true;
-                        UserInputDown = false;
+                        _userInputDown = false;
                         Score += 1;
                     }
                     if (autoDown)
@@ -209,11 +200,15 @@ namespace Tetfuza
                         break;
                 }
                 Score += scoreMultiplier * (Level + 1);
+
+                // Check if player has topped out (game over)
+                gameOver = CheckTopOut();
             }
             // Plays the game over animation
             TopOutAnimation();
             return Score;
         }
+
         /// <summary>
         /// Takes data from CurrentPiece.Piece (a 2-D List that represents piece orientation), 
         /// and copies it to the Board, centered around member variable "_pieceCenter"
@@ -243,39 +238,39 @@ namespace Tetfuza
                 }
             }
         }
+
         /// <summary>
-        /// Checks the value of member variable "_userInputDirection", and slides piece right for 1, or left for -1, 
-        /// then resets the default value of "_userInputDirection"
+        /// Checks the value of parameter "direction", and slides piece right for 1, or left for -1, 
         /// </summary>
-        private void MovePieceLeftRight()
+        private void MovePieceLeftRight(int direction)
         {
-            if (CheckMove(new Coordinate(_pieceCenter.xPos + UserInputDirection,_pieceCenter.yPos), CurrentPiece))
-                _pieceCenter.xPos = _pieceCenter.xPos + UserInputDirection;
-            
-            UserInputDirection = 0;
+            if (CheckMove(new Coordinate(_pieceCenter.xPos + direction,_pieceCenter.yPos), CurrentPiece))
+                _pieceCenter.xPos = _pieceCenter.xPos + direction;
+            _userInputDirection = 0;
         }
+
         /// <summary>
-        /// Checks the value of member variable "_userInputRotation", and rotates piece clockwise for 1, or counterclockwise for -1, 
-        /// then resets the default value of "_userInputRotation"
+        /// Checks the value of parameter "rotation", and rotates piece clockwise for 1, or counterclockwise for -1, 
         /// </summary>
-        private void RotatePiece()
+        private void RotatePiece(int rotation)
         {
             FuzaPiece newPosition;
             
-            if (UserInputRotation == -1)
+            if (-1 == rotation)
             {
                 newPosition = CurrentPiece.RotateLeft();
                 if (CheckMove(_pieceCenter, newPosition))
                     CurrentPiece = newPosition;
             }
-            else if (UserInputRotation == 1)
+            else if (1 == rotation)
             {
                 newPosition = CurrentPiece.RotateRight();
                 if (CheckMove(_pieceCenter, newPosition))
                     CurrentPiece = newPosition;
             }
-            UserInputRotation = 0;
+            _userInputRotation = 0;
         }
+
         /// <summary>
         /// Determines when the pieces have stacked to the top of the screen
         /// </summary>
@@ -284,6 +279,7 @@ namespace Tetfuza
         {
             return Board[2][6] != EMPTY_CHAR;
         }
+
         /// <summary>
         /// Draws the TOPOUTCHAR over the board one line at a time, starting at the top
         /// </summary>
@@ -338,6 +334,7 @@ namespace Tetfuza
             }
             return isValid;
         }
+
         /// <summary>
         /// Checks, clears, and returns the count of how many lines are full of pieces. 
         /// This is called after each piece locks down at the end of its fall duration. 
@@ -365,7 +362,6 @@ namespace Tetfuza
             return linesCleared;
         }
 
-
         private bool DropPiece()
         {
             bool isValid = CheckMove(new Coordinate(_pieceCenter.xPos, _pieceCenter.yPos + 1), CurrentPiece);
@@ -384,10 +380,11 @@ namespace Tetfuza
         public void SendInput(int direction, int rotation, bool down)
         {
             if (direction >= -1 && direction <= 1)
-                UserInputDirection = direction;
+                _userInputDirection = direction;
             if (rotation >= -1 && rotation <= 1)
-                UserInputRotation = rotation;
-            UserInputDown = down;
+                _userInputRotation = rotation;
+            _userInputDown = down;
         }
+
     }
 }
