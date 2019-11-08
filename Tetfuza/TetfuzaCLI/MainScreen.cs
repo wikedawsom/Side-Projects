@@ -30,7 +30,7 @@ namespace TetfuzaCLI
             while (!exit)
             {
                 _score = -1;
-                Console.SetWindowSize(60, 40);
+//                Console.SetWindowSize(60, 40);
                 int startLevel = MainMenu();
 
                 Console.CursorVisible = false;
@@ -93,29 +93,29 @@ namespace TetfuzaCLI
                 int direction = 0;
                 bool down = false;
                 ConsoleKey key = Console.ReadKey().Key;
-                if(key == ConsoleKey.LeftArrow)
+
+                switch (key)
                 {
-                    direction = -1;
-                }
-                else if(key == ConsoleKey.RightArrow)
-                {
-                    direction = 1;
-                }
-                else if(key == ConsoleKey.Z)
-                {
-                    rotation = -1;
-                }
-                else if (key == ConsoleKey.X)
-                {
-                    rotation = 1;
-                }
-                else if (key == ConsoleKey.DownArrow)
-                {
-                    down = true;
-                }
-                else if (key == ConsoleKey.C)
-                {
-                    Console.Clear();
+                    case ConsoleKey.LeftArrow:
+                        direction = -1;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        direction = 1;
+                        break;
+                    case ConsoleKey.Z:
+                        rotation = -1;
+                        break;
+                    case ConsoleKey.X:
+                        rotation = 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        down = true;
+                        break;
+                    case ConsoleKey.C:
+                        Console.Clear();
+                        break;
+                    default:
+                        break;
                 }
 
                 game.SendInput(direction, rotation, down);
