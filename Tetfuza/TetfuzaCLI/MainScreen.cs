@@ -36,10 +36,6 @@ namespace TetfuzaCLI
                 Console.CursorVisible = false;
                 game = new TetfuzaBackend(startLevel);
 
-                // Threads to listen for input
-                Thread userInputThread = new Thread(new ThreadStart(this.InputListener));
-                userInputThread.Start();
-
                 // Thread to draw new screen
                 Thread displayThread = new Thread(new ThreadStart(this.DisplayScreen));
                 displayThread.Priority = ThreadPriority.Highest;
@@ -57,55 +53,6 @@ namespace TetfuzaCLI
                 exit = (key == ConsoleKey.N);
             }
         }
-
-        private void InputListener()
-        {
-            while (_score == -1)
-            {
-                // Get user key press
-                Tuple<int, int, bool> input = GetInput();
-                int direction = input.Item1;
-                int rotation = input.Item2;
-                bool inputDown = input.Item3;
-
-                game.SendInput(direction, rotation, inputDown);
-            }
-        }
-
-        private Tuple<int, int, bool> GetInput()
-        {
-            int rotation = 0;
-            int direction = 0;
-            bool down = false;
-            ConsoleKey key = Console.ReadKey().Key;
-
-            switch (key)
-            {
-                case ConsoleKey.LeftArrow:
-                    direction = -1;
-                    break;
-                case ConsoleKey.RightArrow:
-                    direction = 1;
-                    break;
-                case ConsoleKey.Z:
-                    rotation = -1;
-                    break;
-                case ConsoleKey.X:
-                    rotation = 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    down = true;
-                    break;
-                case ConsoleKey.C:
-                    Console.Clear();
-                    break;
-                default:
-                    break;
-            }
-
-            return Tuple.Create(direction, rotation, down);
-        }
-
 
         /// <summary>
         /// Allow user to choose to start on any level between 0 and 19

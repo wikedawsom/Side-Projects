@@ -158,22 +158,34 @@ namespace Tetfuza
                 bool isLockDown = false;
                 while (!isLockDown)
                 {
+                    if (Console.KeyAvailable == true)
+                    {
+                        // Get user key press
+                        Tuple<int, int, bool> input = GetInput();
+                        int direction = input.Item1;
+                        int rotation = input.Item2;
+                        bool inputDown = input.Item3;
 
-                    // Move and/or Rotate piece as appropriate
-                    MovePieceLeftRight(_userInputDirection);
-                    RotatePiece(_userInputRotation);
+                        // Move and/or Rotate piece as appropriate
+                        MovePieceLeftRight(direction);
+                        RotatePiece(rotation);
+
+                        // Move piece down at constant rate, or instant if user inputs down
+                        bool autoDown = _frameCount % DropSpeed == 0;
+                        if (inputDown)
+                        {
+                            autoDown = true;
+                            inputDown = false;
+                            Score += 1;
+                        }
+                        if (autoDown)
+                        {
+                            isLockDown = !DropPiece();
+                        }   
+                    }
+
                     DrawPiece();
 
-                    // Move piece down at constant rate, or instant if user inputs down
-                    bool autoDown = _frameCount % DropSpeed == 0;
-                    if (_userInputDown)
-                    {
-                        autoDown = true;
-                        _userInputDown = false;
-                        Score += 1;
-                    }
-                    if (autoDown)
-                        isLockDown = !DropPiece();
                     StableFrames.Stabilize(MS_PER_FRAME, _timer);
                     _frameCount++;
                 }
@@ -208,6 +220,47 @@ namespace Tetfuza
             TopOutAnimation();
             return Score;
         }
+
+
+        /// <summary>
+        /// returns the rotation, direction, and whether the user pressed the
+        /// down key, so we can adjust the pieces on the game board.
+        /// </summary>
+        /// <returns></returns>
+        private Tuple<int, int, bool> GetInput()
+        {
+            int rotation = 0;
+            int direction = 0;
+            bool down = false;
+            ConsoleKey key = Console.ReadKey().Key;
+
+            switch (key)
+            {
+                case ConsoleKey.LeftArrow:
+                    direction = -1;
+                    break;
+                case ConsoleKey.RightArrow:
+                    direction = 1;
+                    break;
+                case ConsoleKey.Z:
+                    rotation = -1;
+                    break;
+                case ConsoleKey.X:
+                    rotation = 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    down = true;
+                    break;
+                case ConsoleKey.C:
+                    Console.Clear();
+                    break;
+                default:
+                    break;
+            }
+
+            return Tuple.Create(direction, rotation, down);
+        }
+
 
         /// <summary>
         /// Takes data from CurrentPiece.Piece (a 2-D List that represents piece orientation), 
