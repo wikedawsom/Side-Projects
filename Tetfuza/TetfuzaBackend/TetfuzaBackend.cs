@@ -6,6 +6,24 @@ using System.Linq;
 
 namespace Tetfuza
 {
+    public class SystemConsole : IConsole
+    {
+        public ConsoleKey ReadKey()
+        {
+            return System.Console.ReadKey().Key;
+        }
+
+        public void Clear()
+        {
+            Console.Clear();
+        }
+
+        public bool KeyAvailable
+        {
+            get { return Console.KeyAvailable; }
+        }
+    }
+
     public class TetfuzaBackend
     {
         public const int BOARD_HEIGHT = 22;
@@ -20,8 +38,7 @@ namespace Tetfuza
         private Coordinate _pieceCenter;
         private Stopwatch _timer = new Stopwatch();
         private int _frameCount;
-        private int _userInputDirection;
-        private int _userInputRotation;
+        private InputChecker _keyboard;
         private bool _userInputDown;
 
         public FuzaPiece CurrentPiece { get; private set; }
@@ -72,6 +89,7 @@ namespace Tetfuza
                 return dropFrameDelay;
             }
         }
+
         private List<char> EmptyLine
         {
             get
@@ -86,6 +104,7 @@ namespace Tetfuza
         public TetfuzaBackend()
         {
             Board = BoardInit();
+            _keyboard = new InputChecker(new SystemConsole());
         }
         /// <summary>
         /// Starts the game on a specified level (which determines automatic drop speed and point multiplier)
@@ -95,6 +114,7 @@ namespace Tetfuza
         {
             Board = BoardInit();
             StartLevel = startLevel;
+            _keyboard = new InputChecker(new SystemConsole());
         }
         /// <summary>
         /// Create a new board with {BOARD_HEIGHT} rows, and {BOARD_WIDTH} columns, all filled with ' ' chars
@@ -156,22 +176,23 @@ namespace Tetfuza
                 AfterPiece = new FuzaPiece((FuzaType)pieceNum);
 
                 bool isLockDown = false;
+                bool inputDown = false;
                 while (!isLockDown)
                 {
-                    if (Console.KeyAvailable == true)
+                    // Get user key press
+                    int direction = 0;
+                    int rotation = 0;
+
+                    if (true == _keyboard.InputAvailable)
                     {
-                        // Get user key press
-                        Tuple<int, int, bool> input = GetInput();
-                        int direction = input.Item1;
-                        int rotation = input.Item2;
-                        bool inputDown = input.Item3;
+                        _keyboard.GetInput(ref direction, ref rotation, ref inputDown);
 
                         // Move and/or Rotate piece as appropriate
                         MovePieceLeftRight(direction);
                         RotatePiece(rotation);
 
                         // Move piece down at constant rate, or instant if user inputs down
-                        bool autoDown = _frameCount % DropSpeed == 0;
+                        bool autoDown = (_frameCount % DropSpeed) == 0;
                         if (inputDown)
                         {
                             autoDown = true;
@@ -222,45 +243,6 @@ namespace Tetfuza
         }
 
 
-        /// <summary>
-        /// returns the rotation, direction, and whether the user pressed the
-        /// down key, so we can adjust the pieces on the game board.
-        /// </summary>
-        /// <returns></returns>
-        private Tuple<int, int, bool> GetInput()
-        {
-            int rotation = 0;
-            int direction = 0;
-            bool down = false;
-            ConsoleKey key = Console.ReadKey().Key;
-
-            switch (key)
-            {
-                case ConsoleKey.LeftArrow:
-                    direction = -1;
-                    break;
-                case ConsoleKey.RightArrow:
-                    direction = 1;
-                    break;
-                case ConsoleKey.Z:
-                    rotation = -1;
-                    break;
-                case ConsoleKey.X:
-                    rotation = 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    down = true;
-                    break;
-                case ConsoleKey.C:
-                    Console.Clear();
-                    break;
-                default:
-                    break;
-            }
-
-            return Tuple.Create(direction, rotation, down);
-        }
-
 
         /// <summary>
         /// Takes data from CurrentPiece.Piece (a 2-D List that represents piece orientation), 
@@ -299,7 +281,6 @@ namespace Tetfuza
         {
             if (CheckMove(new Coordinate(_pieceCenter.xPos + direction,_pieceCenter.yPos), CurrentPiece))
                 _pieceCenter.xPos = _pieceCenter.xPos + direction;
-            _userInputDirection = 0;
         }
 
         /// <summary>
@@ -321,7 +302,6 @@ namespace Tetfuza
                 if (CheckMove(_pieceCenter, newPosition))
                     CurrentPiece = newPosition;
             }
-            _userInputRotation = 0;
         }
 
         /// <summary>
@@ -423,21 +403,5 @@ namespace Tetfuza
             DrawPiece();
             return isValid;
         }
-
-        /// <summary>
-        /// For front-ends to send rotation and direction inputs 
-        /// </summary>
-        /// <param name="direction">(-1, 0, or 1 for left, none, and right movement)</param>
-        /// <param name="rotation">(-1, 0, or 1 for counterclockwise, none, and clockwise rotation)</param>
-        /// <param name="down">True will move the piece down one space on next frame, False will wait for auto-drop</param>
-        public void SendInput(int direction, int rotation, bool down)
-        {
-            if (direction >= -1 && direction <= 1)
-                _userInputDirection = direction;
-            if (rotation >= -1 && rotation <= 1)
-                _userInputRotation = rotation;
-            _userInputDown = down;
-        }
-
     }
 }
