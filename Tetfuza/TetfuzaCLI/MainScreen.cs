@@ -30,34 +30,30 @@ namespace TetfuzaCLI
             while (!exit)
             {
                 _score = -1;
-                Console.SetWindowSize(60, 40);
+//                Console.SetWindowSize(60, 40);
                 int startLevel = MainMenu();
 
                 Console.CursorVisible = false;
                 game = new TetfuzaBackend(startLevel);
-                _timer.Start();
-                Thread userInputThread = new Thread(new ThreadStart(this.InputListener));
-                userInputThread.Start();
+
+                // Thread to draw new screen
                 Thread displayThread = new Thread(new ThreadStart(this.DisplayScreen));
                 displayThread.Priority = ThreadPriority.Highest;
                 displayThread.Start();
+
+                // game loop. returns when user tops out
                 _score = game.Run();
 
+                // display final game information & ask to continue
                 Console.ReadLine();
                 Console.Clear();
-                DrawBoard();
                 CenterText("Your final score is: "+ CommasInNumber(_score));
-                string p1Continue = "y";//Console.ReadLine().ToLower();
-                if (p1Continue != null && p1Continue != "" && p1Continue[0] == 'n')
-                {
-                    exit = true;
-                }
-                else
-                {
-                    exit = false;
-                }
+                CenterText("Continue (y/n)?");
+                ConsoleKey key = Console.ReadKey().Key;
+                exit = (key == ConsoleKey.N);
             }
         }
+
         /// <summary>
         /// Allow user to choose to start on any level between 0 and 19
         /// </summary>
@@ -83,45 +79,6 @@ namespace TetfuzaCLI
         }
 
         /// <summary>
-        /// Really crappy input listener that only detects one key at a time. 
-        /// </summary>
-        private void InputListener()
-        {
-            while(_score == -1)
-            {
-                int rotation = 0;
-                int direction = 0;
-                bool down = false;
-                ConsoleKey key = Console.ReadKey().Key;
-                if(key == ConsoleKey.LeftArrow)
-                {
-                    direction = -1;
-                }
-                else if(key == ConsoleKey.RightArrow)
-                {
-                    direction = 1;
-                }
-                else if(key == ConsoleKey.Z)
-                {
-                    rotation = -1;
-                }
-                else if (key == ConsoleKey.X)
-                {
-                    rotation = 1;
-                }
-                else if (key == ConsoleKey.DownArrow)
-                {
-                    down = true;
-                }
-                else if (key == ConsoleKey.C)
-                {
-                    Console.Clear();
-                }
-
-                game.SendInput(direction, rotation, down);
-            }
-        }
-        /// <summary>
         /// Constantly updates the console window with the current visual state of the current game
         /// </summary>
         private void DisplayScreen()
@@ -144,11 +101,12 @@ namespace TetfuzaCLI
                 // match those on the board
                 DrawNextPiece();
                 DrawBoard();
-                
+
                 //StableFrames.Stabilize(17, timer);
             }
             CenterText("Oh no, you topped out... please press enter");
         }
+
         private void CenterText(string text)
         {
             int width = Console.WindowWidth;
@@ -165,21 +123,25 @@ namespace TetfuzaCLI
         /// </summary>
         private void DrawNextPiece()
         {
-            string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBackend.MOVING_CHAR).Split("\n");
-            CenterText("Next Piece:");
-            for (int i = 0; i < pieceView.Length - 1; i++)
+            if (game.AfterPiece != null)
             {
-                int location = i;
-                if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces appear upsidedown
-                    location = pieceView.Length - 2 - i;
-                CenterText(pieceView[location]);
+                string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBackend.MOVING_CHAR).Split(")");
+                CenterText("Next Piece:");
+                for (int i = 0; i < pieceView.Length - 1; i++)
+                {
+                    int location = i;
+                    if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces appear upsidedown
+                        location = pieceView.Length - 2 - i;
+                    CenterText(pieceView[location]);
+                }
             }
+
         }
         private void DrawBoard()
         {
             // Convert game board to an array of strings 
             // and convert all block characters to appear the same
-            string[] boardView = game.ToString().Replace(TetfuzaBackend.LOCKDOWN_CHAR, TetfuzaBackend.MOVING_CHAR).Split("\n");
+            string[] boardView = game.ToString().Replace(TetfuzaBackend.LOCKDOWN_CHAR, TetfuzaBackend.MOVING_CHAR).Split(")");
             CenterText("-----------------------");
             // Loop through array and have each line centered on the screen
             for (int i = 0; i < boardView.Length - 1; i++)

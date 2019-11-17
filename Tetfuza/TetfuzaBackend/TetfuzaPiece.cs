@@ -177,7 +177,7 @@ namespace Tetfuza
                 {
                     output += Piece[row][col] + " ";
                 }
-                output += "\n";
+                output += ")";
             }
             return output;
         }

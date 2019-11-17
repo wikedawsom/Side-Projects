@@ -10,7 +10,7 @@ namespace TetfuzaCLI
             MainScreen CLIWindow = new MainScreen();
             CLIWindow.StartCLI();
 
-            Console.WriteLine("Program Finnish...");
+            Console.WriteLine("Program Finish...");
         }
 
     }

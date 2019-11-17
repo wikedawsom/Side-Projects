@@ -30,16 +30,5 @@ namespace TetfuzaTests
             // Every piece should have a block in their center
             Assert.AreEqual(_piece1.Piece[FuzaPiece.PIECE_SIZE / 2][FuzaPiece.PIECE_SIZE / 2], FuzaPiece.FUZA_CHAR);
         }
-        [TestMethod]
-        public void SendInputTest()
-        {
-            _game1.SendInput(1, 1, false);
-            _game1.SendInput(2, -2, true);
-            _game1.SendInput(-2, 2, false);
-            Assert.AreEqual(_game1.UserInputDirection, 1);
-            Assert.AreEqual(_game1.UserInputRotation, 1);
-            Assert.AreEqual(_game1.UserInputDown, false);
-
-        }
     }
 }
