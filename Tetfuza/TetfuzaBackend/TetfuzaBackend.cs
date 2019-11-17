@@ -190,19 +190,20 @@ namespace Tetfuza
                         // Move and/or Rotate piece as appropriate
                         MovePieceLeftRight(direction);
                         RotatePiece(rotation);
+                                      
+                    }
 
-                        // Move piece down at constant rate, or instant if user inputs down
-                        bool autoDown = (_frameCount % DropSpeed) == 0;
-                        if (inputDown)
-                        {
-                            autoDown = true;
-                            inputDown = false;
-                            Score += 1;
-                        }
-                        if (autoDown)
-                        {
-                            isLockDown = !DropPiece();
-                        }   
+                    // Move piece down at constant rate, or instant if user inputs down
+                    bool autoDown = (_frameCount % DropSpeed) == 0;
+                    if (inputDown)
+                    {
+                        autoDown = true;
+                        inputDown = false;
+                        Score += 1;
+                    }
+                    if (autoDown)
+                    {
+                        isLockDown = !DropPiece();
                     }
 
                     DrawPiece();
