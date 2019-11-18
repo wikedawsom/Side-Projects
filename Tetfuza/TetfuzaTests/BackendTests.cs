@@ -9,19 +9,19 @@ namespace TetfuzaTests
     {
         TetfuzaBackend _game1;
         FuzaPiece _piece1;
-        [TestInitialize]
-        public void Initialize()
-        {
-            _game1 = new TetfuzaBackend();
-            _piece1 = new FuzaPiece(FuzaType.SquareBlock);
-        }
-        [TestMethod]
-        public void TetfuzaConstructorTest()
-        {
-            Assert.AreEqual(_game1.Board.Count, TetfuzaBackend.BOARD_HEIGHT);
-            Assert.AreEqual(_game1.Board[0].Count, TetfuzaBackend.BOARD_WIDTH);
-            Assert.IsTrue(_game1.Board[0].Contains(TetfuzaBackend.EMPTY_CHAR));
-        }
+        //[TestInitialize]
+        //public void Initialize()
+        //{
+        //    _game1 = new TetfuzaBackend();
+        //    _piece1 = new FuzaPiece(FuzaType.SquareBlock);
+        //}
+        //[TestMethod]
+        //public void TetfuzaConstructorTest()
+        //{
+        //    Assert.AreEqual(_game1.Board.Count, TetfuzaBackend.BOARD_HEIGHT);
+        //    Assert.AreEqual(_game1.Board[0].Count, TetfuzaBackend.BOARD_WIDTH);
+        //    Assert.IsTrue(_game1.Board[0].Contains(TetfuzaBackend.EMPTY_CHAR));
+        //}
         [TestMethod]
         public void FuzaPieceTest()
         {

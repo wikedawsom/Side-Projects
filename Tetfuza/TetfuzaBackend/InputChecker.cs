@@ -1,12 +1,8 @@
 ﻿using System;
+using Tetfuza.Interfaces;
 namespace Tetfuza
 {
-    public interface IConsole
-    {
-        public ConsoleKey ReadKey();
-        public void Clear();
-        public bool KeyAvailable { get; }
-    }
+    
 
     public class InputChecker
     {

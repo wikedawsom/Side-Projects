@@ -5,15 +5,19 @@ using Tetfuza;
 using System.Threading;
 using FramerateStabilizer;
 using System.Diagnostics;
+using Tetfuza.Interfaces;
 
 namespace TetfuzaCLI
 {
     public class MainScreen
     {
+
+        private IConsole _keyboard;
+        private IDisplay _screen;
         private TetfuzaBackend game;
         private long _score;
         private Stopwatch _timer = new Stopwatch();
-        private string _cheatCode;
+        private string _cheatCode; // Easter eggs will come back later
         private bool ValidCode
         {
             get
@@ -21,6 +25,13 @@ namespace TetfuzaCLI
                 return _cheatCode == "up" || _cheatCode == "revenge" || _cheatCode == "impossible";
             }
         }
+
+        public MainScreen()
+        {
+            _keyboard = new SystemConsole();
+            _screen = new SystemConsoleDisplay();
+        }
+
         /// <summary>
         /// Main CLI Loop
         /// </summary>
@@ -30,94 +41,32 @@ namespace TetfuzaCLI
             while (!exit)
             {
                 _score = -1;
-//                Console.SetWindowSize(60, 40);
-                int startLevel = MainMenu();
+                // Console.SetWindowSize(60, 40);
+                
+                int startLevel = _screen.DrawMenu("Choose a starting level (0-19)");
 
-                Console.CursorVisible = false;
-                game = new TetfuzaBackend(startLevel);
 
-                // Thread to draw new screen
-                Thread displayThread = new Thread(new ThreadStart(this.DisplayScreen));
-                displayThread.Priority = ThreadPriority.Highest;
-                displayThread.Start();
+                game = new TetfuzaBackend(_keyboard, _screen, startLevel);
 
                 // game loop. returns when user tops out
                 _score = game.Run();
 
+                //CenterText("Oh no, you topped out... please press enter");
+
                 // display final game information & ask to continue
                 Console.ReadLine();
                 Console.Clear();
-                CenterText("Your final score is: "+ CommasInNumber(_score));
-                CenterText("Continue (y/n)?");
+                //CenterText("Your final score is: "+ CommasInNumber(_score));
+                //CenterText("Continue (y/n)?");
                 ConsoleKey key = Console.ReadKey().Key;
                 exit = (key == ConsoleKey.N);
             }
         }
 
-        /// <summary>
-        /// Allow user to choose to start on any level between 0 and 19
-        /// </summary>
-        /// <returns></returns>
-        private int MainMenu()
-        {
-            int startLevel = -1;
-            bool validInput = false;
-            CenterText("Press enter to clear the console");
-            _cheatCode = Console.ReadLine().ToLower();
-            Console.Clear();
-            while (!validInput)
-            {
-                CenterText("Which level do you want to start on? (0 - 19): ");
-                string input = Console.ReadLine();
-                validInput = (int.TryParse(input, out startLevel) && startLevel >= 0 && startLevel <= 19);
-            }
-            if (_cheatCode == "impossible")
-            {
-                startLevel = 29;
-            }
-            return startLevel;
-        }
+        
 
-        /// <summary>
-        /// Constantly updates the console window with the current visual state of the current game
-        /// </summary>
-        private void DisplayScreen()
-        {
-            Console.Clear();
-            while (_score == -1)
-            {
-                Console.SetCursorPosition(0, 0);
-                Console.CursorVisible = false;
-                if (ValidCode)
-                {
-                    CenterText("Cheat Code: " + _cheatCode);
-                }
-                CenterText("Current Score ");
-                CenterText(CommasInNumber(game.Score));
-                CenterText("Lines Cleared: " + game.Lines);
-                CenterText("Current Level: " + game.Level);
 
-                // Convert the piece to an array of strings where the characters
-                // match those on the board
-                DrawNextPiece();
-                DrawBoard();
-
-                //StableFrames.Stabilize(17, timer);
-            }
-            CenterText("Oh no, you topped out... please press enter");
-        }
-
-        private void CenterText(string text)
-        {
-            int width = Console.WindowWidth;
-            int textBeginIndex = (width / 2) - (text.Length / 2);
-            for (int space = 0; space < textBeginIndex; space++)
-            {
-                Console.Write(" ");
-                text += " ";
-            }
-            Console.WriteLine(text);
-        }
+        
         /// <summary>
         /// Displays the upcoming piece
         /// </summary>
@@ -125,36 +74,17 @@ namespace TetfuzaCLI
         {
             if (game.AfterPiece != null)
             {
-                string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBackend.MOVING_CHAR).Split(")");
-                CenterText("Next Piece:");
+                string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBoard.MOVING_CHAR).Split(")");
+                _screen.WriteText("Next Piece:");
                 for (int i = 0; i < pieceView.Length - 1; i++)
                 {
                     int location = i;
                     if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces appear upsidedown
                         location = pieceView.Length - 2 - i;
-                    CenterText(pieceView[location]);
+                    _screen.WriteText(pieceView[location]);
                 }
             }
 
-        }
-        private void DrawBoard()
-        {
-            // Convert game board to an array of strings 
-            // and convert all block characters to appear the same
-            string[] boardView = game.ToString().Replace(TetfuzaBackend.LOCKDOWN_CHAR, TetfuzaBackend.MOVING_CHAR).Split(")");
-            CenterText("-----------------------");
-            // Loop through array and have each line centered on the screen
-            for (int i = 0; i < boardView.Length - 1; i++)
-            {
-                int location = i;
-                if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces fall up
-                    location = boardView.Length - 2 - i;
-                CenterText("| " + boardView[location] + "|");
-            }
-            CenterText("-----------------------");
-            CenterText(" ");
-            CenterText("Z and X to rotate");
-            CenterText("Arrow keys to move (left, right, down)");
         }
         /// <summary>
         /// Converts a large number to a string with normal comma separation
