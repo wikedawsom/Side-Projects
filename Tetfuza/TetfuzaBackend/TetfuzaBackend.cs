@@ -113,8 +113,7 @@ namespace Tetfuza
                 AfterPiece = new FuzaPiece((FuzaType)pieceNum);
 
                 // Draw Board
-                _screen.RedrawFrame();
-                _screen.DrawBoard(Board.ToString());
+                _screen.GameScreen(this);
 
                 bool isLockDown = false;
                 bool inputDown = false;
@@ -151,8 +150,7 @@ namespace Tetfuza
                     Board.DrawPiece(CurrentPiece, _pieceCenter);
 
                     // Draw Screen
-                    _screen.RedrawFrame();
-                    _screen.DrawBoard(Board.ToString());
+                    _screen.GameScreen(this);
 
                     StableFrames.Stabilize(MS_PER_FRAME, _timer);
                     _frameCount++;
@@ -168,7 +166,7 @@ namespace Tetfuza
                 gameOver = CheckTopOut();
             }
             // Plays the game over animation
-            Board.TopOutAnimation(MS_PER_FRAME, _timer, _screen);
+            TopOutAnimation();
             return Score;
         }
 
@@ -286,6 +284,32 @@ namespace Tetfuza
         public override string ToString()
         {
             return Board.ToString();
+        }
+
+        /// <summary>
+        /// Draws the TOPOUTCHAR over the board one line at a time, starting at the top
+        /// </summary>
+        public void TopOutAnimation()
+        {
+            for (int i = 0; i < TetfuzaBoard.BOARD_HEIGHT; i++)
+            {
+                StableFrames.Stabilize(MS_PER_FRAME * 4, _timer);
+                Board.ReplaceLine(i, Board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
+                _screen.GameScreen(this);
+            }
+
+            var gameO1 = new List<char>();
+            gameO1.AddRange(Board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
+            gameO1.InsertRange(3, "GAME");
+            Board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2, gameO1);
+
+            var gameO2 = new List<char>();
+            gameO2.AddRange(Board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
+            gameO2.InsertRange(3, "OVER");
+            Board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2 + 1, gameO2);
+
+            StableFrames.Stabilize(MS_PER_FRAME * 4, _timer);
+            _screen.GameScreen(this);
         }
     }
 }

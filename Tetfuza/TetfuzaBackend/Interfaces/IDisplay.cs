@@ -6,7 +6,7 @@ namespace Tetfuza.Interfaces
 {
     public interface IDisplay
     {
-        public void DrawBoard(string boardString);
+        public void GameScreen(TetfuzaBackend gameState);
         public int DrawMenu(string prompt);
         public void WriteText(string text);
         public void ClearScreen();

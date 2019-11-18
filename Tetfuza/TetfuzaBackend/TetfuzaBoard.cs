@@ -39,7 +39,7 @@ namespace Tetfuza
         }
         
 
-        private List<char> BoardLine(char fillerChar)
+        public List<char> BoardLine(char fillerChar)
         {
             var line = new List<char>();
             for (int i = 0; i < BOARD_WIDTH; i++)
@@ -93,31 +93,7 @@ namespace Tetfuza
                 }
             }
         }
-        /// <summary>
-        /// Draws the TOPOUTCHAR over the board one line at a time, starting at the top
-        /// </summary>
-        public void TopOutAnimation(int msPerFrame, Stopwatch timer, IDisplay screen)
-        {
-            for (int i = 0; i < BOARD_HEIGHT; i++)
-            {
-                StableFrames.Stabilize(msPerFrame * 5, timer);
-                Board[i] = BoardLine(TOPOUT_CHAR);
-                screen.DrawBoard(ToString());
-            }
-
-            var gameO1 = new List<char>();
-            gameO1.AddRange(BoardLine(TOPOUT_CHAR));
-            gameO1.InsertRange(3, "GAME");
-            Board[BOARD_HEIGHT / 2] = gameO1;
-
-            var gameO2 = new List<char>();
-            gameO2.AddRange(BoardLine(TOPOUT_CHAR));
-            gameO2.InsertRange(3, "OVER");
-            Board[BOARD_HEIGHT / 2 + 1] = gameO2;
-
-            StableFrames.Stabilize(msPerFrame * 4, timer);
-            screen.DrawBoard(ToString());
-        }
+        
 
         public int ClearLines(int msPerFrame, Stopwatch timer, IDisplay screen)
         {
@@ -133,7 +109,7 @@ namespace Tetfuza
                 }
             }
             // Pause for clear animation (currently 10 frames)
-            screen.DrawBoard(ToString());
+            //screen.DrawBoard(ToString());
             StableFrames.Stabilize(msPerFrame * 10, timer);
             for (int index = 0; index < linesCleared; index++)
             {
@@ -141,6 +117,11 @@ namespace Tetfuza
                 Board.Insert(0, EmptyLine);
             }
             return linesCleared;
+        }
+
+        public void ReplaceLine(int index, List<char> newLine)
+        {
+            Board[index] = newLine;
         }
     }
 }

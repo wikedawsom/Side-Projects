@@ -51,13 +51,13 @@ namespace TetfuzaCLI
                 // game loop. returns when user tops out
                 _score = game.Run();
 
-                //CenterText("Oh no, you topped out... please press enter");
+                _screen.WriteText("Oh no, you topped out... please press enter");
 
                 // display final game information & ask to continue
                 Console.ReadLine();
-                Console.Clear();
-                //CenterText("Your final score is: "+ CommasInNumber(_score));
-                //CenterText("Continue (y/n)?");
+                _screen.ClearScreen();
+                _screen.WriteText("Your final score is: "+ CommasInNumber(_score));
+                _screen.WriteText("Continue (y/n)?");
                 ConsoleKey key = Console.ReadKey().Key;
                 exit = (key == ConsoleKey.N);
             }
@@ -67,25 +67,7 @@ namespace TetfuzaCLI
 
 
         
-        /// <summary>
-        /// Displays the upcoming piece
-        /// </summary>
-        private void DrawNextPiece()
-        {
-            if (game.AfterPiece != null)
-            {
-                string[] pieceView = game.AfterPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBoard.MOVING_CHAR).Split(")");
-                _screen.WriteText("Next Piece:");
-                for (int i = 0; i < pieceView.Length - 1; i++)
-                {
-                    int location = i;
-                    if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces appear upsidedown
-                        location = pieceView.Length - 2 - i;
-                    _screen.WriteText(pieceView[location]);
-                }
-            }
-
-        }
+        
         /// <summary>
         /// Converts a large number to a string with normal comma separation
         /// </summary>
