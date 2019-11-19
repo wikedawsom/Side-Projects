@@ -110,13 +110,11 @@ namespace TetfuzaCLI
         private void CenterText(string text)
         {
             int width = Console.WindowWidth;
-            int textBeginIndex = (width / 2) - (text.Length / 2);
-            for (int space = 0; space < textBeginIndex; space++)
-            {
-                Console.Write(" ");
-                text += " ";
-            }
-            Console.WriteLine(text);
+            int spacePadding = (width - text.Length) / 2;
+            int fullStringWidth = spacePadding + text.Length;
+            String formatString = "{0, " + fullStringWidth.ToString() + "}";
+            String centeredText = String.Format(formatString, text);
+            Console.WriteLine(centeredText);
         }
         /// <summary>
         /// Displays the upcoming piece
@@ -141,7 +139,7 @@ namespace TetfuzaCLI
         {
             // Convert game board to an array of strings 
             // and convert all block characters to appear the same
-            string[] boardView = game.ToString().Replace(TetfuzaBackend.LOCKDOWN_CHAR, TetfuzaBackend.MOVING_CHAR).Split(")");
+            string[] boardView = game.ToString().Replace(TetfuzaBackend.LOCKDOWN_CHAR, TetfuzaBackend.MOVING_CHAR).Split(Environment.NewLine);
             CenterText("-----------------------");
             // Loop through array and have each line centered on the screen
             for (int i = 0; i < boardView.Length - 1; i++)

@@ -149,7 +149,7 @@ namespace Tetfuza
                 {
                     boardString += Board[row][col] + " ";
                 }
-                boardString += ")";
+                boardString += Environment.NewLine;
             }
             
             return boardString;
