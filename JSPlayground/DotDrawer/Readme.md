@@ -1,0 +1,1 @@
+Simple browser app which draws a dot around your mouse when you click inside the black box
