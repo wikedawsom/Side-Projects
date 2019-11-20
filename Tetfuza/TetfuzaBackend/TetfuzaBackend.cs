@@ -159,7 +159,9 @@ namespace Tetfuza
                 Board.DrawPiece(CurrentPiece, _pieceCenter, TetfuzaBoard.LOCKDOWN_CHAR);
 
                 // Check if lines were cleared and update score
-                CheckClear();
+                int linesCleared = Board.ClearLines(MS_PER_FRAME, _timer, _screen);
+                if (linesCleared > 0)
+                    AddClearedLinesToScore(linesCleared);
                 
 
                 // Check if player has topped out (game over)
@@ -242,12 +244,10 @@ namespace Tetfuza
         /// Checks, clears, and returns the count of how many lines are full of pieces. 
         /// This is called after each piece locks down at the end of its fall duration. 
         /// </summary>
+        /// <param name="linesCleared">Number of lines cleared</param>
         /// <returns></returns>
-        private int CheckClear()
+        private int AddClearedLinesToScore(int linesCleared)
         {
-            // Have board clear lines and return the amount cleared
-            int linesCleared = Board.ClearLines(MS_PER_FRAME, _timer, _screen);
-
             // Update total line count
             Lines += linesCleared;
 
