@@ -6,9 +6,14 @@ namespace Tetfuza.Interfaces
 {
     public interface IDisplay
     {
-        public void GameScreen(TetfuzaBackend gameState);
-        public int DrawMenu(string prompt);
-        public void WriteText(string text);
+        public void DrawBoard(TetfuzaBackend gameState);
+        /// <summary>
+        /// Writes text centered on xPos, yPos
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="xPos">A value between 0 and 1, </param>
+        /// <param name="yPos"></param>
+        public void WriteText(string text, decimal xPos, decimal yPos);
         public void ClearScreen();
         public void RedrawFrame();
     }

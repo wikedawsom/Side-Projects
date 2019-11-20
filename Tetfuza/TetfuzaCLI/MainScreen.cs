@@ -42,8 +42,8 @@ namespace TetfuzaCLI
             {
                 _score = -1;
                 // Console.SetWindowSize(60, 40);
-                
-                int startLevel = _screen.DrawMenu("Choose a starting level (0-19)");
+                _screen.WriteText("Choose a starting level (0-19)", 1m, 1m);
+                int startLevel = (int)_keyboard.ReadKey();
 
 
                 game = new TetfuzaBackend(_keyboard, _screen, startLevel);
@@ -51,14 +51,14 @@ namespace TetfuzaCLI
                 // game loop. returns when user tops out
                 _score = game.Run();
 
-                _screen.WriteText("Oh no, you topped out... please press enter");
+                _screen.WriteText("Oh no, you topped out... please press enter",1m,1m);
 
                 // display final game information & ask to continue
                 Console.ReadLine();
                 _screen.ClearScreen();
-                _screen.WriteText("Your final score is: "+ CommasInNumber(_score));
-                _screen.WriteText("Continue (y/n)?");
-                ConsoleKey key = Console.ReadKey().Key;
+                _screen.WriteText("Your final score is: "+ CommasInNumber(_score), 1m, 1m);
+                _screen.WriteText("Continue (y/n)?", 1m, 1m);
+                ConsoleKey key = _keyboard.ReadKey();
                 exit = (key == ConsoleKey.N);
             }
         }

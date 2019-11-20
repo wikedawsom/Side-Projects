@@ -8,13 +8,13 @@ namespace TetfuzaCLI
 {
     public class SystemConsoleDisplay : IDisplay
     {
-        public void GameScreen(TetfuzaBackend gameState)
+        public void DrawBoard(TetfuzaBackend gameState)
         {
             RedrawFrame();
             Console.CursorVisible = false;
 
-            WriteText("Level: " + gameState.Level);
-            WriteText("Score: " + CommasInNumber(gameState.Score));
+            WriteText("Level: " + gameState.Level,1m,1m);
+            WriteText("Score: " + CommasInNumber(gameState.Score), 1m, 1m);
             DrawNextPiece(gameState.AfterPiece);
 
 
@@ -23,22 +23,22 @@ namespace TetfuzaCLI
             // Convert game board to an array of strings 
             // and convert all block characters to appear the same
             string[] boardView = board.Replace(TetfuzaBoard.LOCKDOWN_CHAR, TetfuzaBoard.MOVING_CHAR).Split(")");
-            WriteText("-----------------------");
+            WriteText("-----------------------", 1m, 1m);
             // Loop through array and have each line centered on the screen
             for (int i = 0; i < boardView.Length - 1; i++)
             {
                 int location = i;
                 //if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces fall up
                 //    location = boardView.Length - 2 - i;
-                WriteText("| " + boardView[location] + "|");
+                WriteText("| " + boardView[location] + "|", 1m, 1m);
             }
-            WriteText("-----------------------");
-            WriteText(" ");
-            WriteText("Z and X to rotate");
-            WriteText("Arrow keys to move (left, right, down)");
+            WriteText("-----------------------", 1m, 1m);
+            WriteText(" ", 1m, 1m);
+            WriteText("Z and X to rotate", 1m, 1m);
+            WriteText("Arrow keys to move (left, right, down)", 1m, 1m);
         }
 
-        public void WriteText(string text)
+        public void WriteText(string text, decimal xPos, decimal yPos)
         {
             int width = Console.WindowWidth;
             int textBeginIndex = (width / 2) - (text.Length / 2) - 1;
@@ -48,30 +48,6 @@ namespace TetfuzaCLI
                 text += " ";
             }
             Console.WriteLine(text);
-        }
-
-        /// <summary>
-        /// Allow user to choose to start on any level between 0 and 19
-        /// </summary>
-        /// <returns></returns>
-        public int DrawMenu(string prompt)
-        {
-            Console.CursorVisible = false;
-            int startLevel = -1;
-            bool validInput = false;
-            //_cheatCode = Console.ReadLine().ToLower();
-            ClearScreen();
-            do
-            {
-                WriteText(prompt);
-                string input = Console.ReadLine();
-                validInput = (int.TryParse(input, out startLevel) && startLevel >= 0 && startLevel <= 19);
-            } while (!validInput);
-            //if (_cheatCode == "impossible")
-            //{
-            //    startLevel = 29;
-            //}
-            return startLevel;
         }
 
         public void ClearScreen()
@@ -91,13 +67,13 @@ namespace TetfuzaCLI
         {
             
             string[] pieceView = nextPiece.ToString().Replace(FuzaPiece.FUZA_CHAR, TetfuzaBoard.MOVING_CHAR).Split(")");
-            WriteText("Next Piece:");
+            WriteText("Next Piece:", 1m, 1m);
             for (int i = 0; i < pieceView.Length - 1; i++)
             {
                 int location = i;
                 //if (_cheatCode.ToLower() == "up") // A small Easter Egg to make the pieces appear upsidedown
                 //    location = pieceView.Length - 2 - i;
-                WriteText(pieceView[location]);
+                WriteText(pieceView[location], 1m, 1m);
             }
         }
         /// <summary>

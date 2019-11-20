@@ -17,7 +17,6 @@ namespace Tetfuza
         private int _frameCount;
         private InputChecker _keyboard;
         private IDisplay _screen;
-        private bool _userInputDown;
         private TetfuzaBoard _board;
 
 
@@ -113,7 +112,7 @@ namespace Tetfuza
                 AfterPiece = new FuzaPiece((FuzaType)pieceNum);
 
                 // Draw Board
-                _screen.GameScreen(this);
+                _screen.DrawBoard(this);
 
                 bool isLockDown = false;
                 bool inputDown = false;
@@ -150,7 +149,7 @@ namespace Tetfuza
                     _board.DrawPiece(CurrentPiece, _pieceCenter);
 
                     // Draw Screen
-                    _screen.GameScreen(this);
+                    _screen.DrawBoard(this);
 
                     StableFrames.Stabilize(MS_PER_FRAME, _timer);
                     _frameCount++;
@@ -295,7 +294,7 @@ namespace Tetfuza
             {
                 StableFrames.Stabilize(MS_PER_FRAME * 4, _timer);
                 _board.ReplaceLine(i, _board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
-                _screen.GameScreen(this);
+                _screen.DrawBoard(this);
             }
 
             var gameO1 = new List<char>();
@@ -309,7 +308,7 @@ namespace Tetfuza
             _board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2 + 1, gameO2);
 
             StableFrames.Stabilize(MS_PER_FRAME * 4, _timer);
-            _screen.GameScreen(this);
+            _screen.DrawBoard(this);
         }
     }
 }
