@@ -18,7 +18,7 @@ namespace Tetfuza
         private InputChecker _keyboard;
         private IDisplay _screen;
         private bool _userInputDown;
-        private TetfuzaBoard Board;
+        private TetfuzaBoard _board;
 
 
         public FuzaPiece CurrentPiece { get; private set; }
@@ -75,7 +75,7 @@ namespace Tetfuza
         /// </summary>
         public TetfuzaBackend(IConsole keyboard, IDisplay screen)
         {
-            Board = new TetfuzaBoard();
+            _board = new TetfuzaBoard();
             _keyboard = new InputChecker(keyboard);
             _screen = screen;
         }
@@ -86,7 +86,7 @@ namespace Tetfuza
         /// <param name="startLevel"></param>
         public TetfuzaBackend(IConsole keyboard, IDisplay screen, int startLevel)
         {
-            Board = new TetfuzaBoard();
+            _board = new TetfuzaBoard();
             StartLevel = startLevel;
             _keyboard = new InputChecker(keyboard);
             _screen = screen;
@@ -146,8 +146,8 @@ namespace Tetfuza
                         isLockDown = !DropPiece();
                     }
 
-                    
-                    Board.DrawPiece(CurrentPiece, _pieceCenter);
+
+                    _board.DrawPiece(CurrentPiece, _pieceCenter);
 
                     // Draw Screen
                     _screen.GameScreen(this);
@@ -156,10 +156,10 @@ namespace Tetfuza
                     _frameCount++;
                 }
                 // Represent locked piece on board with a different character
-                Board.DrawPiece(CurrentPiece, _pieceCenter, TetfuzaBoard.LOCKDOWN_CHAR);
+                _board.DrawPiece(CurrentPiece, _pieceCenter, TetfuzaBoard.LOCKDOWN_CHAR);
 
                 // Check if lines were cleared and update score
-                int linesCleared = Board.ClearLines(MS_PER_FRAME, _timer, _screen);
+                int linesCleared = _board.ClearLines(MS_PER_FRAME, _timer, _screen);
                 if (linesCleared > 0)
                     AddClearedLinesToScore(linesCleared);
                 
@@ -208,7 +208,7 @@ namespace Tetfuza
         /// <returns></returns>
         private bool CheckTopOut()
         {
-            return Board.Board[2][6] != TetfuzaBoard.EMPTY_CHAR;
+            return _board.Board[2][6] != TetfuzaBoard.EMPTY_CHAR;
         }
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace Tetfuza
                         || rowCoord < 0 || rowCoord >= TetfuzaBoard.BOARD_HEIGHT)
                         && fuza == FuzaPiece.FUZA_CHAR )
                         || (fuza == FuzaPiece.FUZA_CHAR 
-                        && Board.Board[rowCoord][colCoord] == TetfuzaBoard.LOCKDOWN_CHAR))
+                        && _board.Board[rowCoord][colCoord] == TetfuzaBoard.LOCKDOWN_CHAR))
                     {
                         isValid = false;
                     }
@@ -277,13 +277,13 @@ namespace Tetfuza
             bool isValid = CheckMove(new Coordinate(_pieceCenter.xPos, _pieceCenter.yPos + 1), CurrentPiece);
             if (isValid)
                 _pieceCenter.yPos = _pieceCenter.yPos + 1;
-            Board.DrawPiece(CurrentPiece, _pieceCenter);
+            _board.DrawPiece(CurrentPiece, _pieceCenter);
             return isValid;
         }
 
         public override string ToString()
         {
-            return Board.ToString();
+            return _board.ToString();
         }
 
         /// <summary>
@@ -294,19 +294,19 @@ namespace Tetfuza
             for (int i = 0; i < TetfuzaBoard.BOARD_HEIGHT; i++)
             {
                 StableFrames.Stabilize(MS_PER_FRAME * 4, _timer);
-                Board.ReplaceLine(i, Board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
+                _board.ReplaceLine(i, _board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
                 _screen.GameScreen(this);
             }
 
             var gameO1 = new List<char>();
-            gameO1.AddRange(Board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
+            gameO1.AddRange(_board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
             gameO1.InsertRange(3, "GAME");
-            Board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2, gameO1);
+            _board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2, gameO1);
 
             var gameO2 = new List<char>();
-            gameO2.AddRange(Board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
+            gameO2.AddRange(_board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
             gameO2.InsertRange(3, "OVER");
-            Board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2 + 1, gameO2);
+            _board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2 + 1, gameO2);
 
             StableFrames.Stabilize(MS_PER_FRAME * 4, _timer);
             _screen.GameScreen(this);
