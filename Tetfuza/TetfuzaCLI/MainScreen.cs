@@ -112,7 +112,7 @@ namespace TetfuzaCLI
             int width = Console.WindowWidth;
             int spacePadding = (width - text.Length) / 2;
             int fullStringWidth = spacePadding + text.Length;
-            String formatString = "{0, " + fullStringWidth.ToString() + "}";
+            String formatString = "{0, " + fullStringWidth.ToString() + "}   ";
             String centeredText = String.Format(formatString, text);
             Console.WriteLine(centeredText);
         }
