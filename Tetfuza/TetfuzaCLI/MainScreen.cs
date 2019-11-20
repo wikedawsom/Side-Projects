@@ -62,12 +62,6 @@ namespace TetfuzaCLI
                 exit = (key == ConsoleKey.N);
             }
         }
-
-        
-
-
-        
-        
         /// <summary>
         /// Converts a large number to a string with normal comma separation
         /// </summary>
