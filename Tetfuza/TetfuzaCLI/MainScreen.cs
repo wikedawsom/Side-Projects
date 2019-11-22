@@ -6,17 +6,17 @@ using System.Threading;
 using FramerateStabilizer;
 using System.Diagnostics;
 using Tetfuza.Interfaces;
+using static Tetfuza.Interfaces.IInput;
 
 namespace TetfuzaCLI
 {
     public class MainScreen
     {
 
-        private IConsole _keyboard;
+        private IInput _keyboard;
         private IDisplay _screen;
         private TetfuzaBackend game;
         private long _score;
-        private Stopwatch _timer = new Stopwatch();
         private string _cheatCode; // Easter eggs will come back later
         private bool ValidCode
         {
@@ -43,10 +43,10 @@ namespace TetfuzaCLI
                 _score = -1;
                 // Console.SetWindowSize(60, 40);
                 _screen.WriteText("Choose a starting level (0-19)", 1m, 1m);
-                int startLevel = (int)_keyboard.ReadKey();
-
+                int startLevel = (int)_keyboard.ReadInput();
 
                 game = new TetfuzaBackend(_keyboard, _screen, startLevel);
+                _screen.ClearScreen();
 
                 // game loop. returns when user tops out
                 _score = game.Run();
@@ -57,11 +57,12 @@ namespace TetfuzaCLI
                 Console.ReadLine();
                 _screen.ClearScreen();
                 _screen.WriteText("Your final score is: "+ CommasInNumber(_score), 1m, 1m);
-                _screen.WriteText("Continue (y/n)?", 1m, 1m);
-                ConsoleKey key = _keyboard.ReadKey();
-                exit = (key == ConsoleKey.N);
+                _screen.WriteText("Press start to exit, any other button to play again", 1m, 1m);
+                Input key = _keyboard.ReadInput();
+                exit = (key == Input.Pause);
             }
         }
+
         /// <summary>
         /// Converts a large number to a string with normal comma separation
         /// </summary>

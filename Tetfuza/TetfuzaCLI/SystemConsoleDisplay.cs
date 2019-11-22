@@ -41,13 +41,19 @@ namespace TetfuzaCLI
         public void WriteText(string text, decimal xPos, decimal yPos)
         {
             int width = Console.WindowWidth;
-            int textBeginIndex = (width / 2) - (text.Length / 2) - 1;
-            for (int space = 0; space < textBeginIndex; space++)
-            {
-                Console.Write(" ");
-                text += " ";
-            }
-            Console.WriteLine(text);
+            int spacePadding = (width - text.Length) / 2;
+            int fullStringWidth = spacePadding + text.Length;
+            String formatString = "{0, " + fullStringWidth.ToString() + "}  ";
+            String centeredText = String.Format(formatString, text);
+            Console.WriteLine(centeredText);
+
+            //int textBeginIndex = (width / 2) - (text.Length / 2) - 1;
+            //for (int space = 0; space < textBeginIndex; space++)
+            //{
+            //    Console.Write(" ");
+            //    text += " ";
+            //}
+            //Console.WriteLine(text);
         }
 
         public void ClearScreen()

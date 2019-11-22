@@ -72,7 +72,7 @@ namespace Tetfuza
         /// <summary>
         /// Creates a new instance of a TetfuzaBackend, and initializes an empty board
         /// </summary>
-        public TetfuzaBackend(IConsole keyboard, IDisplay screen)
+        public TetfuzaBackend(IInput keyboard, IDisplay screen)
         {
             _board = new TetfuzaBoard();
             _keyboard = new InputChecker(keyboard);
@@ -83,7 +83,7 @@ namespace Tetfuza
         /// Starts the game on a specified level (which determines automatic drop speed and point multiplier)
         /// </summary>
         /// <param name="startLevel"></param>
-        public TetfuzaBackend(IConsole keyboard, IDisplay screen, int startLevel)
+        public TetfuzaBackend(IInput keyboard, IDisplay screen, int startLevel)
         {
             _board = new TetfuzaBoard();
             StartLevel = startLevel;
@@ -115,29 +115,28 @@ namespace Tetfuza
                 _screen.DrawBoard(this);
 
                 bool isLockDown = false;
-                bool inputDown = false;
                 while (!isLockDown)
                 {
                     // Get user key press
-                    int direction = 0;
+                    int xDirection = 0;
+                    int yDirection = 0;
                     int rotation = 0;
 
                     if (true == _keyboard.InputAvailable)
                     {
-                        _keyboard.GetInput(ref direction, ref rotation, ref inputDown);
+                        _keyboard.GetInput(ref xDirection,ref yDirection, ref rotation);
 
                         // Move and/or Rotate piece as appropriate
-                        MovePieceLeftRight(direction);
+                        MovePieceLeftRight(xDirection);
                         RotatePiece(rotation);
                                       
                     }
 
                     // Move piece down at constant rate, or instant if user inputs down
                     bool autoDown = (_frameCount % DropSpeed) == 0;
-                    if (inputDown)
+                    if (yDirection == -1)
                     {
                         autoDown = true;
-                        inputDown = false;
                         Score += 1;
                     }
                     if (autoDown)

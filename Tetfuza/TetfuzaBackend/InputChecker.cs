@@ -1,14 +1,16 @@
 ﻿using System;
 using Tetfuza.Interfaces;
+using static Tetfuza.Interfaces.IInput;
+
 namespace Tetfuza
 {
     
 
     public class InputChecker
     {
-        private IConsole _keyboard;
+        private IInput _keyboard;
 
-        public InputChecker(IConsole keyboard)
+        public InputChecker(IInput keyboard)
         {
             _keyboard = keyboard;
         }
@@ -23,7 +25,7 @@ namespace Tetfuza
         /// </returns>
         public bool InputAvailable
         {
-            get { return _keyboard.KeyAvailable; }
+            get { return _keyboard.InputAvailable; }
         }
 
         /// <summary>
@@ -35,29 +37,35 @@ namespace Tetfuza
         /// <param name="down">returns true to move the piece down one space on next frame, False will wait for auto-drop</param>
         /// <returns>
         /// </returns>
-        public void GetInput(ref int direction, ref int rotation, ref bool down)
+        public void GetInput(ref int xDirection, ref int yDirection, ref int rotation)
         {
-            ConsoleKey key = _keyboard.ReadKey();
+            Input key = _keyboard.ReadInput();
 
             switch (key)
             {
-                case ConsoleKey.LeftArrow:
-                    direction = -1;
+                case Input.Left:
+                    xDirection = -1;
                     break;
-                case ConsoleKey.RightArrow:
-                    direction = 1;
+                case Input.Right:
+                    xDirection = 1;
                     break;
-                case ConsoleKey.Z:
+                case Input.RotateCounterClockwise:
                     rotation = -1;
                     break;
-                case ConsoleKey.X:
+                case Input.RotateClockwise:
                     rotation = 1;
                     break;
-                case ConsoleKey.DownArrow:
-                    down = true;
+                case Input.Up:
+                    yDirection = 1;
                     break;
-                case ConsoleKey.C:
-                    _keyboard.Clear();
+                case Input.Down:
+                    yDirection = -1;
+                    break;
+                case Input.Option:
+                    _keyboard.ClearInputBuffer();
+                    break;
+                case Input.Pause:
+                    // Pause the game or something...
                     break;
                 default:
                     break;
