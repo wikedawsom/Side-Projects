@@ -15,7 +15,7 @@ namespace TetfuzaCLI
 
         private IInput _keyboard;
         private IDisplay _screen;
-        private TetfuzaBackend game;
+        private TetfuzaMain game;
         private long _score;
         private string _cheatCode; // Easter eggs will come back later
         private bool ValidCode
@@ -45,7 +45,7 @@ namespace TetfuzaCLI
                 _screen.WriteText("Choose a starting level (0-19)", 1m, 1m);
                 int startLevel = (int)_keyboard.ReadInput();
 
-                game = new TetfuzaBackend(_keyboard, _screen, startLevel);
+                game = new TetfuzaMain(_keyboard, _screen, startLevel);
                 _screen.ClearScreen();
 
                 // game loop. returns when user tops out

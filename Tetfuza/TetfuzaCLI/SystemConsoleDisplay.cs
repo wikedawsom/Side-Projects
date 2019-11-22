@@ -8,7 +8,7 @@ namespace TetfuzaCLI
 {
     public class SystemConsoleDisplay : IDisplay
     {
-        public void DrawBoard(TetfuzaBackend gameState)
+        public void DrawBoard(TetfuzaMain gameState)
         {
             RedrawFrame();
             Console.CursorVisible = false;

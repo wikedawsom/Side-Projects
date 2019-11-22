@@ -7,7 +7,7 @@ using Tetfuza.Interfaces;
 
 namespace Tetfuza
 {
-    public class TetfuzaBackend
+    public class TetfuzaMain
     {
         public const int MS_PER_FRAME = 17;
 
@@ -72,7 +72,7 @@ namespace Tetfuza
         /// <summary>
         /// Creates a new instance of a TetfuzaBackend, and initializes an empty board
         /// </summary>
-        public TetfuzaBackend(IInput keyboard, IDisplay screen)
+        public TetfuzaMain(IInput keyboard, IDisplay screen)
         {
             _board = new TetfuzaBoard();
             _keyboard = new InputChecker(keyboard);
@@ -83,7 +83,7 @@ namespace Tetfuza
         /// Starts the game on a specified level (which determines automatic drop speed and point multiplier)
         /// </summary>
         /// <param name="startLevel"></param>
-        public TetfuzaBackend(IInput keyboard, IDisplay screen, int startLevel)
+        public TetfuzaMain(IInput keyboard, IDisplay screen, int startLevel)
         {
             _board = new TetfuzaBoard();
             StartLevel = startLevel;

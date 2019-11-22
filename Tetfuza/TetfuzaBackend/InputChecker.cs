@@ -62,7 +62,8 @@ namespace Tetfuza
                     yDirection = -1;
                     break;
                 case Input.Option:
-                    _keyboard.ClearInputBuffer();
+                    // Supposed to represent the SELECT button...
+                    _keyboard.Clear();
                     break;
                 case Input.Pause:
                     // Pause the game or something...

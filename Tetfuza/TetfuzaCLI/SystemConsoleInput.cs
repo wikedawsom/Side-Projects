@@ -46,6 +46,7 @@ namespace TetfuzaCLI
                     input = Input.Pause;
                     break;
                 case ConsoleKey.C:
+                    Console.Clear();
                     input = Input.Option;
                     break;
                 default:
@@ -55,10 +56,9 @@ namespace TetfuzaCLI
             return input;
         }
 
-        public void ClearInputBuffer()
+        public void Clear()
         {
             Console.Clear();
         }
-
     }
 }

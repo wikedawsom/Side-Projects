@@ -6,7 +6,7 @@ namespace Tetfuza.Interfaces
 {
     public interface IDisplay
     {
-        public void DrawBoard(TetfuzaBackend gameState);
+        public void DrawBoard(TetfuzaMain gameState);
         /// <summary>
         /// Writes text centered on xPos, yPos
         /// </summary>

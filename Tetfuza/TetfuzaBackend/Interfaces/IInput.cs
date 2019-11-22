@@ -19,7 +19,7 @@ namespace Tetfuza.Interfaces
             Option = 8
         };
         public Input ReadInput();
-        public void ClearInputBuffer();
+        public void Clear();
         public bool InputAvailable { get; }
     }
 }

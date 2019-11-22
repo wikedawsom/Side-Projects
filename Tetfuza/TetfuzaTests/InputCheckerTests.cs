@@ -2,23 +2,24 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tetfuza;
 using Tetfuza.Interfaces;
+using static Tetfuza.Interfaces.IInput;
 
 namespace TetfuzaTests
 {
-    public class FakeIConsole : IConsole
+    public class FakeIConsole : IInput
     {
-        private ConsoleKey _toReturn;
+        private Input _toReturn;
         public bool ClearCalled { get; set; }
 
-        public bool KeyAvailable {
+        public bool InputAvailable {
             get { return true; }
         }
 
-        public FakeIConsole(ConsoleKey toReturn)
+        public FakeIConsole(Input toReturn)
         {
             _toReturn = toReturn;
         }
-        public ConsoleKey ReadKey()
+        public Input ReadInput()
         {
             return _toReturn;
         }
@@ -35,7 +36,7 @@ namespace TetfuzaTests
         [TestInitialize]
         public void Initialize()
         {
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.Z);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.RotateCounterClockwise);
             _inputChecker = new InputChecker(fakeConsole);
         }
 
@@ -48,92 +49,92 @@ namespace TetfuzaTests
         [TestMethod]
         public void TestGetInputRotationLeft()
         {
-            int dir = 0;
+            int xDir = 0;
+            int yDir = 0;
             int rot = 0;
-            bool down = false;
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.Z);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.RotateCounterClockwise);
             InputChecker inputChecker = new InputChecker(fakeConsole);
 
-            inputChecker.GetInput(ref dir, ref rot, ref down);
-            Assert.AreEqual(dir, 0);
+            inputChecker.GetInput(ref xDir, ref yDir, ref rot);
+            Assert.AreEqual(xDir, 0);
+            Assert.AreEqual(yDir, 0);
             Assert.AreEqual(rot, -1);
-            Assert.AreEqual(down, false);
         }
 
         [TestMethod]
         public void TestGetInputRotationRight()
         {
-            int dir = 0;
+            int xDir = 0;
+            int yDir = 0;
             int rot = 0;
-            bool down = false;
 
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.X);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.RotateClockwise);
             InputChecker inputChecker = new InputChecker(fakeConsole);
-            inputChecker.GetInput(ref dir, ref rot, ref down);
+            inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
-            Assert.AreEqual(dir, 0);
+            Assert.AreEqual(xDir, 0);
             Assert.AreEqual(rot, 1);
-            Assert.AreEqual(down, false);
+            Assert.AreEqual(yDir, 0);
         }
 
         [TestMethod]
         public void TestGetInputDirectionLeft()
         {
-            int dir = 0;
+            int xDir = 0;
+            int yDir = 0;
             int rot = 0;
-            bool down = false;
 
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.LeftArrow);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.Left);
             InputChecker inputChecker = new InputChecker(fakeConsole);
-            inputChecker.GetInput(ref dir, ref rot, ref down);
+            inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
-            Assert.AreEqual(dir, -1);
+            Assert.AreEqual(xDir, -1);
             Assert.AreEqual(rot, 0);
-            Assert.AreEqual(down, false);
+            Assert.AreEqual(yDir, 0);
         }
 
         [TestMethod]
         public void TestGetInputDirectionRight()
         {
-            int dir = 0;
+            int xDir = 0;
+            int yDir = 0;
             int rot = 0;
-            bool down = false;
 
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.RightArrow);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.Right);
             InputChecker inputChecker = new InputChecker(fakeConsole);
-            inputChecker.GetInput(ref dir, ref rot, ref down);
+            inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
-            Assert.AreEqual(dir, 1);
+            Assert.AreEqual(xDir, 1);
             Assert.AreEqual(rot, 0);
-            Assert.AreEqual(down, false);
+            Assert.AreEqual(yDir, 0);
         }
 
         [TestMethod]
         public void TestGetInputDown()
         {
-            int dir = 0;
+            int xDir = 0;
+            int yDir = 0;
             int rot = 0;
-            bool down = false;
 
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.DownArrow);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.Down);
             InputChecker inputChecker = new InputChecker(fakeConsole);
-            inputChecker.GetInput(ref dir, ref rot, ref down);
+            inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
-            Assert.AreEqual(dir, 0);
+            Assert.AreEqual(xDir, 0);
             Assert.AreEqual(rot, 0);
-            Assert.AreEqual(down, true);
+            Assert.AreEqual(yDir, -1);
         }
 
         [TestMethod]
         public void TestGetInputClear()
         {
-            int dir = 0;
+            int xDir = 0;
+            int yDir = 0;
             int rot = 0;
-            bool down = false;
 
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.C);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.Option);
             InputChecker inputChecker = new InputChecker(fakeConsole);
-            inputChecker.GetInput(ref dir, ref rot, ref down);
+            inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
             Assert.AreEqual(fakeConsole.ClearCalled, true);
         }
@@ -141,23 +142,23 @@ namespace TetfuzaTests
         [TestMethod]
         public void TestNoValidInput()
         {
-            int dir = 0;
+            int xDir = 0;
+            int yDir = 0;
             int rot = 0;
-            bool down = false;
 
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.Y);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.NoInput);
             InputChecker inputChecker = new InputChecker(fakeConsole);
-            inputChecker.GetInput(ref dir, ref rot, ref down);
+            inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
-            Assert.AreEqual(dir, 0);
+            Assert.AreEqual(xDir, 0);
             Assert.AreEqual(rot, 0);
-            Assert.AreEqual(down, false);
+            Assert.AreEqual(yDir, 0);
         }
 
         [TestMethod]
         public void TestKeyAvailable()
         {
-            FakeIConsole fakeConsole = new FakeIConsole(ConsoleKey.Y);
+            FakeIConsole fakeConsole = new FakeIConsole(Input.Left);
             InputChecker inputChecker = new InputChecker(fakeConsole);
             Assert.AreEqual(inputChecker.InputAvailable, true);
         }
