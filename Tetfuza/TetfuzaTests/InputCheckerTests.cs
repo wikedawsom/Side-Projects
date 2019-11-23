@@ -6,7 +6,7 @@ using static Tetfuza.Interfaces.IInput;
 
 namespace TetfuzaTests
 {
-    public class FakeIConsole : IInput
+    public class FakeIInput : IInput
     {
         private Input _toReturn;
         public bool ClearCalled { get; set; }
@@ -15,7 +15,7 @@ namespace TetfuzaTests
             get { return true; }
         }
 
-        public FakeIConsole(Input toReturn)
+        public FakeIInput(Input toReturn)
         {
             _toReturn = toReturn;
         }
@@ -36,7 +36,7 @@ namespace TetfuzaTests
         [TestInitialize]
         public void Initialize()
         {
-            FakeIConsole fakeConsole = new FakeIConsole(Input.RotateCounterClockwise);
+            FakeIInput fakeConsole = new FakeIInput(Input.RotateCounterClockwise);
             _inputChecker = new InputChecker(fakeConsole);
         }
 
@@ -52,7 +52,7 @@ namespace TetfuzaTests
             int xDir = 0;
             int yDir = 0;
             int rot = 0;
-            FakeIConsole fakeConsole = new FakeIConsole(Input.RotateCounterClockwise);
+            FakeIInput fakeConsole = new FakeIInput(Input.RotateCounterClockwise);
             InputChecker inputChecker = new InputChecker(fakeConsole);
 
             inputChecker.GetInput(ref xDir, ref yDir, ref rot);
@@ -68,7 +68,7 @@ namespace TetfuzaTests
             int yDir = 0;
             int rot = 0;
 
-            FakeIConsole fakeConsole = new FakeIConsole(Input.RotateClockwise);
+            FakeIInput fakeConsole = new FakeIInput(Input.RotateClockwise);
             InputChecker inputChecker = new InputChecker(fakeConsole);
             inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
@@ -84,7 +84,7 @@ namespace TetfuzaTests
             int yDir = 0;
             int rot = 0;
 
-            FakeIConsole fakeConsole = new FakeIConsole(Input.Left);
+            FakeIInput fakeConsole = new FakeIInput(Input.Left);
             InputChecker inputChecker = new InputChecker(fakeConsole);
             inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
@@ -100,7 +100,7 @@ namespace TetfuzaTests
             int yDir = 0;
             int rot = 0;
 
-            FakeIConsole fakeConsole = new FakeIConsole(Input.Right);
+            FakeIInput fakeConsole = new FakeIInput(Input.Right);
             InputChecker inputChecker = new InputChecker(fakeConsole);
             inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
@@ -116,7 +116,7 @@ namespace TetfuzaTests
             int yDir = 0;
             int rot = 0;
 
-            FakeIConsole fakeConsole = new FakeIConsole(Input.Down);
+            FakeIInput fakeConsole = new FakeIInput(Input.Down);
             InputChecker inputChecker = new InputChecker(fakeConsole);
             inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
@@ -126,13 +126,29 @@ namespace TetfuzaTests
         }
 
         [TestMethod]
+        public void TestGetInputUp()
+        {
+            int xDir = 0;
+            int yDir = 0;
+            int rot = 0;
+
+            FakeIInput fakeConsole = new FakeIInput(Input.Up);
+            InputChecker inputChecker = new InputChecker(fakeConsole);
+            inputChecker.GetInput(ref xDir, ref yDir, ref rot);
+
+            Assert.AreEqual(xDir, 0);
+            Assert.AreEqual(rot, 0);
+            Assert.AreEqual(yDir, 1);
+        }
+
+        [TestMethod]
         public void TestGetInputClear()
         {
             int xDir = 0;
             int yDir = 0;
             int rot = 0;
 
-            FakeIConsole fakeConsole = new FakeIConsole(Input.Option);
+            FakeIInput fakeConsole = new FakeIInput(Input.Option);
             InputChecker inputChecker = new InputChecker(fakeConsole);
             inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
@@ -146,7 +162,7 @@ namespace TetfuzaTests
             int yDir = 0;
             int rot = 0;
 
-            FakeIConsole fakeConsole = new FakeIConsole(Input.NoInput);
+            FakeIInput fakeConsole = new FakeIInput(Input.NoInput);
             InputChecker inputChecker = new InputChecker(fakeConsole);
             inputChecker.GetInput(ref xDir, ref yDir, ref rot);
 
@@ -158,7 +174,7 @@ namespace TetfuzaTests
         [TestMethod]
         public void TestKeyAvailable()
         {
-            FakeIConsole fakeConsole = new FakeIConsole(Input.Left);
+            FakeIInput fakeConsole = new FakeIInput(Input.Left);
             InputChecker inputChecker = new InputChecker(fakeConsole);
             Assert.AreEqual(inputChecker.InputAvailable, true);
         }

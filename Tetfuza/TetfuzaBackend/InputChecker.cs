@@ -4,8 +4,6 @@ using static Tetfuza.Interfaces.IInput;
 
 namespace Tetfuza
 {
-    
-
     public class InputChecker
     {
         private IInput _keyboard;
@@ -29,19 +27,19 @@ namespace Tetfuza
         }
 
         /// <summary>
-        /// returns the rotation, direction, and whether the user pressed the
-        /// down key, so we can adjust the pieces on the game board.
+        /// returns the rotation, x direction, and y direction, so we can adjust the pieces on the game board accordingly.
         /// </summary>
-        /// <param name="direction">returns (-1, 0, or 1 for left, none, and right movement)</param>
+        /// <param name="direction">returns (-1, 0, or 1 for left, none, and right input)</param>
         /// <param name="rotation">returns (-1, 0, or 1 for counterclockwise, none, and clockwise rotation)</param>
-        /// <param name="down">returns true to move the piece down one space on next frame, False will wait for auto-drop</param>
+        /// <param name="down">returns (-1, 0, or 1 for down, none, and up input)</param>
+        /// <param name="button">returns the input that was received</param>
         /// <returns>
         /// </returns>
         public void GetInput(ref int xDirection, ref int yDirection, ref int rotation)
         {
-            Input key = _keyboard.ReadInput();
+            Input button = _keyboard.ReadInput();
 
-            switch (key)
+            switch (button)
             {
                 case Input.Left:
                     xDirection = -1;
@@ -67,6 +65,7 @@ namespace Tetfuza
                     break;
                 case Input.Pause:
                     // Pause the game or something...
+                    _keyboard.ReadInput();
                     break;
                 default:
                     break;

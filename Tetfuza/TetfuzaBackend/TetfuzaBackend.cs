@@ -4,10 +4,11 @@ using FramerateStabilizer;
 using System.Diagnostics;
 using System.Linq;
 using Tetfuza.Interfaces;
+using static Tetfuza.Interfaces.IInput;
 
 namespace Tetfuza
 {
-    public class TetfuzaMain
+    public class TetfuzaBackend
     {
         public const int MS_PER_FRAME = 17;
 
@@ -19,9 +20,8 @@ namespace Tetfuza
         private IDisplay _screen;
         private TetfuzaBoard _board;
 
-
         public FuzaPiece CurrentPiece { get; private set; }
-        public FuzaPiece AfterPiece { get; private set; }
+        public FuzaPiece NextPiece { get; private set; }
 
         public long Score { get; private set; } = 0;
         public int Lines { get; private set; } = 0;
@@ -72,47 +72,37 @@ namespace Tetfuza
         /// <summary>
         /// Creates a new instance of a TetfuzaBackend, and initializes an empty board
         /// </summary>
-        public TetfuzaMain(IInput keyboard, IDisplay screen)
+        public TetfuzaBackend(IInput keyboard, IDisplay screen, int startLevel)
         {
             _board = new TetfuzaBoard();
             _keyboard = new InputChecker(keyboard);
             _screen = screen;
-        }
-
-        /// <summary>
-        /// Starts the game on a specified level (which determines automatic drop speed and point multiplier)
-        /// </summary>
-        /// <param name="startLevel"></param>
-        public TetfuzaMain(IInput keyboard, IDisplay screen, int startLevel)
-        {
-            _board = new TetfuzaBoard();
             StartLevel = startLevel;
-            _keyboard = new InputChecker(keyboard);
-            _screen = screen;
         }
-
+        
         /// <summary>
-        /// Main Loop. Contains timing and order of events.
+        /// Main Loop
         /// </summary>
         /// <returns>Final Score</returns>
         public long Run()
         {
+            _screen.ClearScreen();
             bool gameOver = false;
             _timer.Start();
             int pieceNum = _rand.Next(0, 7);
-            AfterPiece = new FuzaPiece((FuzaType)pieceNum);
+            NextPiece = new FuzaPiece((FuzaPieceType)pieceNum);
             while (!gameOver)
             {
                 // Spawn a new piece and reset center
-                CurrentPiece = AfterPiece;
+                CurrentPiece = NextPiece;
                 _pieceCenter = new Coordinate(5, 2);
 
                 // Determine next piece
                 pieceNum = _rand.Next(0, 7);
-                AfterPiece = new FuzaPiece((FuzaType)pieceNum);
+                NextPiece = new FuzaPiece((FuzaPieceType)pieceNum);
 
                 // Draw Board
-                _screen.DrawBoard(this);
+                _screen.DrawGameplayScreen(this);
 
                 bool isLockDown = false;
                 while (!isLockDown)
@@ -121,7 +111,6 @@ namespace Tetfuza
                     int xDirection = 0;
                     int yDirection = 0;
                     int rotation = 0;
-
                     if (true == _keyboard.InputAvailable)
                     {
                         _keyboard.GetInput(ref xDirection,ref yDirection, ref rotation);
@@ -144,26 +133,26 @@ namespace Tetfuza
                         isLockDown = !DropPiece();
                     }
 
-
                     _board.DrawPiece(CurrentPiece, _pieceCenter);
 
                     // Draw Screen
-                    _screen.DrawBoard(this);
+                    _screen.DrawGameplayScreen(this);
 
                     StableFrames.Stabilize(MS_PER_FRAME, _timer);
                     _frameCount++;
                 }
-                // Represent locked piece on board with a different character
-                _board.DrawPiece(CurrentPiece, _pieceCenter, TetfuzaBoard.LOCKDOWN_CHAR);
+                // Lock Piece and redraw it
+                CurrentPiece.LockPiece();
+                _board.DrawPiece(CurrentPiece, _pieceCenter);
 
                 // Check if lines were cleared and update score
-                int linesCleared = _board.ClearLines(MS_PER_FRAME, _timer, _screen);
+                int linesCleared = _board.ClearLines();
                 if (linesCleared > 0)
                     AddClearedLinesToScore(linesCleared);
                 
 
                 // Check if player has topped out (game over)
-                gameOver = CheckTopOut();
+                gameOver = _board.CheckTopOut();
             }
             // Plays the game over animation
             TopOutAnimation();
@@ -200,14 +189,7 @@ namespace Tetfuza
             }
         }
 
-        /// <summary>
-        /// Determines when the pieces have stacked to the top of the screen
-        /// </summary>
-        /// <returns></returns>
-        private bool CheckTopOut()
-        {
-            return _board.Board[2][6] != TetfuzaBoard.EMPTY_CHAR;
-        }
+        
 
         /// <summary>
         /// Returns true if gives piece placement is valid
@@ -222,14 +204,18 @@ namespace Tetfuza
             {
                 for (int col = 0; col < FuzaPiece.PIECE_SIZE; col++)
                 {
-                    char fuza = orientation.Piece[row][col];
+                    GridSpace block = new GridSpace(orientation.Piece[row][col].Color);
+
+                    // Find piece position in the playfield
                     int colCoord = center.xPos - (FuzaPiece.PIECE_SIZE / 2) + col;
                     int rowCoord = center.yPos - (FuzaPiece.PIECE_SIZE / 2) + row;
+
+                    // Check for conflicts
                     if (((colCoord < 0 || colCoord >= TetfuzaBoard.BOARD_WIDTH
                         || rowCoord < 0 || rowCoord >= TetfuzaBoard.BOARD_HEIGHT)
-                        && fuza == FuzaPiece.FUZA_CHAR )
-                        || (fuza == FuzaPiece.FUZA_CHAR 
-                        && _board.Board[rowCoord][colCoord] == TetfuzaBoard.LOCKDOWN_CHAR))
+                        && block.Color != BlockColor.Background)
+                        || (block.Color != BlockColor.Background
+                        && _board.Board[rowCoord][colCoord].IsLockedDownBlock))
                     {
                         isValid = false;
                     }
@@ -292,22 +278,11 @@ namespace Tetfuza
             for (int i = 0; i < TetfuzaBoard.BOARD_HEIGHT; i++)
             {
                 StableFrames.Stabilize(MS_PER_FRAME * 4, _timer);
-                _board.ReplaceLine(i, _board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
-                _screen.DrawBoard(this);
+                _board.ReplaceLine(i, _board.BoardLine(BlockColor.Topout));
+                _screen.DrawGameplayScreen(this);
             }
 
-            var gameO1 = new List<char>();
-            gameO1.AddRange(_board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
-            gameO1.InsertRange(3, "GAME");
-            _board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2, gameO1);
-
-            var gameO2 = new List<char>();
-            gameO2.AddRange(_board.BoardLine(TetfuzaBoard.TOPOUT_CHAR));
-            gameO2.InsertRange(3, "OVER");
-            _board.ReplaceLine(TetfuzaBoard.BOARD_HEIGHT / 2 + 1, gameO2);
-
-            StableFrames.Stabilize(MS_PER_FRAME * 4, _timer);
-            _screen.DrawBoard(this);
+            _screen.DrawGameplayScreen(this);
         }
     }
 }

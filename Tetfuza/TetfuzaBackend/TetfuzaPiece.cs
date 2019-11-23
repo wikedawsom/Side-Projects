@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Tetfuza
 {
-	public enum FuzaType
+	public enum FuzaPieceType
 	{
 		LBlock = 0,
 		ReverseLBlock = 1,
@@ -26,21 +26,19 @@ namespace Tetfuza
     }
 	public class FuzaPiece
 	{
-        public const char FUZA_CHAR = 'O';
-        public const char BLANK_CHAR = ' ';
         public const int PIECE_SIZE = 7;
-		public List<List<char>> Piece { get; private set; }
-		private FuzaType _type;
+		public List<List<GridSpace>> Piece { get; private set; }
+		private FuzaPieceType _type;
 		private List<Coordinate> _blocks;
 
-		public FuzaPiece(FuzaType type)
+		public FuzaPiece(FuzaPieceType type)
 		{
 			_type = type;
             _blocks = GetBlockCoords();
             Piece = MakePiece();
 		}
 
-        private FuzaPiece(List<List<char>> blocks, FuzaPiece oldPiece)
+        private FuzaPiece(List<List<GridSpace>> blocks, FuzaPiece oldPiece)
         {
             _type = oldPiece._type;
             _blocks = GetBlockCoords();
@@ -52,7 +50,7 @@ namespace Tetfuza
             List<Coordinate> coords = null;
             switch (_type)
             {
-                case FuzaType.TBlock:
+                case FuzaPieceType.TBlock:
                     coords = new List<Coordinate>
                     {
                         new Coordinate(0,0),
@@ -61,7 +59,7 @@ namespace Tetfuza
                         new Coordinate(1,0)
                     };
                     break;
-                case FuzaType.Squiggly:
+                case FuzaPieceType.Squiggly:
                     coords = new List<Coordinate>
                     {
                         new Coordinate(0,0),
@@ -70,7 +68,7 @@ namespace Tetfuza
                         new Coordinate(1,0)
                     };
                     break;
-                case FuzaType.ReverseSquiggly:
+                case FuzaPieceType.ReverseSquiggly:
                     coords = new List<Coordinate>
                     {
                         new Coordinate(0,0),
@@ -79,7 +77,7 @@ namespace Tetfuza
                         new Coordinate(0,1)
                     };
                     break;
-                case FuzaType.LBlock:
+                case FuzaPieceType.LBlock:
                     coords = new List<Coordinate>
                     {
                         new Coordinate(0,0),
@@ -88,7 +86,7 @@ namespace Tetfuza
                         new Coordinate(1,0)
                     };
                     break;
-                case FuzaType.ReverseLBlock:
+                case FuzaPieceType.ReverseLBlock:
                     coords = new List<Coordinate>
                     {
                         new Coordinate(0,0),
@@ -97,7 +95,7 @@ namespace Tetfuza
                         new Coordinate(1,0)
                     };
                     break;
-                case FuzaType.LinePiece:
+                case FuzaPieceType.LinePiece:
                     coords = new List<Coordinate>
                     {
                         new Coordinate(0,0),
@@ -106,7 +104,7 @@ namespace Tetfuza
                         new Coordinate(-2,0)
                     };
                     break;
-                case FuzaType.SquareBlock:
+                case FuzaPieceType.SquareBlock:
                     coords = new List<Coordinate>
                     {
                         new Coordinate(0,0),
@@ -119,33 +117,52 @@ namespace Tetfuza
             return coords;
         }
 		
-		private List<List<char>> MakePiece()
+		private List<List<GridSpace>> MakePiece()
 		{
-            var piece = new List<List<char>>();
+            BlockColor color = BlockColor.Background;
+            switch (_type)
+            {
+                case FuzaPieceType.TBlock:
+                case FuzaPieceType.LinePiece:
+                case FuzaPieceType.SquareBlock:
+                    color = BlockColor.BlockColor1;
+                    break;
+                case FuzaPieceType.LBlock:
+                case FuzaPieceType.Squiggly:
+                    color = BlockColor.BlockColor2;
+                    break;
+                case FuzaPieceType.ReverseLBlock:
+                case FuzaPieceType.ReverseSquiggly:
+                    color = BlockColor.BlockColor3;
+                    break;
+                default:
+                    break;
+            }
+            var piece = new List<List<GridSpace>>();
 			for (int y = 0; y < PIECE_SIZE; y++)
 			{
-				piece.Add(new List<char>());
+				piece.Add(new List<GridSpace>());
 				for (int x = 0; x < PIECE_SIZE; x++)
 				{
-					piece[y].Add(BLANK_CHAR);
+					piece[y].Add(new GridSpace());
 				}
 			}
             foreach (Coordinate fuza in _blocks)
             {
                 int xFromCenter = PIECE_SIZE/2 + fuza.xPos;
                 int yFromCenter = PIECE_SIZE/2 + fuza.yPos;
-                piece[yFromCenter][xFromCenter] = FUZA_CHAR;
+                piece[yFromCenter][xFromCenter] = new GridSpace(color);
             }
             return piece;
 		}
 		
 		public FuzaPiece RotateRight()
 		{
-			var newPos = new List<List<char>>();
+			var newPos = new List<List<GridSpace>>();
             
             for (int col = 0; col < PIECE_SIZE; col++)
 			{
-                newPos.Add(new List<char>());
+                newPos.Add(new List<GridSpace>());
                 for (int row = 0; row < PIECE_SIZE; row++)
                 {
                     newPos[col].Add(Piece[PIECE_SIZE - 1 - row][col]);
@@ -156,10 +173,10 @@ namespace Tetfuza
 		
 		public FuzaPiece RotateLeft()
 		{
-            var newPos = new List<List<char>>();
+            var newPos = new List<List<GridSpace>>();
             for (int col = 0; col < PIECE_SIZE; col++)
             {
-                newPos.Add(new List<char>());
+                newPos.Add(new List<GridSpace>());
                 for (int row = 0; row < PIECE_SIZE; row++)
                 {
                     newPos[col].Add(Piece[row][PIECE_SIZE - 1 - col]);
@@ -175,11 +192,25 @@ namespace Tetfuza
             {
                 for (int col = PIECE_SIZE / 2 - 2; col < PIECE_SIZE/2 + 2; col++)
                 {
-                    output += Piece[row][col] + " ";
+                    output += (int)Piece[row][col].Color;
                 }
                 output += ")";
             }
             return output;
+        }
+
+        public void LockPiece()
+        {
+            foreach(var row in Piece)
+            {
+                foreach(var block in row)
+                {
+                    if(block.Color != BlockColor.Background)
+                    {
+                        block.IsLockedDownBlock = true;
+                    }
+                }
+            }
         }
 
     }

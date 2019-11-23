@@ -22,7 +22,7 @@ namespace TetfuzaCLI
         public Input ReadInput()
         {
             Input input = Input.NoInput;
-            switch (System.Console.ReadKey().Key)
+            switch (ReadKey())
             {
                 case ConsoleKey.LeftArrow:
                     input = Input.Left;
@@ -42,6 +42,7 @@ namespace TetfuzaCLI
                 case ConsoleKey.X:
                     input = Input.RotateClockwise;
                     break;
+                case ConsoleKey.Enter:
                 case ConsoleKey.Spacebar:
                     input = Input.Pause;
                     break;
