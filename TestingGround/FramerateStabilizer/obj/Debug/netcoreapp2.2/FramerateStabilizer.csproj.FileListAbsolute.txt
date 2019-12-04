@@ -14,3 +14,11 @@ H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\n
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.AssemblyInfo.cs
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.dll
 H:\Programming Stuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.pdb
+H:\ProgrammingStuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.deps.json
+H:\ProgrammingStuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.dll
+H:\ProgrammingStuff\Side-Projects\TestingGround\FramerateStabilizer\bin\Debug\netcoreapp2.2\FramerateStabilizer.pdb
+H:\ProgrammingStuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.csprojAssemblyReference.cache
+H:\ProgrammingStuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.AssemblyInfoInputs.cache
+H:\ProgrammingStuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.AssemblyInfo.cs
+H:\ProgrammingStuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.dll
+H:\ProgrammingStuff\Side-Projects\TestingGround\FramerateStabilizer\obj\Debug\netcoreapp2.2\FramerateStabilizer.pdb

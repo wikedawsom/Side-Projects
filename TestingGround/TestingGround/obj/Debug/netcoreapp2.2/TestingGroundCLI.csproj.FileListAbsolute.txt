@@ -23,7 +23,6 @@ C:\Users\Student\Desktop\Side-Projects\TestingGround\TestingGround\bin\Debug\net
 C:\Users\Student\Desktop\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\FileExtensionRenamer.pdb
 C:\Users\Student\Desktop\Side-Projects\TestingGround\TestingGround\bin\Debug\netcoreapp2.2\FramerateStabilizer.pdb
 C:\Users\Student\Desktop\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.csprojAssemblyReference.cache
-C:\Users\Student\Desktop\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.csproj.CoreCompileInputs.cache
 C:\Users\Student\Desktop\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.AssemblyInfoInputs.cache
 C:\Users\Student\Desktop\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.AssemblyInfo.cs
 C:\Users\Student\Desktop\Side-Projects\TestingGround\TestingGround\obj\Debug\netcoreapp2.2\TestingGroundCLI.csproj.CopyComplete

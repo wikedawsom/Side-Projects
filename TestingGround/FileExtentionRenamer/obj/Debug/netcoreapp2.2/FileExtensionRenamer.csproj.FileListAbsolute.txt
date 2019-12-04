@@ -10,7 +10,6 @@ C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\bin\De
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtensionRenamer.dll
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\bin\Debug\netcoreapp2.2\FileExtensionRenamer.pdb
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.csprojAssemblyReference.cache
-C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.csproj.CoreCompileInputs.cache
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.AssemblyInfoInputs.cache
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.AssemblyInfo.cs
 C:\Users\Student\Desktop\Side-Projects\TestingGround\FileExtentionRenamer\obj\Debug\netcoreapp2.2\FileExtensionRenamer.dll
