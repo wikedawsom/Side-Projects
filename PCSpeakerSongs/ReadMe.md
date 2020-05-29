@@ -1,1 +1,0 @@
-i want to make an easy way to write music that will be played with the console.beep() method
