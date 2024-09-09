@@ -1,5 +1,6 @@
 # Side-Projects
-Just random things I decided to write during my free time
+Just random things I decided to write during my free time.
+This started as a learning experience back when I was just getting started in software dev, so it's cool to see how far I've come.
 
 ## Tetfuza (C#)
 - A CLI animated tetris clone
