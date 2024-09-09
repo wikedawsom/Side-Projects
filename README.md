@@ -27,3 +27,4 @@ This started as a learning experience back when I was just getting started in so
 - ### FileExtensionRenamer
   - As the implies, contains a few methods to give files different extension types
   - Includes recursive renamer to give all files within a directory and its subdirectories a different extension
+  - I've used this to rename a bunch of image files from .tif to .png, so that I could go through later and color-swap the background for transparency.
